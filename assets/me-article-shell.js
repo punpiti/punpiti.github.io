@@ -17,7 +17,7 @@
     const brand = document.createElement("a");
     brand.className = "site-label";
     brand.href = "../index.html";
-    brand.innerHTML = "<span>พันธุ์ปิติ เปี่ยมสง่า</span><span>Kasetsart University</span>";
+    brand.innerHTML = "<span>พันธุ์ปิติ เปี่ยมสง่า</span><span>Academic work and public writing</span>";
 
     const nav = document.createElement("nav");
     nav.className = "nav";
