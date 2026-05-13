@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Articles | พันธุ์ปิติ เปี่ยมสง่า</title>
+  <meta name="description" content="บทความและข้อเขียนของ รศ.ดร.พันธุ์ปิติ เปี่ยมสง่า">
+  <link rel="icon" href="assets/convergence.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+  <script src="assets/articles-data.js?v=2" defer></script>
+  <script src="assets/me-articles.js?v=2" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="page topbar">
+      <a class="brand" href="index.html"><strong>พันธุ์ปิติ เปี่ยมสง่า</strong><span>Kasetsart University</span></a>
+      <nav class="nav" aria-label="หลัก">
+        <a href="index.html">About me</a>
+        <a href="publications.html">Publications</a>
+        <a href="articles.html" aria-current="page">Articles</a>
+        <a href="apps.html">Apps</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page prose">
+    <div class="kicker">Articles</div>
+    <h1>บทความและข้อเขียน</h1>
+    <p>รวมบทความจากเว็บเดิมมาไว้ที่นี่ก่อน ระยะต่อไปจะเพิ่ม filter ตามหมวดและ tag เพื่อให้ค้นและอ่านต่อเนื่องได้ง่ายขึ้น</p>
+
+    <section class="article-tools" aria-label="ค้นหาบทความ">
+      <label for="article-search">ค้นหาบทความ</label>
+      <input id="article-search" type="search" placeholder="ค้นจากชื่อเรื่อง หมวด หรือ tag">
+      <div id="article-filter-status" class="filter-status" hidden></div>
+      <div class="filter-chips" aria-label="ตัวกรองบทความ">
+        <a href="articles.html">All</a>
+        <a href="articles.html?tag=talent-development">Talent Development</a>
+        <a href="articles.html?tag=ai">AI</a>
+        <a href="articles.html?tag=higher-education">Higher Education</a>
+      </div>
+    </section>
+
+    <section id="article-list" class="article-list" aria-live="polite"></section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="page footer-inner">
+      <div>© พันธุ์ปิติ เปี่ยมสง่า</div>
+      <div>Articles archive.</div>
+    </div>
+  </footer>
+</body>
+</html>
