@@ -9,7 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/site.css?v=4">
+  <script src="assets/publications.js?v=3" defer></script>
   <script src="assets/site-shell.js" defer></script>
 </head>
 <body>
@@ -25,17 +26,101 @@
     </div>
   </header>
 
-  <main class="page prose">
-    <div class="kicker">Publications</div>
-    <h1>ผลงานวิจัย</h1>
-    <p>หน้านี้จะเป็น publication profile หลัก โดยตั้งใจดึงหรืออ้างอิงข้อมูลจาก KU Urban และ KU Forest แทนการกรอกซ้ำด้วยมือ</p>
+  <main class="page publications-page" data-publications-page>
+    <section class="publication-hero" aria-labelledby="publication-title">
+      <div class="publication-hero-copy">
+        <div class="kicker">Publications</div>
+        <h1 id="publication-title">ผลงานวิจัย</h1>
+        <p class="lead">Publication profile ที่ดึงข้อมูลจาก KU Urban และ KU Forest โดยตรง เพื่อให้รายการผลงานและโครงการวิจัยอัปเดตจากแหล่งข้อมูลหลักแทนการกรอกซ้ำด้วยมือ</p>
+        <div class="actions">
+          <a class="button primary" data-profile-link href="https://research.ku.ac.th/forest/Person.aspx?id=360009">เปิด KU Forest profile</a>
+          <a class="button" data-api-link href="https://urban.cpe.ku.ac.th/api/profile-claims/stream/360009?token=MMRFi88rFP2hJHrDSngacUQzegAQ8pgsTvGc8RWdjsk">ดู data source</a>
+        </div>
+      </div>
+      <aside class="profile-panel" aria-live="polite">
+        <div class="profile-loading">กำลังโหลดข้อมูล publication profile...</div>
+      </aside>
+    </section>
 
-    <section class="band">
-      <h2>Data Source</h2>
-      <p>ระหว่างที่ยังไม่ทำ API สำหรับหน้านี้ ให้ใช้ KU Urban เป็นทางเข้าหลักสำหรับดู profile งานวิจัย โครงการ ผลงาน และ concept ที่เกี่ยวข้อง</p>
-      <div class="actions">
-        <a class="button primary" href="https://urban.cpe.ku.ac.th/?q=%E0%B8%9E%E0%B8%B1%E0%B8%99%E0%B8%98%E0%B8%B8%E0%B9%8C%E0%B8%9B%E0%B8%B4%E0%B8%95%E0%B8%B4+%E0%B9%80%E0%B8%9B%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%A1%E0%B8%AA%E0%B8%87%E0%B9%88%E0%B8%B2">เปิด KU Urban profile</a>
-        <a class="button" href="https://research.ku.ac.th/forest/Person.aspx?id=360009">เปิด KU Forest profile</a>
+    <section class="publication-stats" aria-label="Publication summary" data-stats>
+      <div class="stat-card">
+        <span class="stat-value">-</span>
+        <span class="stat-label">Outputs</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">-</span>
+        <span class="stat-label">Journal articles</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">-</span>
+        <span class="stat-label">International works</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">-</span>
+        <span class="stat-label">Research projects</span>
+      </div>
+    </section>
+
+    <section class="research-signals" aria-labelledby="signals-title" data-analysis-section hidden>
+      <div class="section-header">
+        <div>
+          <div class="kicker">Research Signals</div>
+          <h2 id="signals-title">ภาพรวมจากข้อมูลวิเคราะห์</h2>
+        </div>
+        <p>ใช้เฉพาะสัญญาณที่เกี่ยวกับผลงานวิจัย โครงการ หัวข้อวิจัย และ citation profile</p>
+      </div>
+      <div class="analysis-grid">
+        <div class="analysis-card">
+          <h3>Summary</h3>
+          <ul data-summary-bullets></ul>
+        </div>
+        <div class="analysis-card">
+          <h3>OpenAlex</h3>
+          <div class="signal-list" data-openalex-stats></div>
+        </div>
+        <div class="analysis-card wide">
+          <h3>Research Topics</h3>
+          <div class="signal-chips" data-topic-chips></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="publication-section" aria-labelledby="outputs-title">
+      <div class="section-header">
+        <div>
+          <div class="kicker">Research Outputs</div>
+          <h2 id="outputs-title">รายการผลงานตีพิมพ์</h2>
+        </div>
+        <p data-output-status>กำลังโหลดข้อมูล...</p>
+      </div>
+
+      <div class="publication-tools" aria-label="Publication filters">
+        <label for="publication-search">ค้นหาผลงาน</label>
+        <input id="publication-search" type="search" placeholder="ค้นจากชื่อเรื่อง วารสาร ผู้เขียน ปี หรือ DOI" autocomplete="off" data-publication-search>
+        <div class="publication-filter-row" data-publication-filters>
+          <button type="button" class="filter-pill is-active" data-filter="all">ทั้งหมด</button>
+          <button type="button" class="filter-pill" data-filter="journal">Journal</button>
+          <button type="button" class="filter-pill" data-filter="conference">Conference</button>
+          <button type="button" class="filter-pill" data-filter="International">International</button>
+          <button type="button" class="filter-pill" data-filter="Q1">Q1</button>
+        </div>
+      </div>
+
+      <div class="publication-list" data-publication-list>
+        <div class="empty-state">กำลังโหลดรายการผลงาน...</div>
+      </div>
+    </section>
+
+    <section class="publication-section" aria-labelledby="projects-title">
+      <div class="section-header">
+        <div>
+          <div class="kicker">Research Projects</div>
+          <h2 id="projects-title">โครงการวิจัยล่าสุด</h2>
+        </div>
+        <p>แสดงโครงการล่าสุดจากชุดข้อมูลเดียวกัน พร้อมลิงก์กลับไปยัง KU Forest เมื่อมีข้อมูล</p>
+      </div>
+      <div class="project-grid" data-project-list>
+        <div class="empty-state">กำลังโหลดรายการโครงการ...</div>
       </div>
     </section>
   </main>
