@@ -763,6 +763,132 @@ h1 {
   line-height: 1.62;
 }
 
+.profile-page {
+  padding: 42px 0 18px;
+}
+
+.profile-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.profile-detail-grid--wide .wide {
+  grid-column: 1 / -1;
+}
+
+.profile-detail-grid .analysis-card h2 {
+  margin: 0 0 12px;
+  font-size: 1.08rem;
+}
+
+.profile-subsection + .profile-subsection {
+  margin-top: 18px;
+}
+
+.profile-subsection h3,
+.profile-insight h3 {
+  margin: 0 0 10px;
+  color: var(--spark-deep);
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+
+.profile-detail-grid ul {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+.profile-detail-grid li {
+  color: #34494c;
+  line-height: 1.72;
+}
+
+.profile-timeline {
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  padding-left: 0;
+}
+
+.profile-timeline li {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.profile-insight {
+  display: grid;
+  gap: 10px;
+}
+
+.profile-insight p,
+.profile-insight li {
+  color: #34494c;
+  line-height: 1.76;
+}
+
+.profile-insight p,
+.profile-insight ul {
+  margin: 0;
+}
+
+.profile-link-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.profile-link-list a {
+  color: var(--spark-deep);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--spark-line);
+  text-underline-offset: 0.2em;
+}
+
+.class-note {
+  align-self: stretch;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.class-note p {
+  margin: 8px 0 0;
+  color: #34494c;
+  line-height: 1.72;
+}
+
+.class-list {
+  display: grid;
+  gap: 10px;
+}
+
+.class-item {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.class-item p {
+  margin: 0;
+  font-size: 1.04rem;
+  font-weight: 400;
+  line-height: 1.46;
+}
+
+.class-meta {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
 .empty-state,
 .profile-loading {
   padding: 18px;
@@ -943,6 +1069,7 @@ h1 {
   .grid.two,
   .publication-stats,
   .analysis-grid,
+  .profile-detail-grid,
   .project-grid {
     grid-template-columns: 1fr;
   }

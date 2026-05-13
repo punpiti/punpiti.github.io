@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Profile | พันธุ์ปิติ เปี่ยมสง่า</title>
+  <meta name="description" content="ข้อมูล profile จาก KU Urban ของ รศ.ดร.พันธุ์ปิติ เปี่ยมสง่า">
+  <link rel="icon" href="assets/convergence.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css?v=5">
+  <script src="assets/urban-profile.js?v=2" defer></script>
+  <script src="assets/site-shell.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="page topbar">
+      <a class="brand" href="index.html"><strong>พันธุ์ปิติ เปี่ยมสง่า</strong><span>Academic work and public writing</span></a>
+      <nav class="nav" aria-label="หลัก">
+        <a href="index.html">About me</a>
+        <a href="profile.html" aria-current="page">Profile</a>
+        <a href="publications.html">Publications</a>
+        <a href="classes.html">Classes</a>
+        <a href="articles.html">Articles</a>
+        <a href="apps.html">Apps</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page profile-page" data-urban-profile-page>
+    <section class="publication-hero">
+      <div class="publication-hero-copy">
+        <div class="kicker">Urban Profile</div>
+        <h1>Profile</h1>
+        <p class="lead">ข้อมูล profile จาก KU Urban แยกมาไว้หน้านี้ เพื่อไม่ให้หน้าแรกกลายเป็นหน้าแสดงประวัติยาวเกินความจำเป็น</p>
+        <div class="actions">
+          <a class="button primary" data-urban-profile-link href="https://urban.cpe.ku.ac.th/">เปิด KU Urban</a>
+          <a class="button" data-urban-forest-link href="https://research.ku.ac.th/forest/Person.aspx?id=360009">เปิด KU Forest</a>
+        </div>
+      </div>
+      <aside class="profile-panel" data-urban-profile-card aria-live="polite">
+        <div class="profile-loading">กำลังโหลดข้อมูล profile...</div>
+      </aside>
+    </section>
+
+    <section class="profile-detail-grid profile-detail-grid--wide" aria-live="polite">
+      <article class="analysis-card wide">
+        <h2>Administrative Profile</h2>
+        <div class="profile-subsection">
+          <h3>Administrative timeline</h3>
+          <ul class="profile-timeline" data-profile-admin-timeline></ul>
+        </div>
+      </article>
+      <article class="analysis-card">
+        <h2>Education</h2>
+        <ul data-profile-education></ul>
+      </article>
+      <article class="analysis-card">
+        <h2>Research Interests</h2>
+        <div class="signal-chips" data-profile-interests></div>
+      </article>
+      <article class="analysis-card wide">
+        <h2>Personal Insights For The World</h2>
+        <div class="profile-insight" data-profile-insight></div>
+      </article>
+      <article class="analysis-card wide">
+        <h2>Profile Links</h2>
+        <div class="profile-link-list" data-profile-links></div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="page footer-inner">
+      <div>© พันธุ์ปิติ เปี่ยมสง่า</div>
+      <div>Urban profile data.</div>
+    </div>
+  </footer>
+</body>
+</html>
