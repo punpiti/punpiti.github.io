@@ -98,10 +98,14 @@
   function renderProfile(data, apiUrl) {
     const person = data.profile?.data || data.person?.data || {};
     const panel = $(".profile-panel");
-    const apiLink = $("[data-api-link]");
-    const profileLink = $("[data-profile-link]");
-    if (apiLink) apiLink.href = apiUrl;
-    if (profileLink && person.profile_url) profileLink.href = person.profile_url;
+    $$("[data-api-link]").forEach((apiLink) => {
+      apiLink.href = apiUrl;
+    });
+    if (person.profile_url) {
+      $$("[data-profile-link]").forEach((profileLink) => {
+        profileLink.href = person.profile_url;
+      });
+    }
     if (!panel) return;
 
     const name = `${localText(person.academic_rank)} ${localText(person.name)}`.trim();
@@ -364,8 +368,9 @@
       if (panel) panel.replaceChildren(createEl("div", "empty-state", message));
       if (list) list.replaceChildren(createEl("div", "empty-state", `${message}: ${error.message}`));
       if (status) status.textContent = "ไม่สามารถโหลดข้อมูลได้";
-      const apiLink = $("[data-api-link]");
-      if (apiLink) apiLink.href = apiUrl;
+      $$("[data-api-link]").forEach((apiLink) => {
+        apiLink.href = apiUrl;
+      });
       console.error(error);
     }
   }

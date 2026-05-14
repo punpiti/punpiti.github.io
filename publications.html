@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/site.css?v=4">
-  <script src="assets/publications.js?v=3" defer></script>
+  <link rel="stylesheet" href="assets/site.css?v=5">
+  <script src="assets/publications.js?v=4" defer></script>
   <script src="assets/site-shell.js" defer></script>
 </head>
 <body>
@@ -35,6 +35,7 @@
         <h1 id="publication-title">ผลงานวิจัย</h1>
         <p class="lead">Publication profile ที่ดึงข้อมูลจาก KU Urban และ KU Forest โดยตรง เพื่อให้รายการผลงานและโครงการวิจัยอัปเดตจากแหล่งข้อมูลหลักแทนการกรอกซ้ำด้วยมือ</p>
         <div class="actions">
+          <a class="button primary" href="https://urban.cpe.ku.ac.th/?lang=th&amp;q=%E0%B8%9E%E0%B8%B1%E0%B8%99%E0%B8%98%E0%B8%B8%E0%B9%8C%E0%B8%9B%E0%B8%B4%E0%B8%95%E0%B8%B4+%E0%B9%80%E0%B8%9B%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%A1%E0%B8%AA%E0%B8%87%E0%B9%88%E0%B8%B2">เปิด KU Urban</a>
           <a class="button primary" data-profile-link href="https://research.ku.ac.th/forest/Person.aspx?id=360009">เปิด KU Forest profile</a>
           <a class="button" data-api-link href="https://urban.cpe.ku.ac.th/api/profile-claims/stream/360009?token=MMRFi88rFP2hJHrDSngacUQzegAQ8pgsTvGc8RWdjsk">ดู data source</a>
         </div>
@@ -60,6 +61,33 @@
       <div class="stat-card">
         <span class="stat-value">-</span>
         <span class="stat-label">Research projects</span>
+      </div>
+    </section>
+
+    <section class="publication-section source-section" aria-labelledby="source-title">
+      <div class="section-header">
+        <div>
+          <div class="kicker">Data Sources</div>
+          <h2 id="source-title">แหล่งข้อมูลอ้างอิง</h2>
+        </div>
+        <p>หน้านี้แสดงผลจากข้อมูลที่เชื่อมโยงระหว่าง KU Urban, KU Forest และ data source ที่ตรวจสอบย้อนกลับได้</p>
+      </div>
+      <div class="source-grid">
+        <a class="source-card" href="https://urban.cpe.ku.ac.th/?lang=th&amp;q=%E0%B8%9E%E0%B8%B1%E0%B8%99%E0%B8%98%E0%B8%B8%E0%B9%8C%E0%B8%9B%E0%B8%B4%E0%B8%95%E0%B8%B4+%E0%B9%80%E0%B8%9B%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%A1%E0%B8%AA%E0%B8%87%E0%B9%88%E0%B8%B2">
+          <div class="meta">Research Intelligence</div>
+          <h3>KU Urban</h3>
+          <p>ระบบรวบรวม วิเคราะห์ และนำเสนอข้อมูลนักวิจัย โครงการ ผลงานตีพิมพ์ และแนวคิดที่เกี่ยวข้อง</p>
+        </a>
+        <a class="source-card" data-profile-link href="https://research.ku.ac.th/forest/Person.aspx?id=360009">
+          <div class="meta">Research Profile</div>
+          <h3>KU Forest</h3>
+          <p>หน้า profile งานวิจัยหลักของมหาวิทยาลัยเกษตรศาสตร์สำหรับข้อมูลบุคคล ผลงาน และโครงการวิจัย</p>
+        </a>
+        <a class="source-card" data-api-link href="https://urban.cpe.ku.ac.th/api/profile-claims/stream/360009?token=MMRFi88rFP2hJHrDSngacUQzegAQ8pgsTvGc8RWdjsk">
+          <div class="meta">API Endpoint</div>
+          <h3>Data source</h3>
+          <p>ชุดข้อมูล JSON ที่หน้า publications ใช้โหลดข้อมูลจริง เพื่อให้ตรวจสอบแหล่งที่มาและสถานะข้อมูลได้โดยตรง</p>
+        </a>
       </div>
     </section>
 
