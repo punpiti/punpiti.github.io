@@ -266,8 +266,37 @@
       border-radius: 8px;
       background: #f3f8ff;
       color: #24425f;
-      font-weight: 650;
       line-height: 1.65;
+    }
+    .formula-main {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 16px;
+      font-weight: 750;
+    }
+    .formula-main code {
+      color: #17395b;
+      font-size: 15px;
+      white-space: normal;
+    }
+    .formula-parts {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .formula-parts li {
+      display: grid;
+      grid-template-columns: 54px minmax(0, 1fr);
+      gap: 8px;
+      align-items: baseline;
+      font-size: 13px;
+    }
+    .formula-parts b {
+      color: #17395b;
+      font-variant-numeric: tabular-nums;
     }
     .definition-list {
       display: grid;
@@ -329,6 +358,7 @@
       .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .insight-grid { grid-template-columns: 1fr; }
       .signal-grid { grid-template-columns: 1fr; }
+      .formula-parts { grid-template-columns: 1fr; }
       .chart, #ranking, #heatmap, #bottleneck { height: min(82vh, 680px); }
       .panel-head, .table-tools { flex-direction: column; align-items: stretch; }
     }
@@ -444,7 +474,18 @@
         </div>
         <div class="method-body">
           <div class="formula">
-            achievement_score = 100 x (20% passed volume + 20% school spread + 20% average total score + 15% average A3 + 10% high-score share + 7.5% low borderline share + 7.5% low A3-zero share)
+            <span class="formula-main">
+              <code>achievement_score = 100 x weighted_signal</code>
+            </span>
+            <ul class="formula-parts">
+              <li><b>20%</b><span>passed volume</span></li>
+              <li><b>20%</b><span>school spread</span></li>
+              <li><b>20%</b><span>average total score</span></li>
+              <li><b>15%</b><span>average A3</span></li>
+              <li><b>10%</b><span>high-score share</span></li>
+              <li><b>7.5%</b><span>low borderline share</span></li>
+              <li><b>7.5%</b><span>low A3-zero share</span></li>
+            </ul>
           </div>
           <p>
             แต่ละ component ถูกแปลงเป็น percentile signal ในกลุ่มจังหวัดก่อนนำมาถ่วงน้ำหนัก:
