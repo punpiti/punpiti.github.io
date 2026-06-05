@@ -1,0 +1,865 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interactive TOI-Zero 69 province achievement report with ranking, bottleneck, A3, and score-driver visualizations.">
+  <meta name="theme-color" content="#4c72b0">
+  <meta property="og:locale" content="th_TH">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://punpiti.github.io/toizero69/province_achievement_report.html">
+  <meta property="og:site_name" content="TOI-Zero 69 Province Achievement">
+  <meta property="og:title" content="TOI-Zero 69 Province Achievement Report">
+  <meta property="og:description" content="Interactive report for province-level achievement signals, bottlenecks, A3 readiness, and improvement priorities.">
+  <meta property="og:image:alt" content="TOI-Zero 69 province achievement dashboard">
+  <link rel="canonical" href="https://punpiti.github.io/toizero69/province_achievement_report.html">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="TOI-Zero 69 Province Achievement Report">
+  <meta name="twitter:description" content="Interactive province-level dashboard for achievement signals, bottlenecks, and score drivers.">
+  <title>TOI-Zero 69 Province Achievement Report</title>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fb;
+      --panel: #ffffff;
+      --ink: #1f2937;
+      --muted: #64748b;
+      --line: #d9e1ec;
+      --blue: #4c72b0;
+      --orange: #dd8452;
+      --green: #55a868;
+      --red: #c44e52;
+      --purple: #8172b3;
+      --cyan: #64b5cd;
+      --shadow: 0 10px 30px rgba(31, 41, 55, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--line);
+    }
+    .wrap {
+      width: min(1440px, calc(100vw - 40px));
+      margin: 0 auto;
+    }
+    .hero {
+      padding: 28px 0 22px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(320px, 0.7fr);
+      gap: 28px;
+      align-items: end;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+    h2 {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+    p { margin: 0; color: var(--muted); }
+    .notice {
+      padding: 14px 16px;
+      border-left: 4px solid var(--orange);
+      background: #fff8f2;
+      color: #5f4332;
+      font-size: 14px;
+    }
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
+    .kpi, .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+    .kpi {
+      min-height: 86px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .kpi span {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .kpi strong {
+      font-size: 24px;
+      line-height: 1.1;
+    }
+    .insights {
+      margin: 0 0 18px;
+    }
+    .insight-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      padding: 0 18px 18px;
+    }
+    .insight-card {
+      min-height: 166px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcff;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .insight-card strong {
+      font-size: 15px;
+      line-height: 1.25;
+    }
+    .insight-card .metric {
+      width: fit-content;
+      max-width: 100%;
+      border-radius: 6px;
+      background: #eaf2fd;
+      color: #24425f;
+      padding: 5px 8px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .insight-card p {
+      font-size: 13px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    .wide { grid-column: 1 / -1; }
+    .panel-head {
+      min-height: 58px;
+      padding: 16px 18px 4px;
+      display: flex;
+      gap: 16px;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .panel-head p {
+      font-size: 13px;
+      margin-top: 3px;
+    }
+    .chart {
+      height: min(72vh, 760px);
+      padding: 0 8px 8px;
+    }
+    #ranking { height: min(82vh, 920px); }
+    #heatmap { height: min(76vh, 860px); }
+    #bottleneck { height: min(70vh, 760px); }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.42fr) minmax(0, 0.58fr);
+      gap: 18px;
+      padding: 0 18px 18px;
+    }
+    .detail-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: #fbfcff;
+    }
+    .selected-title {
+      font-size: 28px;
+      line-height: 1.15;
+      font-weight: 750;
+      margin-bottom: 12px;
+    }
+    .stat-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .stat {
+      border-top: 1px solid var(--line);
+      padding-top: 8px;
+    }
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .stat strong { font-size: 18px; }
+    .table-tools {
+      padding: 0 18px 12px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    input {
+      width: min(420px, 100%);
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0 12px;
+      font: inherit;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th, td {
+      padding: 9px 10px;
+      border-top: 1px solid var(--line);
+      text-align: right;
+      white-space: nowrap;
+    }
+    th {
+      color: var(--muted);
+      background: #f8fafc;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    td:nth-child(3), th:nth-child(3) { text-align: left; }
+    tbody tr {
+      cursor: pointer;
+    }
+    tbody tr:hover {
+      background: #eef4ff;
+    }
+    .table-scroll {
+      max-height: 520px;
+      overflow: auto;
+      border-top: 1px solid var(--line);
+      border-radius: 0 0 8px 8px;
+    }
+    .methodology {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    .methodology .panel {
+      box-shadow: var(--shadow);
+    }
+    .method-body {
+      padding: 12px 18px 18px;
+    }
+    .formula {
+      margin: 8px 0 14px;
+      padding: 12px 14px;
+      border: 1px solid #cfe0f4;
+      border-radius: 8px;
+      background: #f3f8ff;
+      color: #24425f;
+      font-weight: 650;
+      line-height: 1.65;
+    }
+    .definition-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .definition {
+      border-top: 1px solid var(--line);
+      padding-top: 9px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .definition strong {
+      color: var(--ink);
+      display: block;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+    .signal-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 14px;
+      margin-top: 10px;
+    }
+    .signal-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+      background: #fbfcff;
+      min-height: 84px;
+    }
+    .signal-card strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+    .signal-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .signal-card code {
+      color: #24425f;
+      font-size: 12px;
+    }
+    footer {
+      padding: 18px 0 32px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    @media (max-width: 1050px) {
+      .hero, .grid, .detail-grid, .methodology { grid-template-columns: 1fr; }
+      .kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .insight-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 680px) {
+      .wrap { width: min(100vw - 24px, 1440px); }
+      .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .insight-grid { grid-template-columns: 1fr; }
+      .signal-grid { grid-template-columns: 1fr; }
+      .chart, #ranking, #heatmap, #bottleneck { height: min(76vh, 560px); }
+      .panel-head, .table-tools { flex-direction: column; align-items: stretch; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap hero">
+      <div>
+        <h1>TOI-Zero 69 Province Achievement</h1>
+        <p>Interactive report for province-level achievement signals, bottlenecks, and score drivers.</p>
+      </div>
+      <div class="notice">
+        Dataset นี้มีเฉพาะนักเรียนที่ผ่านเกณฑ์แล้ว จึงไม่ใช่ pass-rate ranking ของจังหวัด โรงเรียน หรือศูนย์ใดโดยตรง
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="kpis" id="kpis"></section>
+
+    <section class="panel insights">
+      <div class="panel-head">
+        <div>
+          <h2>Insight Summary</h2>
+          <p>ข้อสังเกตที่ควรอ่านก่อนดูกราฟ รายงานนี้เน้นสัญญาณจากกลุ่มผู้ผ่าน ไม่ใช่อัตราผ่าน</p>
+        </div>
+      </div>
+      <div class="insight-grid" id="insights"></div>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Achievement Ranking</h2>
+            <p>เรียงจังหวัดตาม proxy score สูงไปต่ำ คลิกแท่งเพื่อดู profile รายจังหวัด</p>
+          </div>
+        </div>
+        <div id="ranking" class="chart"></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Volume vs Quality</h2>
+            <p>ขนาดระบบเทียบกับ achievement score สีเข้มคือ A3-zero share สูง</p>
+          </div>
+        </div>
+        <div id="scatter" class="chart"></div>
+      </article>
+
+      <article class="panel wide">
+        <div class="panel-head">
+          <div>
+            <h2>Driver Heatmap</h2>
+            <p>Top 20 และ Bottom 20 แยกตาม normalized signal ที่ใช้ประกอบคะแนน</p>
+          </div>
+        </div>
+        <div id="heatmap" class="chart"></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Bottleneck Shares</h2>
+            <p>สัดส่วน borderline, A2+A3 cutoff และ A3=0 ของจังหวัดที่ควร review ก่อน</p>
+          </div>
+        </div>
+        <div id="bottleneck" class="chart"></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Province Profile</h2>
+            <p>Radar ใช้เฉพาะ drill-down เทียบจังหวัดที่เลือกกับค่ามัธยฐานทั้งประเทศ</p>
+          </div>
+        </div>
+        <div class="detail-grid">
+          <div id="selectedDetail" class="detail-card"></div>
+          <div id="radar" class="chart"></div>
+        </div>
+      </article>
+
+      <article class="panel wide">
+        <div class="panel-head">
+          <div>
+            <h2>Province Table</h2>
+            <p>D3-rendered table สำหรับค้นหาและเลือกจังหวัด</p>
+          </div>
+        </div>
+        <div class="table-tools">
+          <input id="provinceSearch" type="search" placeholder="ค้นหาจังหวัด">
+          <p id="tableCount"></p>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead id="provinceHead"></thead>
+            <tbody id="provinceRows"></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section class="methodology">
+      <article class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Score Formula</h2>
+            <p>คะแนนนี้เป็น proxy score เพื่อเรียง strength signal และ improvement priority ไม่ใช่อัตราผ่าน</p>
+          </div>
+        </div>
+        <div class="method-body">
+          <div class="formula">
+            achievement_score = 100 x (20% passed volume + 20% school spread + 20% average total score + 15% average A3 + 10% high-score share + 7.5% low borderline share + 7.5% low A3-zero share)
+          </div>
+          <p>
+            แต่ละ component ถูกแปลงเป็น percentile signal ในกลุ่มจังหวัดก่อนนำมาถ่วงน้ำหนัก:
+            ค่าใกล้ 1 หมายถึงสัญญาณดีกว่าจังหวัดส่วนใหญ่ ค่าใกล้ 0 หมายถึงควร review มากกว่า
+          </p>
+          <div class="definition-list">
+            <div class="definition">
+              <strong>rank_high / rank_low</strong>
+              rank_high เรียง achievement_score จากสูงไปต่ำ ส่วน rank_low เรียงจากต่ำไปสูงเพื่อหา improvement priority
+            </div>
+            <div class="definition">
+              <strong>percentile signal</strong>
+              ใช้ลำดับ percentile ของจังหวัด ไม่ใช่ค่าดิบโดยตรง เพื่อให้ metric คนละ scale รวมกันได้ในสูตรเดียว
+            </div>
+            <div class="definition">
+              <strong>inverse percentile</strong>
+              ใช้กับ metric ที่ยิ่งต่ำยิ่งดี เช่น total_40_share_pct และ a3_zero_share_pct ดังนั้น share ต่ำจะได้ signal สูง
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Metric Glossary</h2>
+            <p>ความหมายของตัวเลขหลักในตารางและกราฟ</p>
+          </div>
+        </div>
+        <div class="method-body">
+          <div class="signal-grid">
+            <div class="signal-card">
+              <strong>passed_students</strong>
+              <span>จำนวนผู้ผ่านเกณฑ์ในจังหวัดนั้นจาก dataset นี้</span>
+              <code>volume_signal = percentile(passed_students)</code>
+            </div>
+            <div class="signal-card">
+              <strong>normalized_schools</strong>
+              <span>จำนวน school_norm_key ที่พบในจังหวัด หลัง normalize ชื่อโรงเรียนแบบ conservative</span>
+              <code>school_spread_signal = percentile(normalized_schools)</code>
+            </div>
+            <div class="signal-card">
+              <strong>avg_total_all</strong>
+              <span>ค่าเฉลี่ยคะแนนรวมของผู้ผ่านในจังหวัดนั้น</span>
+              <code>avg_score_signal = percentile(avg_total_all)</code>
+            </div>
+            <div class="signal-card">
+              <strong>avg_a3</strong>
+              <span>ค่าเฉลี่ยคะแนนหมวด A3 ซึ่งเป็น bottleneck สำคัญใน brief</span>
+              <code>a3_signal = percentile(avg_a3)</code>
+            </div>
+            <div class="signal-card">
+              <strong>high_score_60_plus_share_pct</strong>
+              <span>สัดส่วนผู้ผ่านที่มี total_all ตั้งแต่ 60 คะแนนขึ้นไป</span>
+              <code>high_score_signal = percentile(high_score_60_plus_share_pct)</code>
+            </div>
+            <div class="signal-card">
+              <strong>total_40_share_pct</strong>
+              <span>สัดส่วนผู้ผ่านที่ได้ total_all = 40 ซึ่งเป็นกลุ่ม borderline ผ่านพอดี</span>
+              <code>low_borderline_signal = 1 - percentile(total_40_share_pct)</code>
+            </div>
+            <div class="signal-card">
+              <strong>a2_a3_20_share_pct</strong>
+              <span>สัดส่วนผู้ผ่านที่มี A2 + A3 = 20 ใช้เป็น bottleneck context แต่ไม่อยู่ในสูตร achievement_score</span>
+            </div>
+            <div class="signal-card">
+              <strong>a3_zero_share_pct</strong>
+              <span>สัดส่วนผู้ผ่านที่ได้ A3 = 0 ยิ่งสูงยิ่งสะท้อนคอขวด A3</span>
+              <code>low_a3_zero_signal = 1 - percentile(a3_zero_share_pct)</code>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    Built with Plotly charts, D3 interaction/table rendering, and a seaborn-inspired categorical palette.
+  </footer>
+
+  <script>
+    const payload = {"metrics": {"passed_students": 6843, "provinces": 77, "schools": 1226, "median_score": 51.36, "median_a3": 5.78, "median_a3_zero_share": 11.11}, "insights": [{"title": "Top signal is balanced, not just large volume", "metric": "ปทุมธานี score 85.49", "body": "ปทุมธานี อยู่อันดับ 1 ด้วยผู้ผ่าน 228 คน, โรงเรียน 34 แห่ง, total_40 share เพียง 14.04% และ A3=0 share 9.65%."}, {"title": "Bangkok is the scale anchor, but not the quality ceiling", "metric": "กทม. rank 12, passed 1,611", "body": "กรุงเทพมหานครมีผู้ผ่าน 1,611 คนและโรงเรียน 253 แห่ง แต่ achievement_score 67.92 สูงกว่า median 51.36 ไม่มากเท่า volume เพราะ A3=0 share 16.64% สูงกว่า median 11.11%."}, {"title": "High-volume provinces still need bottleneck review", "metric": "ชุมพร score 39.51", "body": "ในกลุ่มจังหวัดที่ผู้ผ่านอยู่ quartile บน ชุมพร มีผู้ผ่าน 123 คน แต่ rank_high 58; avg A3 3.92 และ total_40 share 30.89% ชี้ว่าควรดู readiness หลังผ่านเกณฑ์."}, {"title": "A3 is the clearest skill bottleneck", "metric": "ยะลา avg A3 2.17", "body": "ในจังหวัดที่มีผู้ผ่านอย่างน้อย 50 คน ยะลา มี avg A3 ต่ำสุดที่ 2.17; เทียบกับจังหวัดที่ avg A3 สูงสุดคือ ตราด ที่ 11.67."}, {"title": "Borderline share points to fast intervention targets", "metric": "นครสวรรค์ total_40 42.00%", "body": "ในกลุ่มจังหวัดที่มีผู้ผ่านอย่างน้อย 50 คน นครสวรรค์ มี total_all = 40 share 42.00%; ส่วน A3=0 share สูงสุดคือ ยะลา ที่ 25.00%."}, {"title": "Bottom ranking should be read with sample-size caution", "metric": "7/10 bottom provinces have <20 passed", "body": "จังหวัด priority อันดับ 1 คือ อุทัยธานี มีผู้ผ่านเพียง 2 คน ดังนั้น bottom list เหมาะใช้เป็น review queue ไม่ใช่ข้อสรุปเชิงคุณภาพของทั้งจังหวัด."}], "province": [{"province_name": "ปทุมธานี", "passed_students": 228, "normalized_schools": 34, "avg_total_all": 52.78, "avg_a1": 26.96, "avg_a2": 19.15, "avg_a3": 6.66, "total_40": 32, "a2_a3_20": 73, "a3_zero": 22, "high_score_60_plus": 50, "passed_share_pct": 3.33, "school_share_pct": 2.77, "students_per_school": 6.71, "total_40_share_pct": 14.04, "a2_a3_20_share_pct": 32.02, "a3_zero_share_pct": 9.65, "high_score_60_plus_share_pct": 21.93, "volume_signal": 0.9481, "school_spread_signal": 0.9351, "avg_score_signal": 0.8442, "a3_signal": 0.7662, "high_score_signal": 0.8052, "low_borderline_signal": 0.8961, "low_a3_zero_signal": 0.6234, "achievement_score": 85.49, "rank_high": 1, "rank_low": 77, "bottleneck_note": {"passed": 228, "total_40": 32, "a2_a3_20": 73, "a3_zero": 22, "avg_total_all": 52.78, "avg_a3": 6.66, "total_40_share_pct": 14.04, "a2_a3_20_share_pct": 32.02, "a3_zero_share_pct": 9.65}}, {"province_name": "พิษณุโลก", "passed_students": 144, "normalized_schools": 26, "avg_total_all": 55.47, "avg_a1": 28.72, "avg_a2": 20.16, "avg_a3": 6.6, "total_40": 20, "a2_a3_20": 36, "a3_zero": 11, "high_score_60_plus": 45, "passed_share_pct": 2.1, "school_share_pct": 2.12, "students_per_school": 5.54, "total_40_share_pct": 13.89, "a2_a3_20_share_pct": 25.0, "a3_zero_share_pct": 7.64, "high_score_60_plus_share_pct": 31.25, "volume_signal": 0.8571, "school_spread_signal": 0.8506, "avg_score_signal": 0.9221, "a3_signal": 0.7273, "high_score_signal": 0.9351, "low_borderline_signal": 0.9091, "low_a3_zero_signal": 0.7143, "achievement_score": 85.03, "rank_high": 2, "rank_low": 76, "bottleneck_note": {}}, {"province_name": "ราชบุรี", "passed_students": 137, "normalized_schools": 16, "avg_total_all": 53.88, "avg_a1": 26.91, "avg_a2": 17.15, "avg_a3": 9.81, "total_40": 22, "a2_a3_20": 32, "a3_zero": 7, "high_score_60_plus": 33, "passed_share_pct": 2.0, "school_share_pct": 1.31, "students_per_school": 8.56, "total_40_share_pct": 16.06, "a2_a3_20_share_pct": 23.36, "a3_zero_share_pct": 5.11, "high_score_60_plus_share_pct": 24.09, "volume_signal": 0.8117, "school_spread_signal": 0.7532, "avg_score_signal": 0.8831, "a3_signal": 0.8961, "high_score_signal": 0.8571, "low_borderline_signal": 0.8182, "low_a3_zero_signal": 0.8052, "achievement_score": 83.15, "rank_high": 3, "rank_low": 75, "bottleneck_note": {}}, {"province_name": "อุบลราชธานี", "passed_students": 162, "normalized_schools": 19, "avg_total_all": 52.22, "avg_a1": 27.3, "avg_a2": 15.07, "avg_a3": 9.85, "total_40": 37, "a2_a3_20": 53, "a3_zero": 7, "high_score_60_plus": 43, "passed_share_pct": 2.37, "school_share_pct": 1.55, "students_per_school": 8.53, "total_40_share_pct": 22.84, "a2_a3_20_share_pct": 32.72, "a3_zero_share_pct": 4.32, "high_score_60_plus_share_pct": 26.54, "volume_signal": 0.8961, "school_spread_signal": 0.8052, "avg_score_signal": 0.8052, "a3_signal": 0.9091, "high_score_signal": 0.8831, "low_borderline_signal": 0.5455, "low_a3_zero_signal": 0.8312, "achievement_score": 82.92, "rank_high": 4, "rank_low": 74, "bottleneck_note": {"passed": 162, "total_40": 37, "a2_a3_20": 53, "a3_zero": 7, "avg_total_all": 52.22, "avg_a3": 9.85, "total_40_share_pct": 22.84, "a2_a3_20_share_pct": 32.72, "a3_zero_share_pct": 4.32}}, {"province_name": "บุรีรัมย์", "passed_students": 57, "normalized_schools": 18, "avg_total_all": 63.89, "avg_a1": 31.3, "avg_a2": 22.04, "avg_a3": 10.56, "total_40": 15, "a2_a3_20": 21, "a3_zero": 2, "high_score_60_plus": 22, "passed_share_pct": 0.83, "school_share_pct": 1.47, "students_per_school": 3.17, "total_40_share_pct": 26.32, "a2_a3_20_share_pct": 36.84, "a3_zero_share_pct": 3.51, "high_score_60_plus_share_pct": 38.6, "volume_signal": 0.6169, "school_spread_signal": 0.7857, "avg_score_signal": 0.974, "a3_signal": 0.9481, "high_score_signal": 0.9481, "low_borderline_signal": 0.3766, "low_a3_zero_signal": 0.8701, "achievement_score": 80.58, "rank_high": 5, "rank_low": 73, "bottleneck_note": {}}, {"province_name": "ฉะเชิงเทรา", "passed_students": 95, "normalized_schools": 20, "avg_total_all": 50.14, "avg_a1": 23.57, "avg_a2": 14.92, "avg_a3": 11.65, "total_40": 18, "a2_a3_20": 33, "a3_zero": 10, "high_score_60_plus": 17, "passed_share_pct": 1.39, "school_share_pct": 1.63, "students_per_school": 4.75, "total_40_share_pct": 18.95, "a2_a3_20_share_pct": 34.74, "a3_zero_share_pct": 10.53, "high_score_60_plus_share_pct": 17.89, "volume_signal": 0.7532, "school_spread_signal": 0.8182, "avg_score_signal": 0.6883, "a3_signal": 0.987, "high_score_signal": 0.7143, "low_borderline_signal": 0.7403, "low_a3_zero_signal": 0.5584, "achievement_score": 76.88, "rank_high": 6, "rank_low": 72, "bottleneck_note": {}}, {"province_name": "ชลบุรี", "passed_students": 137, "normalized_schools": 35, "avg_total_all": 49.58, "avg_a1": 25.13, "avg_a2": 17.88, "avg_a3": 6.56, "total_40": 33, "a2_a3_20": 53, "a3_zero": 25, "high_score_60_plus": 27, "passed_share_pct": 2.0, "school_share_pct": 2.85, "students_per_school": 3.91, "total_40_share_pct": 24.09, "a2_a3_20_share_pct": 38.69, "a3_zero_share_pct": 18.25, "high_score_60_plus_share_pct": 19.71, "volume_signal": 0.8117, "school_spread_signal": 0.9481, "avg_score_signal": 0.6494, "a3_signal": 0.7143, "high_score_signal": 0.7403, "low_borderline_signal": 0.4805, "low_a3_zero_signal": 0.2597, "achievement_score": 71.85, "rank_high": 7, "rank_low": 71, "bottleneck_note": {}}, {"province_name": "เชียงใหม่", "passed_students": 280, "normalized_schools": 56, "avg_total_all": 48.41, "avg_a1": 24.6, "avg_a2": 17.37, "avg_a3": 6.44, "total_40": 92, "a2_a3_20": 125, "a3_zero": 31, "high_score_60_plus": 45, "passed_share_pct": 4.09, "school_share_pct": 4.57, "students_per_school": 5.0, "total_40_share_pct": 32.86, "a2_a3_20_share_pct": 44.64, "a3_zero_share_pct": 11.07, "high_score_60_plus_share_pct": 16.07, "volume_signal": 0.974, "school_spread_signal": 0.987, "avg_score_signal": 0.4935, "a3_signal": 0.7013, "high_score_signal": 0.5844, "low_borderline_signal": 0.2597, "low_a3_zero_signal": 0.5195, "achievement_score": 71.3, "rank_high": 8, "rank_low": 70, "bottleneck_note": {"passed": 280, "total_40": 92, "a2_a3_20": 125, "a3_zero": 31, "avg_total_all": 48.41, "avg_a3": 6.44, "total_40_share_pct": 32.86, "a2_a3_20_share_pct": 44.64, "a3_zero_share_pct": 11.07}}, {"province_name": "สุราษฎร์ธานี", "passed_students": 159, "normalized_schools": 29, "avg_total_all": 48.89, "avg_a1": 24.82, "avg_a2": 17.83, "avg_a3": 6.25, "total_40": 59, "a2_a3_20": 83, "a3_zero": 12, "high_score_60_plus": 26, "passed_share_pct": 2.32, "school_share_pct": 2.37, "students_per_school": 5.48, "total_40_share_pct": 37.11, "a2_a3_20_share_pct": 52.2, "a3_zero_share_pct": 7.55, "high_score_60_plus_share_pct": 16.35, "volume_signal": 0.8831, "school_spread_signal": 0.9091, "avg_score_signal": 0.5974, "a3_signal": 0.6883, "high_score_signal": 0.6104, "low_borderline_signal": 0.1558, "low_a3_zero_signal": 0.7273, "achievement_score": 70.84, "rank_high": 9, "rank_low": 69, "bottleneck_note": {"passed": 159, "total_40": 59, "a2_a3_20": 83, "a3_zero": 12, "avg_total_all": 48.89, "avg_a3": 6.25, "total_40_share_pct": 37.11, "a2_a3_20_share_pct": 52.2, "a3_zero_share_pct": 7.55}}, {"province_name": "นครราชสีมา", "passed_students": 336, "normalized_schools": 52, "avg_total_all": 48.4, "avg_a1": 24.31, "avg_a2": 18.02, "avg_a3": 6.07, "total_40": 78, "a2_a3_20": 91, "a3_zero": 26, "high_score_60_plus": 34, "passed_share_pct": 4.91, "school_share_pct": 4.24, "students_per_school": 6.46, "total_40_share_pct": 23.21, "a2_a3_20_share_pct": 27.08, "a3_zero_share_pct": 7.74, "high_score_60_plus_share_pct": 10.12, "volume_signal": 0.987, "school_spread_signal": 0.974, "avg_score_signal": 0.4805, "a3_signal": 0.5974, "high_score_signal": 0.3247, "low_borderline_signal": 0.5195, "low_a3_zero_signal": 0.6753, "achievement_score": 70.0, "rank_high": 10, "rank_low": 68, "bottleneck_note": {"passed": 336, "total_40": 78, "a2_a3_20": 91, "a3_zero": 26, "avg_total_all": 48.4, "avg_a3": 6.07, "total_40_share_pct": 23.21, "a2_a3_20_share_pct": 27.08, "a3_zero_share_pct": 7.74}}, {"province_name": "สระแก้ว", "passed_students": 43, "normalized_schools": 5, "avg_total_all": 59.93, "avg_a1": 32.49, "avg_a2": 17.51, "avg_a3": 9.93, "total_40": 9, "a2_a3_20": 8, "a3_zero": 0, "high_score_60_plus": 20, "passed_share_pct": 0.63, "school_share_pct": 0.41, "students_per_school": 8.6, "total_40_share_pct": 20.93, "a2_a3_20_share_pct": 18.6, "a3_zero_share_pct": 0.0, "high_score_60_plus_share_pct": 46.51, "volume_signal": 0.4935, "school_spread_signal": 0.2597, "avg_score_signal": 0.961, "a3_signal": 0.9221, "high_score_signal": 0.974, "low_borderline_signal": 0.6623, "low_a3_zero_signal": 0.9416, "achievement_score": 69.89, "rank_high": 11, "rank_low": 67, "bottleneck_note": {}}, {"province_name": "กรุงเทพมหานคร", "passed_students": 1611, "normalized_schools": 253, "avg_total_all": 48.66, "avg_a1": 24.72, "avg_a2": 18.43, "avg_a3": 5.51, "total_40": 408, "a2_a3_20": 696, "a3_zero": 268, "high_score_60_plus": 227, "passed_share_pct": 23.54, "school_share_pct": 20.64, "students_per_school": 6.37, "total_40_share_pct": 25.33, "a2_a3_20_share_pct": 43.2, "a3_zero_share_pct": 16.64, "high_score_60_plus_share_pct": 14.09, "volume_signal": 1.0, "school_spread_signal": 1.0, "avg_score_signal": 0.5455, "a3_signal": 0.4026, "high_score_signal": 0.5325, "low_borderline_signal": 0.4156, "low_a3_zero_signal": 0.3377, "achievement_score": 67.92, "rank_high": 12, "rank_low": 66, "bottleneck_note": {"passed": 1611, "total_40": 408, "a2_a3_20": 696, "a3_zero": 268, "avg_total_all": 48.66, "avg_a3": 5.51, "total_40_share_pct": 25.33, "a2_a3_20_share_pct": 43.2, "a3_zero_share_pct": 16.64}}, {"province_name": "สมุทรปราการ", "passed_students": 118, "normalized_schools": 25, "avg_total_all": 50.31, "avg_a1": 25.47, "avg_a2": 18.63, "avg_a3": 6.21, "total_40": 30, "a2_a3_20": 50, "a3_zero": 25, "high_score_60_plus": 20, "passed_share_pct": 1.72, "school_share_pct": 2.04, "students_per_school": 4.72, "total_40_share_pct": 25.42, "a2_a3_20_share_pct": 42.37, "a3_zero_share_pct": 21.19, "high_score_60_plus_share_pct": 16.95, "volume_signal": 0.7662, "school_spread_signal": 0.8312, "avg_score_signal": 0.7143, "a3_signal": 0.6623, "high_score_signal": 0.6494, "low_borderline_signal": 0.3896, "low_a3_zero_signal": 0.1299, "achievement_score": 66.56, "rank_high": 13, "rank_low": 65, "bottleneck_note": {}}, {"province_name": "ตรัง", "passed_students": 56, "normalized_schools": 18, "avg_total_all": 51.04, "avg_a1": 26.36, "avg_a2": 18.45, "avg_a3": 6.23, "total_40": 12, "a2_a3_20": 26, "a3_zero": 14, "high_score_60_plus": 10, "passed_share_pct": 0.82, "school_share_pct": 1.47, "students_per_school": 3.11, "total_40_share_pct": 21.43, "a2_a3_20_share_pct": 46.43, "a3_zero_share_pct": 25.0, "high_score_60_plus_share_pct": 17.86, "volume_signal": 0.5974, "school_spread_signal": 0.7857, "avg_score_signal": 0.7662, "a3_signal": 0.6753, "high_score_signal": 0.7013, "low_borderline_signal": 0.6169, "low_a3_zero_signal": 0.0844, "achievement_score": 65.39, "rank_high": 14, "rank_low": 64, "bottleneck_note": {}}, {"province_name": "กาฬสินธุ์", "passed_students": 33, "normalized_schools": 15, "avg_total_all": 54.55, "avg_a1": 30.15, "avg_a2": 19.12, "avg_a3": 5.27, "total_40": 7, "a2_a3_20": 13, "a3_zero": 3, "high_score_60_plus": 9, "passed_share_pct": 0.48, "school_share_pct": 1.22, "students_per_school": 2.2, "total_40_share_pct": 21.21, "a2_a3_20_share_pct": 39.39, "a3_zero_share_pct": 9.09, "high_score_60_plus_share_pct": 27.27, "volume_signal": 0.4221, "school_spread_signal": 0.7078, "avg_score_signal": 0.9091, "a3_signal": 0.3636, "high_score_signal": 0.8961, "low_borderline_signal": 0.6364, "low_a3_zero_signal": 0.6364, "achievement_score": 64.74, "rank_high": 15, "rank_low": 63, "bottleneck_note": {}}, {"province_name": "จันทบุรี", "passed_students": 38, "normalized_schools": 12, "avg_total_all": 52.71, "avg_a1": 25.87, "avg_a2": 19.47, "avg_a3": 7.37, "total_40": 8, "a2_a3_20": 13, "a3_zero": 8, "high_score_60_plus": 8, "passed_share_pct": 0.56, "school_share_pct": 0.98, "students_per_school": 3.17, "total_40_share_pct": 21.05, "a2_a3_20_share_pct": 34.21, "a3_zero_share_pct": 21.05, "high_score_60_plus_share_pct": 21.05, "volume_signal": 0.4675, "school_spread_signal": 0.6104, "avg_score_signal": 0.8312, "a3_signal": 0.8052, "high_score_signal": 0.7922, "low_borderline_signal": 0.6494, "low_a3_zero_signal": 0.1429, "achievement_score": 64.12, "rank_high": 16, "rank_low": 62, "bottleneck_note": {}}, {"province_name": "กาญจนบุรี", "passed_students": 47, "normalized_schools": 16, "avg_total_all": 50.17, "avg_a1": 23.43, "avg_a2": 18.64, "avg_a3": 8.11, "total_40": 14, "a2_a3_20": 14, "a3_zero": 7, "high_score_60_plus": 7, "passed_share_pct": 0.69, "school_share_pct": 1.31, "students_per_school": 2.94, "total_40_share_pct": 29.79, "a2_a3_20_share_pct": 29.79, "a3_zero_share_pct": 14.89, "high_score_60_plus_share_pct": 14.89, "volume_signal": 0.5325, "school_spread_signal": 0.7532, "avg_score_signal": 0.7013, "a3_signal": 0.8701, "high_score_signal": 0.5584, "low_borderline_signal": 0.2857, "low_a3_zero_signal": 0.3766, "achievement_score": 63.34, "rank_high": 17, "rank_low": 61, "bottleneck_note": {}}, {"province_name": "นนทบุรี", "passed_students": 167, "normalized_schools": 36, "avg_total_all": 48.13, "avg_a1": 24.59, "avg_a2": 17.89, "avg_a3": 5.65, "total_40": 55, "a2_a3_20": 98, "a3_zero": 18, "high_score_60_plus": 20, "passed_share_pct": 2.44, "school_share_pct": 2.94, "students_per_school": 4.64, "total_40_share_pct": 32.93, "a2_a3_20_share_pct": 58.68, "a3_zero_share_pct": 10.78, "high_score_60_plus_share_pct": 11.98, "volume_signal": 0.9156, "school_spread_signal": 0.961, "avg_score_signal": 0.4416, "a3_signal": 0.4416, "high_score_signal": 0.4156, "low_borderline_signal": 0.2468, "low_a3_zero_signal": 0.5455, "achievement_score": 63.08, "rank_high": 18, "rank_low": 60, "bottleneck_note": {"passed": 167, "total_40": 55, "a2_a3_20": 98, "a3_zero": 18, "avg_total_all": 48.13, "avg_a3": 5.65, "total_40_share_pct": 32.93, "a2_a3_20_share_pct": 58.68, "a3_zero_share_pct": 10.78}}, {"province_name": "สุรินทร์", "passed_students": 54, "normalized_schools": 11, "avg_total_all": 53.48, "avg_a1": 29.7, "avg_a2": 20.2, "avg_a3": 3.57, "total_40": 5, "a2_a3_20": 18, "a3_zero": 6, "high_score_60_plus": 16, "passed_share_pct": 0.79, "school_share_pct": 0.9, "students_per_school": 4.91, "total_40_share_pct": 9.26, "a2_a3_20_share_pct": 33.33, "a3_zero_share_pct": 11.11, "high_score_60_plus_share_pct": 29.63, "volume_signal": 0.5779, "school_spread_signal": 0.5714, "avg_score_signal": 0.8701, "a3_signal": 0.1039, "high_score_signal": 0.9221, "low_borderline_signal": 0.9351, "low_a3_zero_signal": 0.5, "achievement_score": 61.93, "rank_high": 19, "rank_low": 59, "bottleneck_note": {}}, {"province_name": "สุโขทัย", "passed_students": 34, "normalized_schools": 7, "avg_total_all": 49.56, "avg_a1": 24.56, "avg_a2": 13.35, "avg_a3": 11.65, "total_40": 5, "a2_a3_20": 8, "a3_zero": 3, "high_score_60_plus": 6, "passed_share_pct": 0.5, "school_share_pct": 0.57, "students_per_school": 4.86, "total_40_share_pct": 14.71, "a2_a3_20_share_pct": 23.53, "a3_zero_share_pct": 8.82, "high_score_60_plus_share_pct": 17.65, "volume_signal": 0.4416, "school_spread_signal": 0.3766, "avg_score_signal": 0.6364, "a3_signal": 0.974, "high_score_signal": 0.6753, "low_borderline_signal": 0.8701, "low_a3_zero_signal": 0.6494, "achievement_score": 61.85, "rank_high": 20, "rank_low": 58, "bottleneck_note": {}}, {"province_name": "ขอนแก่น", "passed_students": 220, "normalized_schools": 32, "avg_total_all": 46.8, "avg_a1": 23.84, "avg_a2": 17.35, "avg_a3": 5.62, "total_40": 63, "a2_a3_20": 109, "a3_zero": 17, "high_score_60_plus": 23, "passed_share_pct": 3.21, "school_share_pct": 2.61, "students_per_school": 6.88, "total_40_share_pct": 28.64, "a2_a3_20_share_pct": 49.55, "a3_zero_share_pct": 7.73, "high_score_60_plus_share_pct": 10.45, "volume_signal": 0.9351, "school_spread_signal": 0.9221, "avg_score_signal": 0.3247, "a3_signal": 0.4286, "high_score_signal": 0.3377, "low_borderline_signal": 0.3377, "low_a3_zero_signal": 0.6883, "achievement_score": 61.14, "rank_high": 21, "rank_low": 57, "bottleneck_note": {"passed": 220, "total_40": 63, "a2_a3_20": 109, "a3_zero": 17, "avg_total_all": 46.8, "avg_a3": 5.62, "total_40_share_pct": 28.64, "a2_a3_20_share_pct": 49.55, "a3_zero_share_pct": 7.73}}, {"province_name": "สงขลา", "passed_students": 240, "normalized_schools": 28, "avg_total_all": 47.03, "avg_a1": 24.16, "avg_a2": 17.78, "avg_a3": 5.09, "total_40": 58, "a2_a3_20": 116, "a3_zero": 20, "high_score_60_plus": 27, "passed_share_pct": 3.51, "school_share_pct": 2.28, "students_per_school": 8.57, "total_40_share_pct": 24.17, "a2_a3_20_share_pct": 48.33, "a3_zero_share_pct": 8.33, "high_score_60_plus_share_pct": 11.25, "volume_signal": 0.961, "school_spread_signal": 0.8961, "avg_score_signal": 0.3377, "a3_signal": 0.3247, "high_score_signal": 0.3766, "low_borderline_signal": 0.4675, "low_a3_zero_signal": 0.6623, "achievement_score": 61.01, "rank_high": 22, "rank_low": 56, "bottleneck_note": {"passed": 240, "total_40": 58, "a2_a3_20": 116, "a3_zero": 20, "avg_total_all": 47.03, "avg_a3": 5.09, "total_40_share_pct": 24.17, "a2_a3_20_share_pct": 48.33, "a3_zero_share_pct": 8.33}}, {"province_name": "อุดรธานี", "passed_students": 64, "normalized_schools": 10, "avg_total_all": 50.7, "avg_a1": 26.31, "avg_a2": 18.61, "avg_a3": 5.78, "total_40": 13, "a2_a3_20": 25, "a3_zero": 12, "high_score_60_plus": 13, "passed_share_pct": 0.94, "school_share_pct": 0.82, "students_per_school": 6.4, "total_40_share_pct": 20.31, "a2_a3_20_share_pct": 39.06, "a3_zero_share_pct": 18.75, "high_score_60_plus_share_pct": 20.31, "volume_signal": 0.6364, "school_spread_signal": 0.513, "avg_score_signal": 0.7532, "a3_signal": 0.5065, "high_score_signal": 0.7792, "low_borderline_signal": 0.6753, "low_a3_zero_signal": 0.2338, "achievement_score": 60.26, "rank_high": 23, "rank_low": 55, "bottleneck_note": {}}, {"province_name": "พัทลุง", "passed_students": 53, "normalized_schools": 11, "avg_total_all": 51.21, "avg_a1": 25.87, "avg_a2": 20.13, "avg_a3": 5.21, "total_40": 10, "a2_a3_20": 23, "a3_zero": 6, "high_score_60_plus": 10, "passed_share_pct": 0.77, "school_share_pct": 0.9, "students_per_school": 4.82, "total_40_share_pct": 18.87, "a2_a3_20_share_pct": 43.4, "a3_zero_share_pct": 11.32, "high_score_60_plus_share_pct": 18.87, "volume_signal": 0.5584, "school_spread_signal": 0.5714, "avg_score_signal": 0.7792, "a3_signal": 0.3506, "high_score_signal": 0.7273, "low_borderline_signal": 0.7532, "low_a3_zero_signal": 0.4805, "achievement_score": 59.97, "rank_high": 24, "rank_low": 54, "bottleneck_note": {}}, {"province_name": "นครปฐม", "passed_students": 142, "normalized_schools": 27, "avg_total_all": 48.32, "avg_a1": 25.07, "avg_a2": 17.8, "avg_a3": 5.45, "total_40": 36, "a2_a3_20": 69, "a3_zero": 28, "high_score_60_plus": 23, "passed_share_pct": 2.08, "school_share_pct": 2.2, "students_per_school": 5.26, "total_40_share_pct": 25.35, "a2_a3_20_share_pct": 48.59, "a3_zero_share_pct": 19.72, "high_score_60_plus_share_pct": 16.2, "volume_signal": 0.8442, "school_spread_signal": 0.8766, "avg_score_signal": 0.4545, "a3_signal": 0.3766, "high_score_signal": 0.5974, "low_borderline_signal": 0.4026, "low_a3_zero_signal": 0.1818, "achievement_score": 59.51, "rank_high": 25, "rank_low": 53, "bottleneck_note": {}}, {"province_name": "แม่ฮ่องสอน", "passed_students": 3, "normalized_schools": 2, "avg_total_all": 66.0, "avg_a1": 38.0, "avg_a2": 18.67, "avg_a3": 9.33, "total_40": 0, "a2_a3_20": 0, "a3_zero": 0, "high_score_60_plus": 2, "passed_share_pct": 0.04, "school_share_pct": 0.16, "students_per_school": 1.5, "total_40_share_pct": 0.0, "a2_a3_20_share_pct": 0.0, "a3_zero_share_pct": 0.0, "high_score_60_plus_share_pct": 66.67, "volume_signal": 0.039, "school_spread_signal": 0.0649, "avg_score_signal": 0.987, "a3_signal": 0.8831, "high_score_signal": 0.9935, "low_borderline_signal": 0.974, "low_a3_zero_signal": 0.9416, "achievement_score": 59.37, "rank_high": 26, "rank_low": 52, "bottleneck_note": {}}, {"province_name": "สกลนคร", "passed_students": 130, "normalized_schools": 10, "avg_total_all": 50.37, "avg_a1": 24.8, "avg_a2": 19.62, "avg_a3": 5.95, "total_40": 47, "a2_a3_20": 68, "a3_zero": 24, "high_score_60_plus": 23, "passed_share_pct": 1.9, "school_share_pct": 0.82, "students_per_school": 13.0, "total_40_share_pct": 36.15, "a2_a3_20_share_pct": 52.31, "a3_zero_share_pct": 18.46, "high_score_60_plus_share_pct": 17.69, "volume_signal": 0.7922, "school_spread_signal": 0.513, "avg_score_signal": 0.7273, "a3_signal": 0.5455, "high_score_signal": 0.6883, "low_borderline_signal": 0.1818, "low_a3_zero_signal": 0.2468, "achievement_score": 58.93, "rank_high": 27, "rank_low": 51, "bottleneck_note": {}}, {"province_name": "นครศรีธรรมราช", "passed_students": 140, "normalized_schools": 26, "avg_total_all": 47.09, "avg_a1": 23.79, "avg_a2": 17.56, "avg_a3": 5.74, "total_40": 30, "a2_a3_20": 58, "a3_zero": 22, "high_score_60_plus": 15, "passed_share_pct": 2.05, "school_share_pct": 2.12, "students_per_school": 5.38, "total_40_share_pct": 21.43, "a2_a3_20_share_pct": 41.43, "a3_zero_share_pct": 15.71, "high_score_60_plus_share_pct": 10.71, "volume_signal": 0.8312, "school_spread_signal": 0.8506, "avg_score_signal": 0.3506, "a3_signal": 0.4935, "high_score_signal": 0.3506, "low_borderline_signal": 0.6169, "low_a3_zero_signal": 0.3506, "achievement_score": 58.81, "rank_high": 28, "rank_low": 50, "bottleneck_note": {}}, {"province_name": "ลำปาง", "passed_students": 54, "normalized_schools": 10, "avg_total_all": 48.56, "avg_a1": 22.22, "avg_a2": 18.69, "avg_a3": 7.65, "total_40": 9, "a2_a3_20": 16, "a3_zero": 8, "high_score_60_plus": 7, "passed_share_pct": 0.79, "school_share_pct": 0.82, "students_per_school": 5.4, "total_40_share_pct": 16.67, "a2_a3_20_share_pct": 29.63, "a3_zero_share_pct": 14.81, "high_score_60_plus_share_pct": 12.96, "volume_signal": 0.5779, "school_spread_signal": 0.513, "avg_score_signal": 0.5325, "a3_signal": 0.8312, "high_score_signal": 0.4935, "low_borderline_signal": 0.7922, "low_a3_zero_signal": 0.3896, "achievement_score": 58.73, "rank_high": 29, "rank_low": 49, "bottleneck_note": {}}, {"province_name": "ตราด", "passed_students": 6, "normalized_schools": 2, "avg_total_all": 79.17, "avg_a1": 41.33, "avg_a2": 26.17, "avg_a3": 11.67, "total_40": 0, "a2_a3_20": 2, "a3_zero": 1, "high_score_60_plus": 4, "passed_share_pct": 0.09, "school_share_pct": 0.16, "students_per_school": 3.0, "total_40_share_pct": 0.0, "a2_a3_20_share_pct": 33.33, "a3_zero_share_pct": 16.67, "high_score_60_plus_share_pct": 66.67, "volume_signal": 0.0844, "school_spread_signal": 0.0649, "avg_score_signal": 1.0, "a3_signal": 1.0, "high_score_signal": 0.9935, "low_borderline_signal": 0.974, "low_a3_zero_signal": 0.3052, "achievement_score": 57.52, "rank_high": 30, "rank_low": 48, "bottleneck_note": {}}, {"province_name": "ปัตตานี", "passed_students": 89, "normalized_schools": 27, "avg_total_all": 48.52, "avg_a1": 25.72, "avg_a2": 19.21, "avg_a3": 3.58, "total_40": 16, "a2_a3_20": 42, "a3_zero": 17, "high_score_60_plus": 13, "passed_share_pct": 1.3, "school_share_pct": 2.2, "students_per_school": 3.3, "total_40_share_pct": 17.98, "a2_a3_20_share_pct": 47.19, "a3_zero_share_pct": 19.1, "high_score_60_plus_share_pct": 14.61, "volume_signal": 0.7273, "school_spread_signal": 0.8766, "avg_score_signal": 0.5195, "a3_signal": 0.1169, "high_score_signal": 0.5455, "low_borderline_signal": 0.7662, "low_a3_zero_signal": 0.2208, "achievement_score": 57.08, "rank_high": 31, "rank_low": 47, "bottleneck_note": {}}, {"province_name": "เพชรบูรณ์", "passed_students": 21, "normalized_schools": 9, "avg_total_all": 54.19, "avg_a1": 27.62, "avg_a2": 21.67, "avg_a3": 4.9, "total_40": 5, "a2_a3_20": 8, "a3_zero": 1, "high_score_60_plus": 5, "passed_share_pct": 0.31, "school_share_pct": 0.73, "students_per_school": 2.33, "total_40_share_pct": 23.81, "a2_a3_20_share_pct": 38.1, "a3_zero_share_pct": 4.76, "high_score_60_plus_share_pct": 23.81, "volume_signal": 0.2987, "school_spread_signal": 0.4481, "avg_score_signal": 0.8961, "a3_signal": 0.2727, "high_score_signal": 0.8442, "low_borderline_signal": 0.4935, "low_a3_zero_signal": 0.8182, "achievement_score": 55.23, "rank_high": 32, "rank_low": 46, "bottleneck_note": {}}, {"province_name": "อุตรดิตถ์", "passed_students": 18, "normalized_schools": 5, "avg_total_all": 58.5, "avg_a1": 31.22, "avg_a2": 21.17, "avg_a3": 6.11, "total_40": 4, "a2_a3_20": 6, "a3_zero": 3, "high_score_60_plus": 7, "passed_share_pct": 0.26, "school_share_pct": 0.41, "students_per_school": 3.6, "total_40_share_pct": 22.22, "a2_a3_20_share_pct": 33.33, "a3_zero_share_pct": 16.67, "high_score_60_plus_share_pct": 38.89, "volume_signal": 0.2597, "school_spread_signal": 0.2597, "avg_score_signal": 0.9481, "a3_signal": 0.6234, "high_score_signal": 0.961, "low_borderline_signal": 0.5779, "low_a3_zero_signal": 0.3052, "achievement_score": 54.94, "rank_high": 33, "rank_low": 45, "bottleneck_note": {}}, {"province_name": "ภูเก็ต", "passed_students": 167, "normalized_schools": 15, "avg_total_all": 45.55, "avg_a1": 22.64, "avg_a2": 16.96, "avg_a3": 5.95, "total_40": 48, "a2_a3_20": 69, "a3_zero": 11, "high_score_60_plus": 14, "passed_share_pct": 2.44, "school_share_pct": 1.22, "students_per_school": 11.13, "total_40_share_pct": 28.74, "a2_a3_20_share_pct": 41.32, "a3_zero_share_pct": 6.59, "high_score_60_plus_share_pct": 8.38, "volume_signal": 0.9156, "school_spread_signal": 0.7078, "avg_score_signal": 0.1688, "a3_signal": 0.5325, "high_score_signal": 0.2208, "low_borderline_signal": 0.3247, "low_a3_zero_signal": 0.7922, "achievement_score": 54.42, "rank_high": 34, "rank_low": 44, "bottleneck_note": {"passed": 167, "total_40": 48, "a2_a3_20": 69, "a3_zero": 11, "avg_total_all": 45.55, "avg_a3": 5.95, "total_40_share_pct": 28.74, "a2_a3_20_share_pct": 41.32, "a3_zero_share_pct": 6.59}}, {"province_name": "มหาสารคาม", "passed_students": 35, "normalized_schools": 9, "avg_total_all": 47.71, "avg_a1": 23.71, "avg_a2": 17.26, "avg_a3": 6.74, "total_40": 3, "a2_a3_20": 11, "a3_zero": 5, "high_score_60_plus": 6, "passed_share_pct": 0.51, "school_share_pct": 0.73, "students_per_school": 3.89, "total_40_share_pct": 8.57, "a2_a3_20_share_pct": 31.43, "a3_zero_share_pct": 14.29, "high_score_60_plus_share_pct": 17.14, "volume_signal": 0.4545, "school_spread_signal": 0.4481, "avg_score_signal": 0.3766, "a3_signal": 0.7792, "high_score_signal": 0.6623, "low_borderline_signal": 0.9481, "low_a3_zero_signal": 0.4026, "achievement_score": 54.03, "rank_high": 35, "rank_low": 43, "bottleneck_note": {}}, {"province_name": "กำแพงเพชร", "passed_students": 76, "normalized_schools": 13, "avg_total_all": 45.55, "avg_a1": 23.11, "avg_a2": 16.32, "avg_a3": 6.13, "total_40": 17, "a2_a3_20": 32, "a3_zero": 3, "high_score_60_plus": 7, "passed_share_pct": 1.11, "school_share_pct": 1.06, "students_per_school": 5.85, "total_40_share_pct": 22.37, "a2_a3_20_share_pct": 42.11, "a3_zero_share_pct": 3.95, "high_score_60_plus_share_pct": 9.21, "volume_signal": 0.6753, "school_spread_signal": 0.6558, "avg_score_signal": 0.1818, "a3_signal": 0.6364, "high_score_signal": 0.2857, "low_borderline_signal": 0.5584, "low_a3_zero_signal": 0.8571, "achievement_score": 53.28, "rank_high": 36, "rank_low": 42, "bottleneck_note": {}}, {"province_name": "ยะลา", "passed_students": 92, "normalized_schools": 16, "avg_total_all": 49.4, "avg_a1": 27.36, "avg_a2": 19.87, "avg_a3": 2.17, "total_40": 35, "a2_a3_20": 49, "a3_zero": 23, "high_score_60_plus": 21, "passed_share_pct": 1.34, "school_share_pct": 1.31, "students_per_school": 5.75, "total_40_share_pct": 38.04, "a2_a3_20_share_pct": 53.26, "a3_zero_share_pct": 25.0, "high_score_60_plus_share_pct": 22.83, "volume_signal": 0.7403, "school_spread_signal": 0.7532, "avg_score_signal": 0.6104, "a3_signal": 0.0519, "high_score_signal": 0.8312, "low_borderline_signal": 0.1429, "low_a3_zero_signal": 0.0844, "achievement_score": 52.87, "rank_high": 37, "rank_low": 41, "bottleneck_note": {}}, {"province_name": "นครพนม", "passed_students": 33, "normalized_schools": 6, "avg_total_all": 47.73, "avg_a1": 20.21, "avg_a2": 19.61, "avg_a3": 7.91, "total_40": 5, "a2_a3_20": 4, "a3_zero": 0, "high_score_60_plus": 3, "passed_share_pct": 0.48, "school_share_pct": 0.49, "students_per_school": 5.5, "total_40_share_pct": 15.15, "a2_a3_20_share_pct": 12.12, "a3_zero_share_pct": 0.0, "high_score_60_plus_share_pct": 9.09, "volume_signal": 0.4221, "school_spread_signal": 0.3312, "avg_score_signal": 0.3896, "a3_signal": 0.8442, "high_score_signal": 0.2662, "low_borderline_signal": 0.8571, "low_a3_zero_signal": 0.9416, "achievement_score": 51.67, "rank_high": 38, "rank_low": 40, "bottleneck_note": {}}, {"province_name": "ตาก", "passed_students": 14, "normalized_schools": 4, "avg_total_all": 52.43, "avg_a1": 28.5, "avg_a2": 18.43, "avg_a3": 5.5, "total_40": 2, "a2_a3_20": 3, "a3_zero": 1, "high_score_60_plus": 4, "passed_share_pct": 0.2, "school_share_pct": 0.33, "students_per_school": 3.5, "total_40_share_pct": 14.29, "a2_a3_20_share_pct": 21.43, "a3_zero_share_pct": 7.14, "high_score_60_plus_share_pct": 28.57, "volume_signal": 0.2078, "school_spread_signal": 0.1818, "avg_score_signal": 0.8182, "a3_signal": 0.3896, "high_score_signal": 0.9091, "low_borderline_signal": 0.8831, "low_a3_zero_signal": 0.7532, "achievement_score": 51.36, "rank_high": 39, "rank_low": 39, "bottleneck_note": {}}, {"province_name": "เชียงราย", "passed_students": 77, "normalized_schools": 13, "avg_total_all": 47.19, "avg_a1": 23.82, "avg_a2": 17.65, "avg_a3": 5.73, "total_40": 18, "a2_a3_20": 29, "a3_zero": 12, "high_score_60_plus": 7, "passed_share_pct": 1.13, "school_share_pct": 1.06, "students_per_school": 5.92, "total_40_share_pct": 23.38, "a2_a3_20_share_pct": 37.66, "a3_zero_share_pct": 15.58, "high_score_60_plus_share_pct": 9.09, "volume_signal": 0.6948, "school_spread_signal": 0.6558, "avg_score_signal": 0.3636, "a3_signal": 0.4805, "high_score_signal": 0.2662, "low_borderline_signal": 0.5065, "low_a3_zero_signal": 0.3636, "achievement_score": 50.68, "rank_high": 40, "rank_low": 38, "bottleneck_note": {}}, {"province_name": "น่าน", "passed_students": 69, "normalized_schools": 10, "avg_total_all": 48.36, "avg_a1": 23.65, "avg_a2": 19.01, "avg_a3": 5.7, "total_40": 19, "a2_a3_20": 24, "a3_zero": 9, "high_score_60_plus": 8, "passed_share_pct": 1.01, "school_share_pct": 0.82, "students_per_school": 6.9, "total_40_share_pct": 27.54, "a2_a3_20_share_pct": 34.78, "a3_zero_share_pct": 13.04, "high_score_60_plus_share_pct": 11.59, "volume_signal": 0.6494, "school_spread_signal": 0.513, "avg_score_signal": 0.4675, "a3_signal": 0.4675, "high_score_signal": 0.3896, "low_borderline_signal": 0.3636, "low_a3_zero_signal": 0.4156, "achievement_score": 49.35, "rank_high": 41, "rank_low": 37, "bottleneck_note": {}}, {"province_name": "เลย", "passed_students": 32, "normalized_schools": 9, "avg_total_all": 48.69, "avg_a1": 21.88, "avg_a2": 20.84, "avg_a3": 5.97, "total_40": 4, "a2_a3_20": 6, "a3_zero": 9, "high_score_60_plus": 4, "passed_share_pct": 0.47, "school_share_pct": 0.73, "students_per_school": 3.56, "total_40_share_pct": 12.5, "a2_a3_20_share_pct": 18.75, "a3_zero_share_pct": 28.12, "high_score_60_plus_share_pct": 12.5, "volume_signal": 0.4026, "school_spread_signal": 0.4481, "avg_score_signal": 0.5714, "a3_signal": 0.5584, "high_score_signal": 0.4545, "low_borderline_signal": 0.9221, "low_a3_zero_signal": 0.0649, "achievement_score": 48.77, "rank_high": 42, "rank_low": 36, "bottleneck_note": {}}, {"province_name": "สตูล", "passed_students": 81, "normalized_schools": 15, "avg_total_all": 45.7, "avg_a1": 23.48, "avg_a2": 16.57, "avg_a3": 5.65, "total_40": 23, "a2_a3_20": 33, "a3_zero": 6, "high_score_60_plus": 3, "passed_share_pct": 1.18, "school_share_pct": 1.22, "students_per_school": 5.4, "total_40_share_pct": 28.4, "a2_a3_20_share_pct": 40.74, "a3_zero_share_pct": 7.41, "high_score_60_plus_share_pct": 3.7, "volume_signal": 0.7143, "school_spread_signal": 0.7078, "avg_score_signal": 0.2078, "a3_signal": 0.4545, "high_score_signal": 0.1039, "low_borderline_signal": 0.3506, "low_a3_zero_signal": 0.7403, "achievement_score": 48.64, "rank_high": 43, "rank_low": 35, "bottleneck_note": {}}, {"province_name": "ประจวบคีรีขันธ์", "passed_students": 57, "normalized_schools": 9, "avg_total_all": 48.46, "avg_a1": 25.07, "avg_a2": 18.28, "avg_a3": 5.11, "total_40": 9, "a2_a3_20": 14, "a3_zero": 11, "high_score_60_plus": 7, "passed_share_pct": 0.83, "school_share_pct": 0.73, "students_per_school": 6.33, "total_40_share_pct": 15.79, "a2_a3_20_share_pct": 24.56, "a3_zero_share_pct": 19.3, "high_score_60_plus_share_pct": 12.28, "volume_signal": 0.6169, "school_spread_signal": 0.4481, "avg_score_signal": 0.5065, "a3_signal": 0.3377, "high_score_signal": 0.4286, "low_borderline_signal": 0.8312, "low_a3_zero_signal": 0.2078, "achievement_score": 48.57, "rank_high": 44, "rank_low": 34, "bottleneck_note": {}}, {"province_name": "ระยอง", "passed_students": 149, "normalized_schools": 12, "avg_total_all": 45.09, "avg_a1": 21.71, "avg_a2": 17.3, "avg_a3": 6.08, "total_40": 51, "a2_a3_20": 61, "a3_zero": 18, "high_score_60_plus": 10, "passed_share_pct": 2.18, "school_share_pct": 0.98, "students_per_school": 12.42, "total_40_share_pct": 34.23, "a2_a3_20_share_pct": 40.94, "a3_zero_share_pct": 12.08, "high_score_60_plus_share_pct": 6.71, "volume_signal": 0.8701, "school_spread_signal": 0.6104, "avg_score_signal": 0.1169, "a3_signal": 0.6104, "high_score_signal": 0.1429, "low_borderline_signal": 0.2078, "low_a3_zero_signal": 0.4545, "achievement_score": 47.5, "rank_high": 45, "rank_low": 33, "bottleneck_note": {}}, {"province_name": "ศรีสะเกษ", "passed_students": 77, "normalized_schools": 11, "avg_total_all": 46.7, "avg_a1": 24.1, "avg_a2": 17.7, "avg_a3": 4.9, "total_40": 17, "a2_a3_20": 33, "a3_zero": 10, "high_score_60_plus": 9, "passed_share_pct": 1.13, "school_share_pct": 0.9, "students_per_school": 7.0, "total_40_share_pct": 22.08, "a2_a3_20_share_pct": 42.86, "a3_zero_share_pct": 12.99, "high_score_60_plus_share_pct": 11.69, "volume_signal": 0.6948, "school_spread_signal": 0.5714, "avg_score_signal": 0.3117, "a3_signal": 0.2597, "high_score_signal": 0.4026, "low_borderline_signal": 0.5974, "low_a3_zero_signal": 0.4286, "achievement_score": 47.18, "rank_high": 46, "rank_low": 32, "bottleneck_note": {}}, {"province_name": "เพชรบุรี", "passed_students": 72, "normalized_schools": 13, "avg_total_all": 45.42, "avg_a1": 22.4, "avg_a2": 17.04, "avg_a3": 5.97, "total_40": 29, "a2_a3_20": 40, "a3_zero": 3, "high_score_60_plus": 5, "passed_share_pct": 1.05, "school_share_pct": 1.06, "students_per_school": 5.54, "total_40_share_pct": 40.28, "a2_a3_20_share_pct": 55.56, "a3_zero_share_pct": 4.17, "high_score_60_plus_share_pct": 6.94, "volume_signal": 0.6623, "school_spread_signal": 0.6558, "avg_score_signal": 0.1494, "a3_signal": 0.5714, "high_score_signal": 0.1688, "low_borderline_signal": 0.1039, "low_a3_zero_signal": 0.8442, "achievement_score": 46.72, "rank_high": 47, "rank_low": 31, "bottleneck_note": {}}, {"province_name": "พะเยา", "passed_students": 31, "normalized_schools": 6, "avg_total_all": 53.42, "avg_a1": 28.55, "avg_a2": 20.16, "avg_a3": 4.71, "total_40": 9, "a2_a3_20": 12, "a3_zero": 6, "high_score_60_plus": 7, "passed_share_pct": 0.45, "school_share_pct": 0.49, "students_per_school": 5.17, "total_40_share_pct": 29.03, "a2_a3_20_share_pct": 38.71, "a3_zero_share_pct": 19.35, "high_score_60_plus_share_pct": 22.58, "volume_signal": 0.3831, "school_spread_signal": 0.3312, "avg_score_signal": 0.8571, "a3_signal": 0.2208, "high_score_signal": 0.8182, "low_borderline_signal": 0.3052, "low_a3_zero_signal": 0.1948, "achievement_score": 46.67, "rank_high": 48, "rank_low": 30, "bottleneck_note": {}}, {"province_name": "มุกดาหาร", "passed_students": 46, "normalized_schools": 15, "avg_total_all": 46.22, "avg_a1": 22.91, "avg_a2": 18.22, "avg_a3": 5.09, "total_40": 7, "a2_a3_20": 19, "a3_zero": 5, "high_score_60_plus": 4, "passed_share_pct": 0.67, "school_share_pct": 1.22, "students_per_school": 3.07, "total_40_share_pct": 15.22, "a2_a3_20_share_pct": 41.3, "a3_zero_share_pct": 10.87, "high_score_60_plus_share_pct": 8.7, "volume_signal": 0.513, "school_spread_signal": 0.7078, "avg_score_signal": 0.2338, "a3_signal": 0.3117, "high_score_signal": 0.2403, "low_borderline_signal": 0.8442, "low_a3_zero_signal": 0.5325, "achievement_score": 46.49, "rank_high": 49, "rank_low": 29, "bottleneck_note": {}}, {"province_name": "สมุทรสาคร", "passed_students": 12, "normalized_schools": 6, "avg_total_all": 48.08, "avg_a1": 23.08, "avg_a2": 17.0, "avg_a3": 8.0, "total_40": 2, "a2_a3_20": 6, "a3_zero": 0, "high_score_60_plus": 1, "passed_share_pct": 0.18, "school_share_pct": 0.49, "students_per_school": 2.0, "total_40_share_pct": 16.67, "a2_a3_20_share_pct": 50.0, "a3_zero_share_pct": 0.0, "high_score_60_plus_share_pct": 8.33, "volume_signal": 0.1688, "school_spread_signal": 0.3312, "avg_score_signal": 0.4286, "a3_signal": 0.8571, "high_score_signal": 0.2013, "low_borderline_signal": 0.7922, "low_a3_zero_signal": 0.9416, "achievement_score": 46.44, "rank_high": 50, "rank_low": 28, "bottleneck_note": {}}, {"province_name": "ชัยภูมิ", "passed_students": 20, "normalized_schools": 8, "avg_total_all": 49.6, "avg_a1": 25.4, "avg_a2": 18.6, "avg_a3": 5.6, "total_40": 8, "a2_a3_20": 13, "a3_zero": 2, "high_score_60_plus": 4, "passed_share_pct": 0.29, "school_share_pct": 0.65, "students_per_school": 2.5, "total_40_share_pct": 40.0, "a2_a3_20_share_pct": 65.0, "a3_zero_share_pct": 10.0, "high_score_60_plus_share_pct": 20.0, "volume_signal": 0.2857, "school_spread_signal": 0.4091, "avg_score_signal": 0.6623, "a3_signal": 0.4156, "high_score_signal": 0.7597, "low_borderline_signal": 0.1234, "low_a3_zero_signal": 0.5974, "achievement_score": 46.38, "rank_high": 51, "rank_low": 27, "bottleneck_note": {}}, {"province_name": "สิงห์บุรี", "passed_students": 6, "normalized_schools": 3, "avg_total_all": 56.5, "avg_a1": 23.5, "avg_a2": 22.17, "avg_a3": 10.83, "total_40": 3, "a2_a3_20": 3, "a3_zero": 1, "high_score_60_plus": 1, "passed_share_pct": 0.09, "school_share_pct": 0.24, "students_per_school": 2.0, "total_40_share_pct": 50.0, "a2_a3_20_share_pct": 50.0, "a3_zero_share_pct": 16.67, "high_score_60_plus_share_pct": 16.67, "volume_signal": 0.0844, "school_spread_signal": 0.1299, "avg_score_signal": 0.9351, "a3_signal": 0.961, "high_score_signal": 0.6299, "low_borderline_signal": 0.026, "low_a3_zero_signal": 0.3052, "achievement_score": 46.19, "rank_high": 52, "rank_low": 26, "bottleneck_note": {}}, {"province_name": "นครสวรรค์", "passed_students": 50, "normalized_schools": 12, "avg_total_all": 47.98, "avg_a1": 24.36, "avg_a2": 18.68, "avg_a3": 4.94, "total_40": 21, "a2_a3_20": 30, "a3_zero": 5, "high_score_60_plus": 7, "passed_share_pct": 0.73, "school_share_pct": 0.98, "students_per_school": 4.17, "total_40_share_pct": 42.0, "a2_a3_20_share_pct": 60.0, "a3_zero_share_pct": 10.0, "high_score_60_plus_share_pct": 14.0, "volume_signal": 0.5455, "school_spread_signal": 0.6104, "avg_score_signal": 0.4026, "a3_signal": 0.2857, "high_score_signal": 0.5195, "low_borderline_signal": 0.0649, "low_a3_zero_signal": 0.5974, "achievement_score": 45.62, "rank_high": 53, "rank_low": 25, "bottleneck_note": {}}, {"province_name": "พระนครศรีอยุธยา", "passed_students": 13, "normalized_schools": 4, "avg_total_all": 49.46, "avg_a1": 25.15, "avg_a2": 17.69, "avg_a3": 6.62, "total_40": 6, "a2_a3_20": 8, "a3_zero": 1, "high_score_60_plus": 2, "passed_share_pct": 0.19, "school_share_pct": 0.33, "students_per_school": 3.25, "total_40_share_pct": 46.15, "a2_a3_20_share_pct": 61.54, "a3_zero_share_pct": 7.69, "high_score_60_plus_share_pct": 15.38, "volume_signal": 0.1948, "school_spread_signal": 0.1818, "avg_score_signal": 0.6234, "a3_signal": 0.7532, "high_score_signal": 0.5714, "low_borderline_signal": 0.0519, "low_a3_zero_signal": 0.7013, "achievement_score": 42.66, "rank_high": 54, "rank_low": 24, "bottleneck_note": {}}, {"province_name": "ร้อยเอ็ด", "passed_students": 39, "normalized_schools": 10, "avg_total_all": 45.97, "avg_a1": 23.08, "avg_a2": 16.9, "avg_a3": 6.0, "total_40": 9, "a2_a3_20": 18, "a3_zero": 4, "high_score_60_plus": 2, "passed_share_pct": 0.57, "school_share_pct": 0.82, "students_per_school": 3.9, "total_40_share_pct": 23.08, "a2_a3_20_share_pct": 46.15, "a3_zero_share_pct": 10.26, "high_score_60_plus_share_pct": 5.13, "volume_signal": 0.4805, "school_spread_signal": 0.513, "avg_score_signal": 0.2208, "a3_signal": 0.5844, "high_score_signal": 0.1169, "low_borderline_signal": 0.5325, "low_a3_zero_signal": 0.5714, "achievement_score": 42.5, "rank_high": 55, "rank_low": 23, "bottleneck_note": {}}, {"province_name": "อำนาจเจริญ", "passed_students": 8, "normalized_schools": 2, "avg_total_all": 49.88, "avg_a1": 23.38, "avg_a2": 19.0, "avg_a3": 7.5, "total_40": 2, "a2_a3_20": 4, "a3_zero": 1, "high_score_60_plus": 1, "passed_share_pct": 0.12, "school_share_pct": 0.16, "students_per_school": 4.0, "total_40_share_pct": 25.0, "a2_a3_20_share_pct": 50.0, "a3_zero_share_pct": 12.5, "high_score_60_plus_share_pct": 12.5, "volume_signal": 0.1039, "school_spread_signal": 0.0649, "avg_score_signal": 0.6753, "a3_signal": 0.8182, "high_score_signal": 0.4545, "low_borderline_signal": 0.4416, "low_a3_zero_signal": 0.4416, "achievement_score": 40.32, "rank_high": 56, "rank_low": 22, "bottleneck_note": {}}, {"province_name": "สระบุรี", "passed_students": 25, "normalized_schools": 5, "avg_total_all": 46.56, "avg_a1": 20.6, "avg_a2": 18.68, "avg_a3": 7.28, "total_40": 5, "a2_a3_20": 8, "a3_zero": 3, "high_score_60_plus": 2, "passed_share_pct": 0.37, "school_share_pct": 0.41, "students_per_school": 5.0, "total_40_share_pct": 20.0, "a2_a3_20_share_pct": 32.0, "a3_zero_share_pct": 12.0, "high_score_60_plus_share_pct": 8.0, "volume_signal": 0.3247, "school_spread_signal": 0.2597, "avg_score_signal": 0.2727, "a3_signal": 0.7922, "high_score_signal": 0.1818, "low_borderline_signal": 0.7078, "low_a3_zero_signal": 0.4675, "achievement_score": 39.66, "rank_high": 57, "rank_low": 21, "bottleneck_note": {}}, {"province_name": "ชุมพร", "passed_students": 123, "normalized_schools": 5, "avg_total_all": 46.46, "avg_a1": 22.69, "avg_a2": 19.85, "avg_a3": 3.92, "total_40": 38, "a2_a3_20": 32, "a3_zero": 3, "high_score_60_plus": 12, "passed_share_pct": 1.8, "school_share_pct": 0.41, "students_per_school": 24.6, "total_40_share_pct": 30.89, "a2_a3_20_share_pct": 26.02, "a3_zero_share_pct": 2.44, "high_score_60_plus_share_pct": 9.76, "volume_signal": 0.7792, "school_spread_signal": 0.2597, "avg_score_signal": 0.2468, "a3_signal": 0.1429, "high_score_signal": 0.2987, "low_borderline_signal": 0.2727, "low_a3_zero_signal": 0.8831, "achievement_score": 39.51, "rank_high": 58, "rank_low": 20, "bottleneck_note": {}}, {"province_name": "ลำพูน", "passed_students": 31, "normalized_schools": 7, "avg_total_all": 48.74, "avg_a1": 25.03, "avg_a2": 19.39, "avg_a3": 4.32, "total_40": 9, "a2_a3_20": 12, "a3_zero": 7, "high_score_60_plus": 4, "passed_share_pct": 0.45, "school_share_pct": 0.57, "students_per_school": 4.43, "total_40_share_pct": 29.03, "a2_a3_20_share_pct": 38.71, "a3_zero_share_pct": 22.58, "high_score_60_plus_share_pct": 12.9, "volume_signal": 0.3831, "school_spread_signal": 0.3766, "avg_score_signal": 0.5844, "a3_signal": 0.1688, "high_score_signal": 0.4805, "low_borderline_signal": 0.3052, "low_a3_zero_signal": 0.1169, "achievement_score": 37.39, "rank_high": 59, "rank_low": 19, "bottleneck_note": {}}, {"province_name": "พังงา", "passed_students": 18, "normalized_schools": 5, "avg_total_all": 48.0, "avg_a1": 23.83, "avg_a2": 19.33, "avg_a3": 4.83, "total_40": 4, "a2_a3_20": 6, "a3_zero": 2, "high_score_60_plus": 3, "passed_share_pct": 0.26, "school_share_pct": 0.41, "students_per_school": 3.6, "total_40_share_pct": 22.22, "a2_a3_20_share_pct": 33.33, "a3_zero_share_pct": 11.11, "high_score_60_plus_share_pct": 16.67, "volume_signal": 0.2597, "school_spread_signal": 0.2597, "avg_score_signal": 0.4156, "a3_signal": 0.2338, "high_score_signal": 0.6299, "low_borderline_signal": 0.5779, "low_a3_zero_signal": 0.5, "achievement_score": 36.59, "rank_high": 60, "rank_low": 18, "bottleneck_note": {}}, {"province_name": "อ่างทอง", "passed_students": 46, "normalized_schools": 5, "avg_total_all": 45.17, "avg_a1": 23.57, "avg_a2": 15.67, "avg_a3": 5.93, "total_40": 19, "a2_a3_20": 27, "a3_zero": 0, "high_score_60_plus": 4, "passed_share_pct": 0.67, "school_share_pct": 0.41, "students_per_school": 9.2, "total_40_share_pct": 41.3, "a2_a3_20_share_pct": 58.7, "a3_zero_share_pct": 0.0, "high_score_60_plus_share_pct": 8.7, "volume_signal": 0.513, "school_spread_signal": 0.2597, "avg_score_signal": 0.1299, "a3_signal": 0.5195, "high_score_signal": 0.2403, "low_borderline_signal": 0.0909, "low_a3_zero_signal": 0.9416, "achievement_score": 35.99, "rank_high": 61, "rank_low": 17, "bottleneck_note": {}}, {"province_name": "สุพรรณบุรี", "passed_students": 30, "normalized_schools": 10, "avg_total_all": 46.63, "avg_a1": 23.27, "avg_a2": 19.4, "avg_a3": 3.97, "total_40": 10, "a2_a3_20": 15, "a3_zero": 2, "high_score_60_plus": 2, "passed_share_pct": 0.44, "school_share_pct": 0.82, "students_per_school": 3.0, "total_40_share_pct": 33.33, "a2_a3_20_share_pct": 50.0, "a3_zero_share_pct": 6.67, "high_score_60_plus_share_pct": 6.67, "volume_signal": 0.3636, "school_spread_signal": 0.513, "avg_score_signal": 0.2987, "a3_signal": 0.1558, "high_score_signal": 0.1299, "low_borderline_signal": 0.2273, "low_a3_zero_signal": 0.7727, "achievement_score": 34.64, "rank_high": 62, "rank_low": 15, "bottleneck_note": {}}, {"province_name": "ปราจีนบุรี", "passed_students": 18, "normalized_schools": 5, "avg_total_all": 48.67, "avg_a1": 24.78, "avg_a2": 19.22, "avg_a3": 4.67, "total_40": 3, "a2_a3_20": 6, "a3_zero": 7, "high_score_60_plus": 2, "passed_share_pct": 0.26, "school_share_pct": 0.41, "students_per_school": 3.6, "total_40_share_pct": 16.67, "a2_a3_20_share_pct": 33.33, "a3_zero_share_pct": 38.89, "high_score_60_plus_share_pct": 11.11, "volume_signal": 0.2597, "school_spread_signal": 0.2597, "avg_score_signal": 0.5584, "a3_signal": 0.2078, "high_score_signal": 0.3636, "low_borderline_signal": 0.7922, "low_a3_zero_signal": 0.0519, "achievement_score": 34.64, "rank_high": 62, "rank_low": 15, "bottleneck_note": {}}, {"province_name": "พิจิตร", "passed_students": 15, "normalized_schools": 6, "avg_total_all": 45.67, "avg_a1": 23.87, "avg_a2": 17.33, "avg_a3": 4.47, "total_40": 3, "a2_a3_20": 4, "a3_zero": 1, "high_score_60_plus": 2, "passed_share_pct": 0.22, "school_share_pct": 0.49, "students_per_school": 2.5, "total_40_share_pct": 20.0, "a2_a3_20_share_pct": 26.67, "a3_zero_share_pct": 6.67, "high_score_60_plus_share_pct": 13.33, "volume_signal": 0.2273, "school_spread_signal": 0.3312, "avg_score_signal": 0.1948, "a3_signal": 0.1818, "high_score_signal": 0.5065, "low_borderline_signal": 0.7078, "low_a3_zero_signal": 0.7727, "achievement_score": 33.96, "rank_high": 64, "rank_low": 14, "bottleneck_note": {}}, {"province_name": "ยโสธร", "passed_students": 10, "normalized_schools": 3, "avg_total_all": 44.6, "avg_a1": 21.9, "avg_a2": 16.1, "avg_a3": 6.6, "total_40": 2, "a2_a3_20": 7, "a3_zero": 0, "high_score_60_plus": 1, "passed_share_pct": 0.15, "school_share_pct": 0.24, "students_per_school": 3.33, "total_40_share_pct": 20.0, "a2_a3_20_share_pct": 70.0, "a3_zero_share_pct": 0.0, "high_score_60_plus_share_pct": 10.0, "volume_signal": 0.1234, "school_spread_signal": 0.1299, "avg_score_signal": 0.0909, "a3_signal": 0.7403, "high_score_signal": 0.3117, "low_borderline_signal": 0.7078, "low_a3_zero_signal": 0.9416, "achievement_score": 33.47, "rank_high": 65, "rank_low": 13, "bottleneck_note": {}}, {"province_name": "บึงกาฬ", "passed_students": 4, "normalized_schools": 4, "avg_total_all": 51.5, "avg_a1": 30.75, "avg_a2": 20.0, "avg_a3": 0.75, "total_40": 1, "a2_a3_20": 1, "a3_zero": 2, "high_score_60_plus": 1, "passed_share_pct": 0.06, "school_share_pct": 0.33, "students_per_school": 1.0, "total_40_share_pct": 25.0, "a2_a3_20_share_pct": 25.0, "a3_zero_share_pct": 50.0, "high_score_60_plus_share_pct": 25.0, "volume_signal": 0.0519, "school_spread_signal": 0.1818, "avg_score_signal": 0.7922, "a3_signal": 0.013, "high_score_signal": 0.8701, "low_borderline_signal": 0.4416, "low_a3_zero_signal": 0.0195, "achievement_score": 32.87, "rank_high": 66, "rank_low": 12, "bottleneck_note": {}}, {"province_name": "ระนอง", "passed_students": 10, "normalized_schools": 2, "avg_total_all": 44.8, "avg_a1": 22.1, "avg_a2": 12.3, "avg_a3": 10.4, "total_40": 2, "a2_a3_20": 2, "a3_zero": 1, "high_score_60_plus": 0, "passed_share_pct": 0.15, "school_share_pct": 0.16, "students_per_school": 5.0, "total_40_share_pct": 20.0, "a2_a3_20_share_pct": 20.0, "a3_zero_share_pct": 10.0, "high_score_60_plus_share_pct": 0.0, "volume_signal": 0.1234, "school_spread_signal": 0.0649, "avg_score_signal": 0.1039, "a3_signal": 0.9351, "high_score_signal": 0.0519, "low_borderline_signal": 0.7078, "low_a3_zero_signal": 0.5974, "achievement_score": 30.18, "rank_high": 67, "rank_low": 11, "bottleneck_note": {}}, {"province_name": "นครนายก", "passed_students": 5, "normalized_schools": 4, "avg_total_all": 50.6, "avg_a1": 25.4, "avg_a2": 23.0, "avg_a3": 2.2, "total_40": 2, "a2_a3_20": 3, "a3_zero": 4, "high_score_60_plus": 1, "passed_share_pct": 0.07, "school_share_pct": 0.33, "students_per_school": 1.25, "total_40_share_pct": 40.0, "a2_a3_20_share_pct": 60.0, "a3_zero_share_pct": 80.0, "high_score_60_plus_share_pct": 20.0, "volume_signal": 0.0649, "school_spread_signal": 0.1818, "avg_score_signal": 0.7403, "a3_signal": 0.0649, "high_score_signal": 0.7597, "low_borderline_signal": 0.1234, "low_a3_zero_signal": 0.0, "achievement_score": 29.24, "rank_high": 68, "rank_low": 10, "bottleneck_note": {}}, {"province_name": "ลพบุรี", "passed_students": 29, "normalized_schools": 13, "avg_total_all": 44.55, "avg_a1": 22.86, "avg_a2": 18.69, "avg_a3": 3.0, "total_40": 10, "a2_a3_20": 12, "a3_zero": 7, "high_score_60_plus": 2, "passed_share_pct": 0.42, "school_share_pct": 1.06, "students_per_school": 2.23, "total_40_share_pct": 34.48, "a2_a3_20_share_pct": 41.38, "a3_zero_share_pct": 24.14, "high_score_60_plus_share_pct": 6.9, "volume_signal": 0.3442, "school_spread_signal": 0.6558, "avg_score_signal": 0.0779, "a3_signal": 0.0779, "high_score_signal": 0.1558, "low_borderline_signal": 0.1948, "low_a3_zero_signal": 0.1039, "achievement_score": 26.53, "rank_high": 69, "rank_low": 9, "bottleneck_note": {}}, {"province_name": "แพร่", "passed_students": 24, "normalized_schools": 4, "avg_total_all": 45.42, "avg_a1": 23.17, "avg_a2": 17.75, "avg_a3": 4.5, "total_40": 8, "a2_a3_20": 14, "a3_zero": 5, "high_score_60_plus": 3, "passed_share_pct": 0.35, "school_share_pct": 0.33, "students_per_school": 6.0, "total_40_share_pct": 33.33, "a2_a3_20_share_pct": 58.33, "a3_zero_share_pct": 20.83, "high_score_60_plus_share_pct": 12.5, "volume_signal": 0.3117, "school_spread_signal": 0.1818, "avg_score_signal": 0.1494, "a3_signal": 0.1948, "high_score_signal": 0.4545, "low_borderline_signal": 0.2273, "low_a3_zero_signal": 0.1558, "achievement_score": 23.2, "rank_high": 70, "rank_low": 8, "bottleneck_note": {}}, {"province_name": "ชัยนาท", "passed_students": 2, "normalized_schools": 1, "avg_total_all": 46.5, "avg_a1": 25.0, "avg_a2": 18.0, "avg_a3": 3.5, "total_40": 0, "a2_a3_20": 0, "a3_zero": 0, "high_score_60_plus": 0, "passed_share_pct": 0.03, "school_share_pct": 0.08, "students_per_school": 2.0, "total_40_share_pct": 0.0, "a2_a3_20_share_pct": 0.0, "a3_zero_share_pct": 0.0, "high_score_60_plus_share_pct": 0.0, "volume_signal": 0.0195, "school_spread_signal": 0.013, "avg_score_signal": 0.2597, "a3_signal": 0.0909, "high_score_signal": 0.0519, "low_borderline_signal": 0.974, "low_a3_zero_signal": 0.9416, "achievement_score": 22.09, "rank_high": 71, "rank_low": 7, "bottleneck_note": {}}, {"province_name": "นราธิวาส", "passed_students": 29, "normalized_schools": 7, "avg_total_all": 43.38, "avg_a1": 21.34, "avg_a2": 17.17, "avg_a3": 4.86, "total_40": 12, "a2_a3_20": 14, "a3_zero": 6, "high_score_60_plus": 0, "passed_share_pct": 0.42, "school_share_pct": 0.57, "students_per_school": 4.14, "total_40_share_pct": 41.38, "a2_a3_20_share_pct": 48.28, "a3_zero_share_pct": 20.69, "high_score_60_plus_share_pct": 0.0, "volume_signal": 0.3442, "school_spread_signal": 0.3766, "avg_score_signal": 0.0519, "a3_signal": 0.2468, "high_score_signal": 0.0519, "low_borderline_signal": 0.0779, "low_a3_zero_signal": 0.1688, "achievement_score": 21.53, "rank_high": 72, "rank_low": 6, "bottleneck_note": {}}, {"province_name": "สมุทรสงคราม", "passed_students": 11, "normalized_schools": 3, "avg_total_all": 41.0, "avg_a1": 19.45, "avg_a2": 15.36, "avg_a3": 6.18, "total_40": 4, "a2_a3_20": 6, "a3_zero": 2, "high_score_60_plus": 0, "passed_share_pct": 0.16, "school_share_pct": 0.24, "students_per_school": 3.67, "total_40_share_pct": 36.36, "a2_a3_20_share_pct": 54.55, "a3_zero_share_pct": 18.18, "high_score_60_plus_share_pct": 0.0, "volume_signal": 0.1429, "school_spread_signal": 0.1299, "avg_score_signal": 0.013, "a3_signal": 0.6494, "high_score_signal": 0.0519, "low_borderline_signal": 0.1688, "low_a3_zero_signal": 0.2727, "achievement_score": 19.29, "rank_high": 73, "rank_low": 5, "bottleneck_note": {}}, {"province_name": "หนองบัวลำภู", "passed_students": 12, "normalized_schools": 2, "avg_total_all": 46.58, "avg_a1": 25.17, "avg_a2": 19.58, "avg_a3": 1.83, "total_40": 3, "a2_a3_20": 4, "a3_zero": 5, "high_score_60_plus": 1, "passed_share_pct": 0.18, "school_share_pct": 0.16, "students_per_school": 6.0, "total_40_share_pct": 25.0, "a2_a3_20_share_pct": 33.33, "a3_zero_share_pct": 41.67, "high_score_60_plus_share_pct": 8.33, "volume_signal": 0.1688, "school_spread_signal": 0.0649, "avg_score_signal": 0.2857, "a3_signal": 0.039, "high_score_signal": 0.2013, "low_borderline_signal": 0.4416, "low_a3_zero_signal": 0.039, "achievement_score": 16.59, "rank_high": 74, "rank_low": 4, "bottleneck_note": {}}, {"province_name": "หนองคาย", "passed_students": 15, "normalized_schools": 2, "avg_total_all": 42.87, "avg_a1": 21.07, "avg_a2": 18.0, "avg_a3": 3.8, "total_40": 8, "a2_a3_20": 10, "a3_zero": 0, "high_score_60_plus": 0, "passed_share_pct": 0.22, "school_share_pct": 0.16, "students_per_school": 7.5, "total_40_share_pct": 53.33, "a2_a3_20_share_pct": 66.67, "a3_zero_share_pct": 0.0, "high_score_60_plus_share_pct": 0.0, "volume_signal": 0.2273, "school_spread_signal": 0.0649, "avg_score_signal": 0.026, "a3_signal": 0.1299, "high_score_signal": 0.0519, "low_borderline_signal": 0.0, "low_a3_zero_signal": 0.9416, "achievement_score": 15.89, "rank_high": 75, "rank_low": 3, "bottleneck_note": {}}, {"province_name": "กระบี่", "passed_students": 12, "normalized_schools": 8, "avg_total_all": 43.08, "avg_a1": 21.92, "avg_a2": 19.42, "avg_a3": 1.75, "total_40": 6, "a2_a3_20": 7, "a3_zero": 2, "high_score_60_plus": 0, "passed_share_pct": 0.18, "school_share_pct": 0.65, "students_per_school": 1.5, "total_40_share_pct": 50.0, "a2_a3_20_share_pct": 58.33, "a3_zero_share_pct": 16.67, "high_score_60_plus_share_pct": 0.0, "volume_signal": 0.1688, "school_spread_signal": 0.4091, "avg_score_signal": 0.039, "a3_signal": 0.026, "high_score_signal": 0.0519, "low_borderline_signal": 0.026, "low_a3_zero_signal": 0.3052, "achievement_score": 15.73, "rank_high": 76, "rank_low": 2, "bottleneck_note": {}}, {"province_name": "อุทัยธานี", "passed_students": 2, "normalized_schools": 2, "avg_total_all": 43.5, "avg_a1": 23.5, "avg_a2": 15.0, "avg_a3": 5.0, "total_40": 1, "a2_a3_20": 2, "a3_zero": 1, "high_score_60_plus": 0, "passed_share_pct": 0.03, "school_share_pct": 0.16, "students_per_school": 1.0, "total_40_share_pct": 50.0, "a2_a3_20_share_pct": 100.0, "a3_zero_share_pct": 50.0, "high_score_60_plus_share_pct": 0.0, "volume_signal": 0.0195, "school_spread_signal": 0.0649, "avg_score_signal": 0.0649, "a3_signal": 0.2987, "high_score_signal": 0.0519, "low_borderline_signal": 0.026, "low_a3_zero_signal": 0.0195, "achievement_score": 8.33, "rank_high": 77, "rank_low": 1, "bottleneck_note": {}}], "table_rows": [{"rank_high": 1, "rank_low": 77, "province_name": "ปทุมธานี", "achievement_score": 85.49, "passed_students": 228, "normalized_schools": 34, "avg_total_all": 52.78, "avg_a3": 6.66, "high_score_60_plus_share_pct": 21.93, "total_40_share_pct": 14.04, "a3_zero_share_pct": 9.65}, {"rank_high": 2, "rank_low": 76, "province_name": "พิษณุโลก", "achievement_score": 85.03, "passed_students": 144, "normalized_schools": 26, "avg_total_all": 55.47, "avg_a3": 6.6, "high_score_60_plus_share_pct": 31.25, "total_40_share_pct": 13.89, "a3_zero_share_pct": 7.64}, {"rank_high": 3, "rank_low": 75, "province_name": "ราชบุรี", "achievement_score": 83.15, "passed_students": 137, "normalized_schools": 16, "avg_total_all": 53.88, "avg_a3": 9.81, "high_score_60_plus_share_pct": 24.09, "total_40_share_pct": 16.06, "a3_zero_share_pct": 5.11}, {"rank_high": 4, "rank_low": 74, "province_name": "อุบลราชธานี", "achievement_score": 82.92, "passed_students": 162, "normalized_schools": 19, "avg_total_all": 52.22, "avg_a3": 9.85, "high_score_60_plus_share_pct": 26.54, "total_40_share_pct": 22.84, "a3_zero_share_pct": 4.32}, {"rank_high": 5, "rank_low": 73, "province_name": "บุรีรัมย์", "achievement_score": 80.58, "passed_students": 57, "normalized_schools": 18, "avg_total_all": 63.89, "avg_a3": 10.56, "high_score_60_plus_share_pct": 38.6, "total_40_share_pct": 26.32, "a3_zero_share_pct": 3.51}, {"rank_high": 6, "rank_low": 72, "province_name": "ฉะเชิงเทรา", "achievement_score": 76.88, "passed_students": 95, "normalized_schools": 20, "avg_total_all": 50.14, "avg_a3": 11.65, "high_score_60_plus_share_pct": 17.89, "total_40_share_pct": 18.95, "a3_zero_share_pct": 10.53}, {"rank_high": 7, "rank_low": 71, "province_name": "ชลบุรี", "achievement_score": 71.85, "passed_students": 137, "normalized_schools": 35, "avg_total_all": 49.58, "avg_a3": 6.56, "high_score_60_plus_share_pct": 19.71, "total_40_share_pct": 24.09, "a3_zero_share_pct": 18.25}, {"rank_high": 8, "rank_low": 70, "province_name": "เชียงใหม่", "achievement_score": 71.3, "passed_students": 280, "normalized_schools": 56, "avg_total_all": 48.41, "avg_a3": 6.44, "high_score_60_plus_share_pct": 16.07, "total_40_share_pct": 32.86, "a3_zero_share_pct": 11.07}, {"rank_high": 9, "rank_low": 69, "province_name": "สุราษฎร์ธานี", "achievement_score": 70.84, "passed_students": 159, "normalized_schools": 29, "avg_total_all": 48.89, "avg_a3": 6.25, "high_score_60_plus_share_pct": 16.35, "total_40_share_pct": 37.11, "a3_zero_share_pct": 7.55}, {"rank_high": 10, "rank_low": 68, "province_name": "นครราชสีมา", "achievement_score": 70.0, "passed_students": 336, "normalized_schools": 52, "avg_total_all": 48.4, "avg_a3": 6.07, "high_score_60_plus_share_pct": 10.12, "total_40_share_pct": 23.21, "a3_zero_share_pct": 7.74}, {"rank_high": 11, "rank_low": 67, "province_name": "สระแก้ว", "achievement_score": 69.89, "passed_students": 43, "normalized_schools": 5, "avg_total_all": 59.93, "avg_a3": 9.93, "high_score_60_plus_share_pct": 46.51, "total_40_share_pct": 20.93, "a3_zero_share_pct": 0.0}, {"rank_high": 12, "rank_low": 66, "province_name": "กรุงเทพมหานคร", "achievement_score": 67.92, "passed_students": 1611, "normalized_schools": 253, "avg_total_all": 48.66, "avg_a3": 5.51, "high_score_60_plus_share_pct": 14.09, "total_40_share_pct": 25.33, "a3_zero_share_pct": 16.64}, {"rank_high": 13, "rank_low": 65, "province_name": "สมุทรปราการ", "achievement_score": 66.56, "passed_students": 118, "normalized_schools": 25, "avg_total_all": 50.31, "avg_a3": 6.21, "high_score_60_plus_share_pct": 16.95, "total_40_share_pct": 25.42, "a3_zero_share_pct": 21.19}, {"rank_high": 14, "rank_low": 64, "province_name": "ตรัง", "achievement_score": 65.39, "passed_students": 56, "normalized_schools": 18, "avg_total_all": 51.04, "avg_a3": 6.23, "high_score_60_plus_share_pct": 17.86, "total_40_share_pct": 21.43, "a3_zero_share_pct": 25.0}, {"rank_high": 15, "rank_low": 63, "province_name": "กาฬสินธุ์", "achievement_score": 64.74, "passed_students": 33, "normalized_schools": 15, "avg_total_all": 54.55, "avg_a3": 5.27, "high_score_60_plus_share_pct": 27.27, "total_40_share_pct": 21.21, "a3_zero_share_pct": 9.09}, {"rank_high": 16, "rank_low": 62, "province_name": "จันทบุรี", "achievement_score": 64.12, "passed_students": 38, "normalized_schools": 12, "avg_total_all": 52.71, "avg_a3": 7.37, "high_score_60_plus_share_pct": 21.05, "total_40_share_pct": 21.05, "a3_zero_share_pct": 21.05}, {"rank_high": 17, "rank_low": 61, "province_name": "กาญจนบุรี", "achievement_score": 63.34, "passed_students": 47, "normalized_schools": 16, "avg_total_all": 50.17, "avg_a3": 8.11, "high_score_60_plus_share_pct": 14.89, "total_40_share_pct": 29.79, "a3_zero_share_pct": 14.89}, {"rank_high": 18, "rank_low": 60, "province_name": "นนทบุรี", "achievement_score": 63.08, "passed_students": 167, "normalized_schools": 36, "avg_total_all": 48.13, "avg_a3": 5.65, "high_score_60_plus_share_pct": 11.98, "total_40_share_pct": 32.93, "a3_zero_share_pct": 10.78}, {"rank_high": 19, "rank_low": 59, "province_name": "สุรินทร์", "achievement_score": 61.93, "passed_students": 54, "normalized_schools": 11, "avg_total_all": 53.48, "avg_a3": 3.57, "high_score_60_plus_share_pct": 29.63, "total_40_share_pct": 9.26, "a3_zero_share_pct": 11.11}, {"rank_high": 20, "rank_low": 58, "province_name": "สุโขทัย", "achievement_score": 61.85, "passed_students": 34, "normalized_schools": 7, "avg_total_all": 49.56, "avg_a3": 11.65, "high_score_60_plus_share_pct": 17.65, "total_40_share_pct": 14.71, "a3_zero_share_pct": 8.82}, {"rank_high": 21, "rank_low": 57, "province_name": "ขอนแก่น", "achievement_score": 61.14, "passed_students": 220, "normalized_schools": 32, "avg_total_all": 46.8, "avg_a3": 5.62, "high_score_60_plus_share_pct": 10.45, "total_40_share_pct": 28.64, "a3_zero_share_pct": 7.73}, {"rank_high": 22, "rank_low": 56, "province_name": "สงขลา", "achievement_score": 61.01, "passed_students": 240, "normalized_schools": 28, "avg_total_all": 47.03, "avg_a3": 5.09, "high_score_60_plus_share_pct": 11.25, "total_40_share_pct": 24.17, "a3_zero_share_pct": 8.33}, {"rank_high": 23, "rank_low": 55, "province_name": "อุดรธานี", "achievement_score": 60.26, "passed_students": 64, "normalized_schools": 10, "avg_total_all": 50.7, "avg_a3": 5.78, "high_score_60_plus_share_pct": 20.31, "total_40_share_pct": 20.31, "a3_zero_share_pct": 18.75}, {"rank_high": 24, "rank_low": 54, "province_name": "พัทลุง", "achievement_score": 59.97, "passed_students": 53, "normalized_schools": 11, "avg_total_all": 51.21, "avg_a3": 5.21, "high_score_60_plus_share_pct": 18.87, "total_40_share_pct": 18.87, "a3_zero_share_pct": 11.32}, {"rank_high": 25, "rank_low": 53, "province_name": "นครปฐม", "achievement_score": 59.51, "passed_students": 142, "normalized_schools": 27, "avg_total_all": 48.32, "avg_a3": 5.45, "high_score_60_plus_share_pct": 16.2, "total_40_share_pct": 25.35, "a3_zero_share_pct": 19.72}, {"rank_high": 26, "rank_low": 52, "province_name": "แม่ฮ่องสอน", "achievement_score": 59.37, "passed_students": 3, "normalized_schools": 2, "avg_total_all": 66.0, "avg_a3": 9.33, "high_score_60_plus_share_pct": 66.67, "total_40_share_pct": 0.0, "a3_zero_share_pct": 0.0}, {"rank_high": 27, "rank_low": 51, "province_name": "สกลนคร", "achievement_score": 58.93, "passed_students": 130, "normalized_schools": 10, "avg_total_all": 50.37, "avg_a3": 5.95, "high_score_60_plus_share_pct": 17.69, "total_40_share_pct": 36.15, "a3_zero_share_pct": 18.46}, {"rank_high": 28, "rank_low": 50, "province_name": "นครศรีธรรมราช", "achievement_score": 58.81, "passed_students": 140, "normalized_schools": 26, "avg_total_all": 47.09, "avg_a3": 5.74, "high_score_60_plus_share_pct": 10.71, "total_40_share_pct": 21.43, "a3_zero_share_pct": 15.71}, {"rank_high": 29, "rank_low": 49, "province_name": "ลำปาง", "achievement_score": 58.73, "passed_students": 54, "normalized_schools": 10, "avg_total_all": 48.56, "avg_a3": 7.65, "high_score_60_plus_share_pct": 12.96, "total_40_share_pct": 16.67, "a3_zero_share_pct": 14.81}, {"rank_high": 30, "rank_low": 48, "province_name": "ตราด", "achievement_score": 57.52, "passed_students": 6, "normalized_schools": 2, "avg_total_all": 79.17, "avg_a3": 11.67, "high_score_60_plus_share_pct": 66.67, "total_40_share_pct": 0.0, "a3_zero_share_pct": 16.67}, {"rank_high": 31, "rank_low": 47, "province_name": "ปัตตานี", "achievement_score": 57.08, "passed_students": 89, "normalized_schools": 27, "avg_total_all": 48.52, "avg_a3": 3.58, "high_score_60_plus_share_pct": 14.61, "total_40_share_pct": 17.98, "a3_zero_share_pct": 19.1}, {"rank_high": 32, "rank_low": 46, "province_name": "เพชรบูรณ์", "achievement_score": 55.23, "passed_students": 21, "normalized_schools": 9, "avg_total_all": 54.19, "avg_a3": 4.9, "high_score_60_plus_share_pct": 23.81, "total_40_share_pct": 23.81, "a3_zero_share_pct": 4.76}, {"rank_high": 33, "rank_low": 45, "province_name": "อุตรดิตถ์", "achievement_score": 54.94, "passed_students": 18, "normalized_schools": 5, "avg_total_all": 58.5, "avg_a3": 6.11, "high_score_60_plus_share_pct": 38.89, "total_40_share_pct": 22.22, "a3_zero_share_pct": 16.67}, {"rank_high": 34, "rank_low": 44, "province_name": "ภูเก็ต", "achievement_score": 54.42, "passed_students": 167, "normalized_schools": 15, "avg_total_all": 45.55, "avg_a3": 5.95, "high_score_60_plus_share_pct": 8.38, "total_40_share_pct": 28.74, "a3_zero_share_pct": 6.59}, {"rank_high": 35, "rank_low": 43, "province_name": "มหาสารคาม", "achievement_score": 54.03, "passed_students": 35, "normalized_schools": 9, "avg_total_all": 47.71, "avg_a3": 6.74, "high_score_60_plus_share_pct": 17.14, "total_40_share_pct": 8.57, "a3_zero_share_pct": 14.29}, {"rank_high": 36, "rank_low": 42, "province_name": "กำแพงเพชร", "achievement_score": 53.28, "passed_students": 76, "normalized_schools": 13, "avg_total_all": 45.55, "avg_a3": 6.13, "high_score_60_plus_share_pct": 9.21, "total_40_share_pct": 22.37, "a3_zero_share_pct": 3.95}, {"rank_high": 37, "rank_low": 41, "province_name": "ยะลา", "achievement_score": 52.87, "passed_students": 92, "normalized_schools": 16, "avg_total_all": 49.4, "avg_a3": 2.17, "high_score_60_plus_share_pct": 22.83, "total_40_share_pct": 38.04, "a3_zero_share_pct": 25.0}, {"rank_high": 38, "rank_low": 40, "province_name": "นครพนม", "achievement_score": 51.67, "passed_students": 33, "normalized_schools": 6, "avg_total_all": 47.73, "avg_a3": 7.91, "high_score_60_plus_share_pct": 9.09, "total_40_share_pct": 15.15, "a3_zero_share_pct": 0.0}, {"rank_high": 39, "rank_low": 39, "province_name": "ตาก", "achievement_score": 51.36, "passed_students": 14, "normalized_schools": 4, "avg_total_all": 52.43, "avg_a3": 5.5, "high_score_60_plus_share_pct": 28.57, "total_40_share_pct": 14.29, "a3_zero_share_pct": 7.14}, {"rank_high": 40, "rank_low": 38, "province_name": "เชียงราย", "achievement_score": 50.68, "passed_students": 77, "normalized_schools": 13, "avg_total_all": 47.19, "avg_a3": 5.73, "high_score_60_plus_share_pct": 9.09, "total_40_share_pct": 23.38, "a3_zero_share_pct": 15.58}, {"rank_high": 41, "rank_low": 37, "province_name": "น่าน", "achievement_score": 49.35, "passed_students": 69, "normalized_schools": 10, "avg_total_all": 48.36, "avg_a3": 5.7, "high_score_60_plus_share_pct": 11.59, "total_40_share_pct": 27.54, "a3_zero_share_pct": 13.04}, {"rank_high": 42, "rank_low": 36, "province_name": "เลย", "achievement_score": 48.77, "passed_students": 32, "normalized_schools": 9, "avg_total_all": 48.69, "avg_a3": 5.97, "high_score_60_plus_share_pct": 12.5, "total_40_share_pct": 12.5, "a3_zero_share_pct": 28.12}, {"rank_high": 43, "rank_low": 35, "province_name": "สตูล", "achievement_score": 48.64, "passed_students": 81, "normalized_schools": 15, "avg_total_all": 45.7, "avg_a3": 5.65, "high_score_60_plus_share_pct": 3.7, "total_40_share_pct": 28.4, "a3_zero_share_pct": 7.41}, {"rank_high": 44, "rank_low": 34, "province_name": "ประจวบคีรีขันธ์", "achievement_score": 48.57, "passed_students": 57, "normalized_schools": 9, "avg_total_all": 48.46, "avg_a3": 5.11, "high_score_60_plus_share_pct": 12.28, "total_40_share_pct": 15.79, "a3_zero_share_pct": 19.3}, {"rank_high": 45, "rank_low": 33, "province_name": "ระยอง", "achievement_score": 47.5, "passed_students": 149, "normalized_schools": 12, "avg_total_all": 45.09, "avg_a3": 6.08, "high_score_60_plus_share_pct": 6.71, "total_40_share_pct": 34.23, "a3_zero_share_pct": 12.08}, {"rank_high": 46, "rank_low": 32, "province_name": "ศรีสะเกษ", "achievement_score": 47.18, "passed_students": 77, "normalized_schools": 11, "avg_total_all": 46.7, "avg_a3": 4.9, "high_score_60_plus_share_pct": 11.69, "total_40_share_pct": 22.08, "a3_zero_share_pct": 12.99}, {"rank_high": 47, "rank_low": 31, "province_name": "เพชรบุรี", "achievement_score": 46.72, "passed_students": 72, "normalized_schools": 13, "avg_total_all": 45.42, "avg_a3": 5.97, "high_score_60_plus_share_pct": 6.94, "total_40_share_pct": 40.28, "a3_zero_share_pct": 4.17}, {"rank_high": 48, "rank_low": 30, "province_name": "พะเยา", "achievement_score": 46.67, "passed_students": 31, "normalized_schools": 6, "avg_total_all": 53.42, "avg_a3": 4.71, "high_score_60_plus_share_pct": 22.58, "total_40_share_pct": 29.03, "a3_zero_share_pct": 19.35}, {"rank_high": 49, "rank_low": 29, "province_name": "มุกดาหาร", "achievement_score": 46.49, "passed_students": 46, "normalized_schools": 15, "avg_total_all": 46.22, "avg_a3": 5.09, "high_score_60_plus_share_pct": 8.7, "total_40_share_pct": 15.22, "a3_zero_share_pct": 10.87}, {"rank_high": 50, "rank_low": 28, "province_name": "สมุทรสาคร", "achievement_score": 46.44, "passed_students": 12, "normalized_schools": 6, "avg_total_all": 48.08, "avg_a3": 8.0, "high_score_60_plus_share_pct": 8.33, "total_40_share_pct": 16.67, "a3_zero_share_pct": 0.0}, {"rank_high": 51, "rank_low": 27, "province_name": "ชัยภูมิ", "achievement_score": 46.38, "passed_students": 20, "normalized_schools": 8, "avg_total_all": 49.6, "avg_a3": 5.6, "high_score_60_plus_share_pct": 20.0, "total_40_share_pct": 40.0, "a3_zero_share_pct": 10.0}, {"rank_high": 52, "rank_low": 26, "province_name": "สิงห์บุรี", "achievement_score": 46.19, "passed_students": 6, "normalized_schools": 3, "avg_total_all": 56.5, "avg_a3": 10.83, "high_score_60_plus_share_pct": 16.67, "total_40_share_pct": 50.0, "a3_zero_share_pct": 16.67}, {"rank_high": 53, "rank_low": 25, "province_name": "นครสวรรค์", "achievement_score": 45.62, "passed_students": 50, "normalized_schools": 12, "avg_total_all": 47.98, "avg_a3": 4.94, "high_score_60_plus_share_pct": 14.0, "total_40_share_pct": 42.0, "a3_zero_share_pct": 10.0}, {"rank_high": 54, "rank_low": 24, "province_name": "พระนครศรีอยุธยา", "achievement_score": 42.66, "passed_students": 13, "normalized_schools": 4, "avg_total_all": 49.46, "avg_a3": 6.62, "high_score_60_plus_share_pct": 15.38, "total_40_share_pct": 46.15, "a3_zero_share_pct": 7.69}, {"rank_high": 55, "rank_low": 23, "province_name": "ร้อยเอ็ด", "achievement_score": 42.5, "passed_students": 39, "normalized_schools": 10, "avg_total_all": 45.97, "avg_a3": 6.0, "high_score_60_plus_share_pct": 5.13, "total_40_share_pct": 23.08, "a3_zero_share_pct": 10.26}, {"rank_high": 56, "rank_low": 22, "province_name": "อำนาจเจริญ", "achievement_score": 40.32, "passed_students": 8, "normalized_schools": 2, "avg_total_all": 49.88, "avg_a3": 7.5, "high_score_60_plus_share_pct": 12.5, "total_40_share_pct": 25.0, "a3_zero_share_pct": 12.5}, {"rank_high": 57, "rank_low": 21, "province_name": "สระบุรี", "achievement_score": 39.66, "passed_students": 25, "normalized_schools": 5, "avg_total_all": 46.56, "avg_a3": 7.28, "high_score_60_plus_share_pct": 8.0, "total_40_share_pct": 20.0, "a3_zero_share_pct": 12.0}, {"rank_high": 58, "rank_low": 20, "province_name": "ชุมพร", "achievement_score": 39.51, "passed_students": 123, "normalized_schools": 5, "avg_total_all": 46.46, "avg_a3": 3.92, "high_score_60_plus_share_pct": 9.76, "total_40_share_pct": 30.89, "a3_zero_share_pct": 2.44}, {"rank_high": 59, "rank_low": 19, "province_name": "ลำพูน", "achievement_score": 37.39, "passed_students": 31, "normalized_schools": 7, "avg_total_all": 48.74, "avg_a3": 4.32, "high_score_60_plus_share_pct": 12.9, "total_40_share_pct": 29.03, "a3_zero_share_pct": 22.58}, {"rank_high": 60, "rank_low": 18, "province_name": "พังงา", "achievement_score": 36.59, "passed_students": 18, "normalized_schools": 5, "avg_total_all": 48.0, "avg_a3": 4.83, "high_score_60_plus_share_pct": 16.67, "total_40_share_pct": 22.22, "a3_zero_share_pct": 11.11}, {"rank_high": 61, "rank_low": 17, "province_name": "อ่างทอง", "achievement_score": 35.99, "passed_students": 46, "normalized_schools": 5, "avg_total_all": 45.17, "avg_a3": 5.93, "high_score_60_plus_share_pct": 8.7, "total_40_share_pct": 41.3, "a3_zero_share_pct": 0.0}, {"rank_high": 62, "rank_low": 15, "province_name": "สุพรรณบุรี", "achievement_score": 34.64, "passed_students": 30, "normalized_schools": 10, "avg_total_all": 46.63, "avg_a3": 3.97, "high_score_60_plus_share_pct": 6.67, "total_40_share_pct": 33.33, "a3_zero_share_pct": 6.67}, {"rank_high": 62, "rank_low": 15, "province_name": "ปราจีนบุรี", "achievement_score": 34.64, "passed_students": 18, "normalized_schools": 5, "avg_total_all": 48.67, "avg_a3": 4.67, "high_score_60_plus_share_pct": 11.11, "total_40_share_pct": 16.67, "a3_zero_share_pct": 38.89}, {"rank_high": 64, "rank_low": 14, "province_name": "พิจิตร", "achievement_score": 33.96, "passed_students": 15, "normalized_schools": 6, "avg_total_all": 45.67, "avg_a3": 4.47, "high_score_60_plus_share_pct": 13.33, "total_40_share_pct": 20.0, "a3_zero_share_pct": 6.67}, {"rank_high": 65, "rank_low": 13, "province_name": "ยโสธร", "achievement_score": 33.47, "passed_students": 10, "normalized_schools": 3, "avg_total_all": 44.6, "avg_a3": 6.6, "high_score_60_plus_share_pct": 10.0, "total_40_share_pct": 20.0, "a3_zero_share_pct": 0.0}, {"rank_high": 66, "rank_low": 12, "province_name": "บึงกาฬ", "achievement_score": 32.87, "passed_students": 4, "normalized_schools": 4, "avg_total_all": 51.5, "avg_a3": 0.75, "high_score_60_plus_share_pct": 25.0, "total_40_share_pct": 25.0, "a3_zero_share_pct": 50.0}, {"rank_high": 67, "rank_low": 11, "province_name": "ระนอง", "achievement_score": 30.18, "passed_students": 10, "normalized_schools": 2, "avg_total_all": 44.8, "avg_a3": 10.4, "high_score_60_plus_share_pct": 0.0, "total_40_share_pct": 20.0, "a3_zero_share_pct": 10.0}, {"rank_high": 68, "rank_low": 10, "province_name": "นครนายก", "achievement_score": 29.24, "passed_students": 5, "normalized_schools": 4, "avg_total_all": 50.6, "avg_a3": 2.2, "high_score_60_plus_share_pct": 20.0, "total_40_share_pct": 40.0, "a3_zero_share_pct": 80.0}, {"rank_high": 69, "rank_low": 9, "province_name": "ลพบุรี", "achievement_score": 26.53, "passed_students": 29, "normalized_schools": 13, "avg_total_all": 44.55, "avg_a3": 3.0, "high_score_60_plus_share_pct": 6.9, "total_40_share_pct": 34.48, "a3_zero_share_pct": 24.14}, {"rank_high": 70, "rank_low": 8, "province_name": "แพร่", "achievement_score": 23.2, "passed_students": 24, "normalized_schools": 4, "avg_total_all": 45.42, "avg_a3": 4.5, "high_score_60_plus_share_pct": 12.5, "total_40_share_pct": 33.33, "a3_zero_share_pct": 20.83}, {"rank_high": 71, "rank_low": 7, "province_name": "ชัยนาท", "achievement_score": 22.09, "passed_students": 2, "normalized_schools": 1, "avg_total_all": 46.5, "avg_a3": 3.5, "high_score_60_plus_share_pct": 0.0, "total_40_share_pct": 0.0, "a3_zero_share_pct": 0.0}, {"rank_high": 72, "rank_low": 6, "province_name": "นราธิวาส", "achievement_score": 21.53, "passed_students": 29, "normalized_schools": 7, "avg_total_all": 43.38, "avg_a3": 4.86, "high_score_60_plus_share_pct": 0.0, "total_40_share_pct": 41.38, "a3_zero_share_pct": 20.69}, {"rank_high": 73, "rank_low": 5, "province_name": "สมุทรสงคราม", "achievement_score": 19.29, "passed_students": 11, "normalized_schools": 3, "avg_total_all": 41.0, "avg_a3": 6.18, "high_score_60_plus_share_pct": 0.0, "total_40_share_pct": 36.36, "a3_zero_share_pct": 18.18}, {"rank_high": 74, "rank_low": 4, "province_name": "หนองบัวลำภู", "achievement_score": 16.59, "passed_students": 12, "normalized_schools": 2, "avg_total_all": 46.58, "avg_a3": 1.83, "high_score_60_plus_share_pct": 8.33, "total_40_share_pct": 25.0, "a3_zero_share_pct": 41.67}, {"rank_high": 75, "rank_low": 3, "province_name": "หนองคาย", "achievement_score": 15.89, "passed_students": 15, "normalized_schools": 2, "avg_total_all": 42.87, "avg_a3": 3.8, "high_score_60_plus_share_pct": 0.0, "total_40_share_pct": 53.33, "a3_zero_share_pct": 0.0}, {"rank_high": 76, "rank_low": 2, "province_name": "กระบี่", "achievement_score": 15.73, "passed_students": 12, "normalized_schools": 8, "avg_total_all": 43.08, "avg_a3": 1.75, "high_score_60_plus_share_pct": 0.0, "total_40_share_pct": 50.0, "a3_zero_share_pct": 16.67}, {"rank_high": 77, "rank_low": 1, "province_name": "อุทัยธานี", "achievement_score": 8.33, "passed_students": 2, "normalized_schools": 2, "avg_total_all": 43.5, "avg_a3": 5.0, "high_score_60_plus_share_pct": 0.0, "total_40_share_pct": 50.0, "a3_zero_share_pct": 50.0}], "heatmap": [{"province_name": "ปทุมธานี", "volume_signal": 0.9481, "school_spread_signal": 0.9351, "avg_score_signal": 0.8442, "a3_signal": 0.7662, "high_score_signal": 0.8052, "low_borderline_signal": 0.8961, "low_a3_zero_signal": 0.6234}, {"province_name": "พิษณุโลก", "volume_signal": 0.8571, "school_spread_signal": 0.8506, "avg_score_signal": 0.9221, "a3_signal": 0.7273, "high_score_signal": 0.9351, "low_borderline_signal": 0.9091, "low_a3_zero_signal": 0.7143}, {"province_name": "ราชบุรี", "volume_signal": 0.8117, "school_spread_signal": 0.7532, "avg_score_signal": 0.8831, "a3_signal": 0.8961, "high_score_signal": 0.8571, "low_borderline_signal": 0.8182, "low_a3_zero_signal": 0.8052}, {"province_name": "อุบลราชธานี", "volume_signal": 0.8961, "school_spread_signal": 0.8052, "avg_score_signal": 0.8052, "a3_signal": 0.9091, "high_score_signal": 0.8831, "low_borderline_signal": 0.5455, "low_a3_zero_signal": 0.8312}, {"province_name": "บุรีรัมย์", "volume_signal": 0.6169, "school_spread_signal": 0.7857, "avg_score_signal": 0.974, "a3_signal": 0.9481, "high_score_signal": 0.9481, "low_borderline_signal": 0.3766, "low_a3_zero_signal": 0.8701}, {"province_name": "ฉะเชิงเทรา", "volume_signal": 0.7532, "school_spread_signal": 0.8182, "avg_score_signal": 0.6883, "a3_signal": 0.987, "high_score_signal": 0.7143, "low_borderline_signal": 0.7403, "low_a3_zero_signal": 0.5584}, {"province_name": "ชลบุรี", "volume_signal": 0.8117, "school_spread_signal": 0.9481, "avg_score_signal": 0.6494, "a3_signal": 0.7143, "high_score_signal": 0.7403, "low_borderline_signal": 0.4805, "low_a3_zero_signal": 0.2597}, {"province_name": "เชียงใหม่", "volume_signal": 0.974, "school_spread_signal": 0.987, "avg_score_signal": 0.4935, "a3_signal": 0.7013, "high_score_signal": 0.5844, "low_borderline_signal": 0.2597, "low_a3_zero_signal": 0.5195}, {"province_name": "สุราษฎร์ธานี", "volume_signal": 0.8831, "school_spread_signal": 0.9091, "avg_score_signal": 0.5974, "a3_signal": 0.6883, "high_score_signal": 0.6104, "low_borderline_signal": 0.1558, "low_a3_zero_signal": 0.7273}, {"province_name": "นครราชสีมา", "volume_signal": 0.987, "school_spread_signal": 0.974, "avg_score_signal": 0.4805, "a3_signal": 0.5974, "high_score_signal": 0.3247, "low_borderline_signal": 0.5195, "low_a3_zero_signal": 0.6753}, {"province_name": "สระแก้ว", "volume_signal": 0.4935, "school_spread_signal": 0.2597, "avg_score_signal": 0.961, "a3_signal": 0.9221, "high_score_signal": 0.974, "low_borderline_signal": 0.6623, "low_a3_zero_signal": 0.9416}, {"province_name": "กรุงเทพมหานคร", "volume_signal": 1.0, "school_spread_signal": 1.0, "avg_score_signal": 0.5455, "a3_signal": 0.4026, "high_score_signal": 0.5325, "low_borderline_signal": 0.4156, "low_a3_zero_signal": 0.3377}, {"province_name": "สมุทรปราการ", "volume_signal": 0.7662, "school_spread_signal": 0.8312, "avg_score_signal": 0.7143, "a3_signal": 0.6623, "high_score_signal": 0.6494, "low_borderline_signal": 0.3896, "low_a3_zero_signal": 0.1299}, {"province_name": "ตรัง", "volume_signal": 0.5974, "school_spread_signal": 0.7857, "avg_score_signal": 0.7662, "a3_signal": 0.6753, "high_score_signal": 0.7013, "low_borderline_signal": 0.6169, "low_a3_zero_signal": 0.0844}, {"province_name": "กาฬสินธุ์", "volume_signal": 0.4221, "school_spread_signal": 0.7078, "avg_score_signal": 0.9091, "a3_signal": 0.3636, "high_score_signal": 0.8961, "low_borderline_signal": 0.6364, "low_a3_zero_signal": 0.6364}, {"province_name": "จันทบุรี", "volume_signal": 0.4675, "school_spread_signal": 0.6104, "avg_score_signal": 0.8312, "a3_signal": 0.8052, "high_score_signal": 0.7922, "low_borderline_signal": 0.6494, "low_a3_zero_signal": 0.1429}, {"province_name": "กาญจนบุรี", "volume_signal": 0.5325, "school_spread_signal": 0.7532, "avg_score_signal": 0.7013, "a3_signal": 0.8701, "high_score_signal": 0.5584, "low_borderline_signal": 0.2857, "low_a3_zero_signal": 0.3766}, {"province_name": "นนทบุรี", "volume_signal": 0.9156, "school_spread_signal": 0.961, "avg_score_signal": 0.4416, "a3_signal": 0.4416, "high_score_signal": 0.4156, "low_borderline_signal": 0.2468, "low_a3_zero_signal": 0.5455}, {"province_name": "สุรินทร์", "volume_signal": 0.5779, "school_spread_signal": 0.5714, "avg_score_signal": 0.8701, "a3_signal": 0.1039, "high_score_signal": 0.9221, "low_borderline_signal": 0.9351, "low_a3_zero_signal": 0.5}, {"province_name": "สุโขทัย", "volume_signal": 0.4416, "school_spread_signal": 0.3766, "avg_score_signal": 0.6364, "a3_signal": 0.974, "high_score_signal": 0.6753, "low_borderline_signal": 0.8701, "low_a3_zero_signal": 0.6494}, {"province_name": "อุทัยธานี", "volume_signal": 0.0195, "school_spread_signal": 0.0649, "avg_score_signal": 0.0649, "a3_signal": 0.2987, "high_score_signal": 0.0519, "low_borderline_signal": 0.026, "low_a3_zero_signal": 0.0195}, {"province_name": "กระบี่", "volume_signal": 0.1688, "school_spread_signal": 0.4091, "avg_score_signal": 0.039, "a3_signal": 0.026, "high_score_signal": 0.0519, "low_borderline_signal": 0.026, "low_a3_zero_signal": 0.3052}, {"province_name": "หนองคาย", "volume_signal": 0.2273, "school_spread_signal": 0.0649, "avg_score_signal": 0.026, "a3_signal": 0.1299, "high_score_signal": 0.0519, "low_borderline_signal": 0.0, "low_a3_zero_signal": 0.9416}, {"province_name": "หนองบัวลำภู", "volume_signal": 0.1688, "school_spread_signal": 0.0649, "avg_score_signal": 0.2857, "a3_signal": 0.039, "high_score_signal": 0.2013, "low_borderline_signal": 0.4416, "low_a3_zero_signal": 0.039}, {"province_name": "สมุทรสงคราม", "volume_signal": 0.1429, "school_spread_signal": 0.1299, "avg_score_signal": 0.013, "a3_signal": 0.6494, "high_score_signal": 0.0519, "low_borderline_signal": 0.1688, "low_a3_zero_signal": 0.2727}, {"province_name": "นราธิวาส", "volume_signal": 0.3442, "school_spread_signal": 0.3766, "avg_score_signal": 0.0519, "a3_signal": 0.2468, "high_score_signal": 0.0519, "low_borderline_signal": 0.0779, "low_a3_zero_signal": 0.1688}, {"province_name": "ชัยนาท", "volume_signal": 0.0195, "school_spread_signal": 0.013, "avg_score_signal": 0.2597, "a3_signal": 0.0909, "high_score_signal": 0.0519, "low_borderline_signal": 0.974, "low_a3_zero_signal": 0.9416}, {"province_name": "แพร่", "volume_signal": 0.3117, "school_spread_signal": 0.1818, "avg_score_signal": 0.1494, "a3_signal": 0.1948, "high_score_signal": 0.4545, "low_borderline_signal": 0.2273, "low_a3_zero_signal": 0.1558}, {"province_name": "ลพบุรี", "volume_signal": 0.3442, "school_spread_signal": 0.6558, "avg_score_signal": 0.0779, "a3_signal": 0.0779, "high_score_signal": 0.1558, "low_borderline_signal": 0.1948, "low_a3_zero_signal": 0.1039}, {"province_name": "นครนายก", "volume_signal": 0.0649, "school_spread_signal": 0.1818, "avg_score_signal": 0.7403, "a3_signal": 0.0649, "high_score_signal": 0.7597, "low_borderline_signal": 0.1234, "low_a3_zero_signal": 0.0}, {"province_name": "ระนอง", "volume_signal": 0.1234, "school_spread_signal": 0.0649, "avg_score_signal": 0.1039, "a3_signal": 0.9351, "high_score_signal": 0.0519, "low_borderline_signal": 0.7078, "low_a3_zero_signal": 0.5974}, {"province_name": "บึงกาฬ", "volume_signal": 0.0519, "school_spread_signal": 0.1818, "avg_score_signal": 0.7922, "a3_signal": 0.013, "high_score_signal": 0.8701, "low_borderline_signal": 0.4416, "low_a3_zero_signal": 0.0195}, {"province_name": "ยโสธร", "volume_signal": 0.1234, "school_spread_signal": 0.1299, "avg_score_signal": 0.0909, "a3_signal": 0.7403, "high_score_signal": 0.3117, "low_borderline_signal": 0.7078, "low_a3_zero_signal": 0.9416}, {"province_name": "พิจิตร", "volume_signal": 0.2273, "school_spread_signal": 0.3312, "avg_score_signal": 0.1948, "a3_signal": 0.1818, "high_score_signal": 0.5065, "low_borderline_signal": 0.7078, "low_a3_zero_signal": 0.7727}, {"province_name": "ปราจีนบุรี", "volume_signal": 0.2597, "school_spread_signal": 0.2597, "avg_score_signal": 0.5584, "a3_signal": 0.2078, "high_score_signal": 0.3636, "low_borderline_signal": 0.7922, "low_a3_zero_signal": 0.0519}, {"province_name": "สุพรรณบุรี", "volume_signal": 0.3636, "school_spread_signal": 0.513, "avg_score_signal": 0.2987, "a3_signal": 0.1558, "high_score_signal": 0.1299, "low_borderline_signal": 0.2273, "low_a3_zero_signal": 0.7727}, {"province_name": "อ่างทอง", "volume_signal": 0.513, "school_spread_signal": 0.2597, "avg_score_signal": 0.1299, "a3_signal": 0.5195, "high_score_signal": 0.2403, "low_borderline_signal": 0.0909, "low_a3_zero_signal": 0.9416}, {"province_name": "พังงา", "volume_signal": 0.2597, "school_spread_signal": 0.2597, "avg_score_signal": 0.4156, "a3_signal": 0.2338, "high_score_signal": 0.6299, "low_borderline_signal": 0.5779, "low_a3_zero_signal": 0.5}, {"province_name": "ลำพูน", "volume_signal": 0.3831, "school_spread_signal": 0.3766, "avg_score_signal": 0.5844, "a3_signal": 0.1688, "high_score_signal": 0.4805, "low_borderline_signal": 0.3052, "low_a3_zero_signal": 0.1169}, {"province_name": "ชุมพร", "volume_signal": 0.7792, "school_spread_signal": 0.2597, "avg_score_signal": 0.2468, "a3_signal": 0.1429, "high_score_signal": 0.2987, "low_borderline_signal": 0.2727, "low_a3_zero_signal": 0.8831}], "signal_columns": ["volume_signal", "school_spread_signal", "avg_score_signal", "a3_signal", "high_score_signal", "low_borderline_signal", "low_a3_zero_signal"], "signal_labels": {"volume_signal": "Passed volume", "school_spread_signal": "School spread", "avg_score_signal": "Avg total", "a3_signal": "Avg A3", "high_score_signal": "60+ share", "low_borderline_signal": "Low borderline", "low_a3_zero_signal": "Low A3-zero"}, "median_profile": {"province_name": "Median", "volume_signal": 0.512987012987013, "school_spread_signal": 0.512987012987013, "avg_score_signal": 0.5064935064935064, "a3_signal": 0.5064935064935064, "high_score_signal": 0.5064935064935064, "low_borderline_signal": 0.4935064935064935, "low_a3_zero_signal": 0.5}};
+    const provinces = payload.province;
+    const signalColumns = payload.signal_columns;
+    const signalLabels = payload.signal_labels;
+    const medianProfile = payload.median_profile;
+    const palette = {
+      blue: "#4c72b0",
+      orange: "#dd8452",
+      green: "#55a868",
+      red: "#c44e52",
+      purple: "#8172b3",
+      cyan: "#64b5cd",
+      gray: "#64748b"
+    };
+    const plotConfig = { responsive: true, displaylogo: false };
+    const baseLayout = {
+      paper_bgcolor: "rgba(0,0,0,0)",
+      plot_bgcolor: "rgba(0,0,0,0)",
+      margin: { l: 72, r: 28, t: 18, b: 58 },
+      font: { family: "Inter, Segoe UI, sans-serif", color: "#1f2937" },
+      hoverlabel: { bgcolor: "#ffffff", bordercolor: "#d9e1ec", font: { color: "#1f2937" } }
+    };
+
+    const fmt = d3.format(",");
+    const pct = (value) => `${Number(value).toFixed(2)}%`;
+    const num = (value, digits = 2) => Number(value).toFixed(digits);
+    const viewportHeight = (ratio, min, max, cap = 0.9) =>
+      Math.round(Math.min(max, Math.max(min, window.innerHeight * ratio), window.innerHeight * cap));
+
+    function chartHeight(id, ratio, min, max, cap) {
+      const height = viewportHeight(ratio, min, max, cap);
+      document.getElementById(id).style.height = `${height}px`;
+      return height;
+    }
+
+    function drawKpis() {
+      const kpis = [
+        ["Passed students", fmt(payload.metrics.passed_students)],
+        ["Provinces", fmt(payload.metrics.provinces)],
+        ["Normalized schools", fmt(payload.metrics.schools)],
+        ["Median score", num(payload.metrics.median_score)],
+        ["Median A3", num(payload.metrics.median_a3)],
+        ["Median A3=0", pct(payload.metrics.median_a3_zero_share)]
+      ];
+      d3.select("#kpis")
+        .selectAll(".kpi")
+        .data(kpis)
+        .join("div")
+        .attr("class", "kpi")
+        .html(([label, value]) => `<span>${label}</span><strong>${value}</strong>`);
+    }
+
+    function drawInsights() {
+      d3.select("#insights")
+        .selectAll(".insight-card")
+        .data(payload.insights)
+        .join("div")
+        .attr("class", "insight-card")
+        .html(d => `
+          <strong>${d.title}</strong>
+          <div class="metric">${d.metric}</div>
+          <p>${d.body}</p>
+        `);
+    }
+
+    function drawRanking() {
+      const sorted = [...provinces].sort((a, b) => a.achievement_score - b.achievement_score);
+      const labels = sorted.map(d => d.province_name);
+      const height = chartHeight("ranking", 0.82, 520, 920, 0.88);
+      Plotly.newPlot("ranking", [{
+        type: "bar",
+        orientation: "h",
+        x: sorted.map(d => d.achievement_score),
+        y: labels,
+        marker: {
+          color: sorted.map(d => d.achievement_score),
+          colorscale: [[0, palette.red], [0.5, palette.orange], [1, palette.blue]],
+          line: { color: "rgba(31,41,55,0.18)", width: 1 }
+        },
+        customdata: sorted.map(d => [d.province_name, d.rank_high]),
+        hovertemplate:
+          "<b>%{y}</b><br>Achievement: %{x:.2f}<br>Rank high: %{customdata[1]}<extra></extra>"
+      }], {
+        ...baseLayout,
+        height,
+        bargap: 0.06,
+        xaxis: { title: "achievement_score", gridcolor: "#e8edf5", zeroline: false },
+        yaxis: {
+          automargin: true,
+          tickmode: "array",
+          tickvals: labels,
+          ticktext: labels,
+          tickfont: { size: 10 }
+        },
+        margin: { l: 108, r: 24, t: 8, b: 46 }
+      }, plotConfig);
+      document.getElementById("ranking").on("plotly_click", ev => {
+        const province = ev.points[0].customdata[0];
+        selectProvince(province);
+      });
+    }
+
+    function drawScatter() {
+      const height = chartHeight("scatter", 0.68, 430, 760, 0.78);
+      Plotly.newPlot("scatter", [{
+        type: "scatter",
+        mode: "markers",
+        x: provinces.map(d => d.passed_students),
+        y: provinces.map(d => d.achievement_score),
+        text: provinces.map(d => d.province_name),
+        customdata: provinces.map(d => d.province_name),
+        marker: {
+          size: provinces.map(d => Math.max(9, Math.sqrt(d.normalized_schools) * 3.2)),
+          color: provinces.map(d => d.a3_zero_share_pct),
+          colorscale: [[0, "#dbeafe"], [0.35, palette.cyan], [0.7, palette.orange], [1, palette.red]],
+          showscale: true,
+          colorbar: { title: "A3=0 %" },
+          line: { color: "#ffffff", width: 1.5 },
+          opacity: 0.88
+        },
+        hovertemplate:
+          "<b>%{text}</b><br>Passed: %{x:,}<br>Achievement: %{y:.2f}<br>A3=0: %{marker.color:.2f}%<extra></extra>"
+      }], {
+        ...baseLayout,
+        height,
+        xaxis: { title: "passed_students", type: "log", gridcolor: "#e8edf5" },
+        yaxis: { title: "achievement_score", gridcolor: "#e8edf5", range: [0, 92] },
+        shapes: [{
+          type: "line",
+          xref: "paper",
+          x0: 0,
+          x1: 1,
+          y0: payload.metrics.median_score,
+          y1: payload.metrics.median_score,
+          line: { color: "#94a3b8", dash: "dot", width: 1 }
+        }]
+      }, plotConfig);
+      document.getElementById("scatter").on("plotly_click", ev => {
+        selectProvince(ev.points[0].customdata);
+      });
+    }
+
+    function drawHeatmap() {
+      const rows = payload.heatmap;
+      const z = rows.map(row => signalColumns.map(column => row[column]));
+      const height = chartHeight("heatmap", 0.76, 560, 860, 0.84);
+      Plotly.newPlot("heatmap", [{
+        type: "heatmap",
+        z,
+        x: signalColumns.map(column => signalLabels[column]),
+        y: rows.map(row => row.province_name),
+        colorscale: [[0, "#f4d6d7"], [0.5, "#f3efe7"], [1, "#4c72b0"]],
+        zmin: 0,
+        zmax: 1,
+        hovertemplate: "<b>%{y}</b><br>%{x}: %{z:.2f}<extra></extra>"
+      }], {
+        ...baseLayout,
+        height,
+        xaxis: { side: "top", tickangle: -30 },
+        yaxis: { automargin: true },
+        margin: { l: 120, r: 24, t: 96, b: 28 }
+      }, plotConfig);
+    }
+
+    function drawBottleneck() {
+      const rows = [...provinces].sort((a, b) => a.rank_low - b.rank_low).slice(0, 20).reverse();
+      const y = rows.map(d => d.province_name);
+      const height = chartHeight("bottleneck", 0.7, 460, 760, 0.8);
+      const traces = [
+        ["total_40_share_pct", "total_all = 40", palette.orange],
+        ["a2_a3_20_share_pct", "A2 + A3 = 20", palette.purple],
+        ["a3_zero_share_pct", "A3 = 0", palette.red]
+      ].map(([column, name, color]) => ({
+        type: "bar",
+        orientation: "h",
+        name,
+        x: rows.map(d => d[column]),
+        y,
+        marker: { color },
+        customdata: rows.map(d => d.province_name),
+        hovertemplate: `<b>%{y}</b><br>${name}: %{x:.2f}%<extra></extra>`
+      }));
+      Plotly.newPlot("bottleneck", traces, {
+        ...baseLayout,
+        barmode: "group",
+        height,
+        xaxis: { title: "share of passed students", ticksuffix: "%", gridcolor: "#e8edf5" },
+        yaxis: { automargin: true },
+        legend: { orientation: "h", y: -0.18 },
+        margin: { l: 112, r: 24, t: 8, b: 86 }
+      }, plotConfig);
+      document.getElementById("bottleneck").on("plotly_click", ev => {
+        selectProvince(ev.points[0].customdata);
+      });
+    }
+
+    function drawRadar(row) {
+      const labels = signalColumns.map(column => signalLabels[column]);
+      const selectedValues = signalColumns.map(column => row[column]);
+      const medianValues = signalColumns.map(column => medianProfile[column]);
+      Plotly.newPlot("radar", [
+        {
+          type: "scatterpolar",
+          r: [...selectedValues, selectedValues[0]],
+          theta: [...labels, labels[0]],
+          fill: "toself",
+          name: row.province_name,
+          line: { color: palette.blue },
+          fillcolor: "rgba(76, 114, 176, 0.22)"
+        },
+        {
+          type: "scatterpolar",
+          r: [...medianValues, medianValues[0]],
+          theta: [...labels, labels[0]],
+          fill: "toself",
+          name: "Median",
+          line: { color: palette.orange, dash: "dot" },
+          fillcolor: "rgba(221, 132, 82, 0.12)"
+        }
+      ], {
+        ...baseLayout,
+        height: 360,
+        polar: {
+          radialaxis: { visible: true, range: [0, 1], tickfont: { size: 10 }, gridcolor: "#e8edf5" },
+          angularaxis: { tickfont: { size: 11 } }
+        },
+        showlegend: true,
+        legend: { orientation: "h", y: -0.08 },
+        margin: { l: 24, r: 24, t: 12, b: 58 }
+      }, plotConfig);
+    }
+
+    function renderDetail(row) {
+      d3.select("#selectedDetail").html(`
+        <div class="selected-title">${row.province_name}</div>
+        <div class="stat-list">
+          <div class="stat"><span>Achievement score</span><strong>${num(row.achievement_score)}</strong></div>
+          <div class="stat"><span>Rank high / low</span><strong>${row.rank_high} / ${row.rank_low}</strong></div>
+          <div class="stat"><span>Passed students</span><strong>${fmt(row.passed_students)}</strong></div>
+          <div class="stat"><span>Normalized schools</span><strong>${fmt(row.normalized_schools)}</strong></div>
+          <div class="stat"><span>Avg total</span><strong>${num(row.avg_total_all)}</strong></div>
+          <div class="stat"><span>Avg A3</span><strong>${num(row.avg_a3)}</strong></div>
+          <div class="stat"><span>60+ share</span><strong>${pct(row.high_score_60_plus_share_pct)}</strong></div>
+          <div class="stat"><span>A3 = 0 share</span><strong>${pct(row.a3_zero_share_pct)}</strong></div>
+          <div class="stat"><span>total_all = 40</span><strong>${pct(row.total_40_share_pct)}</strong></div>
+          <div class="stat"><span>A2 + A3 = 20</span><strong>${pct(row.a2_a3_20_share_pct)}</strong></div>
+        </div>
+      `);
+    }
+
+    function selectProvince(provinceName) {
+      const row = provinces.find(d => d.province_name === provinceName) || provinces[0];
+      renderDetail(row);
+      drawRadar(row);
+    }
+
+    function renderTable(rows) {
+      const columns = [
+        ["rank_high", "Rank"],
+        ["rank_low", "Priority"],
+        ["province_name", "Province"],
+        ["achievement_score", "Score"],
+        ["passed_students", "Passed"],
+        ["normalized_schools", "Schools"],
+        ["avg_total_all", "Avg total"],
+        ["avg_a3", "Avg A3"],
+        ["high_score_60_plus_share_pct", "60+ %"],
+        ["total_40_share_pct", "40 %"],
+        ["a3_zero_share_pct", "A3=0 %"]
+      ];
+      d3.select("#provinceHead")
+        .html("")
+        .append("tr")
+        .selectAll("th")
+        .data(columns)
+        .join("th")
+        .text(d => d[1]);
+
+      const tr = d3.select("#provinceRows")
+        .selectAll("tr")
+        .data(rows, d => d.province_name)
+        .join("tr")
+        .on("click", (_, d) => selectProvince(d.province_name));
+
+      tr.selectAll("td")
+        .data(row => columns.map(([key]) => {
+          const value = row[key];
+          if (key === "province_name") return value;
+          if (key.includes("pct")) return pct(value);
+          if (Number.isInteger(value)) return fmt(value);
+          return num(value);
+        }))
+        .join("td")
+        .text(d => d);
+
+      d3.select("#tableCount").text(`${rows.length} provinces`);
+    }
+
+    function setupSearch() {
+      const input = d3.select("#provinceSearch");
+      input.on("input", function () {
+        const query = this.value.trim().toLowerCase();
+        const rows = query
+          ? provinces.filter(d => d.province_name.toLowerCase().includes(query))
+          : provinces;
+        renderTable(rows);
+      });
+    }
+
+    function setupResize() {
+      let resizeTimer;
+      window.addEventListener("resize", () => {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(() => {
+          drawRanking();
+          drawScatter();
+          drawHeatmap();
+          drawBottleneck();
+          const selectedTitle = d3.select("#selectedDetail .selected-title").text();
+          selectProvince(selectedTitle || provinces[0].province_name);
+        }, 180);
+      });
+    }
+
+    drawKpis();
+    drawInsights();
+    drawRanking();
+    drawScatter();
+    drawHeatmap();
+    drawBottleneck();
+    renderTable(provinces);
+    setupSearch();
+    setupResize();
+    selectProvince(provinces[0].province_name);
+  </script>
+</body>
+</html>
