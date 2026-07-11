@@ -1,9 +1,8 @@
 (function () {
   const PERSON_ID = "360009";
-  const LOCAL_TOKEN = "kDImkQRP4D7J3KMHN-wmILyddTdY9qTcMkR22_OUNpM";
-  const DEPLOY_TOKEN = "sN3AOWDUvpWGO-NQ5GeOUk_qqD00D1m5w_Y50imI30w";
-  const LOCAL_API = `http://127.0.0.1:8000/api/profile-claims/stream/${PERSON_ID}?token=${LOCAL_TOKEN}`;
-  const DEPLOY_API = `https://urban.cpe.ku.ac.th/api/profile-claims/stream/${PERSON_ID}?token=${DEPLOY_TOKEN}`;
+  const PUBLIC_STREAM_PATH = `/api/profile-claims/public-stream/${PERSON_ID}?sections=profile`;
+  const LOCAL_API = `http://127.0.0.1:8000${PUBLIC_STREAM_PATH}`;
+  const DEPLOY_API = `https://urban.cpe.ku.ac.th${PUBLIC_STREAM_PATH}`;
   const STATIC_PROFILE_DATA = {
     profile: {
       data: {
@@ -43,7 +42,7 @@
     if (override) return override;
 
     const host = window.location.hostname;
-    if (host === "urban.cpe.ku.ac.th") return `${window.location.origin}/api/profile-claims/stream/${PERSON_ID}?token=${DEPLOY_TOKEN}`;
+    if (host === "urban.cpe.ku.ac.th") return `${window.location.origin}${PUBLIC_STREAM_PATH}`;
     return DEPLOY_API;
   }
 
