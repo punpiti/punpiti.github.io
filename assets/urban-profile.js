@@ -4,6 +4,32 @@
   const DEPLOY_TOKEN = "MMRFi88rFP2hJHrDSngacUQzegAQ8pgsTvGc8RWdjsk";
   const LOCAL_API = `http://127.0.0.1:8000/api/profile-claims/stream/${PERSON_ID}?token=${LOCAL_TOKEN}`;
   const DEPLOY_API = `https://urban.cpe.ku.ac.th/api/profile-claims/stream/${PERSON_ID}?token=${DEPLOY_TOKEN}`;
+  const STATIC_PROFILE_DATA = {
+    profile: {
+      data: {
+        academic_rank: "รองศาสตราจารย์ ดร.",
+        name: "พันธุ์ปิติ เปี่ยมสง่า",
+        department: "ภาควิชาวิศวกรรมคอมพิวเตอร์",
+        faculty: "คณะวิศวกรรมศาสตร์",
+        campus: "มหาวิทยาลัยเกษตรศาสตร์",
+        email: "pp@ku.ac.th",
+        image_url: "assets/portrait.jpg",
+        profile_url: `https://research.ku.ac.th/forest/Person.aspx?id=${PERSON_ID}`,
+        interests: [
+          "Computer Engineering",
+          "Applied AI",
+          "Data Analytics",
+          "Image Processing",
+          "Machine Learning",
+          "Talent Development",
+          "University Systems",
+        ],
+      },
+    },
+    public_profile_context: {
+      public_insight: "อาจารย์ นักวิจัย และผู้ทำงานด้าน AI การศึกษา การพัฒนาคน และระบบข้อมูลเพื่อการตัดสินใจ",
+    },
+  };
   const MANUAL_ADMIN_TIMELINE = [
     "พ.ย. 2567 - ก.ค. 2569 กรรมการสภามหาวิทยาลัยเกษตรศาสตร์ ประเภทคณาจารย์ประจำ",
   ];
@@ -233,6 +259,20 @@
     if (forestLink && profile.profile_url) forestLink.href = profile.profile_url;
   }
 
+  function renderProfileFallback(apiUrl, error) {
+    renderProfile(STATIC_PROFILE_DATA, apiUrl);
+
+    const links = $("[data-profile-links]");
+    if (links) {
+      const note = createEl(
+        "p",
+        "profile-note",
+        `ข้อมูล dynamic จาก KU Urban ยังโหลดไม่ได้ (${error.message}) จึงแสดงข้อมูลพื้นฐานจากเว็บนี้แทน`
+      );
+      links.prepend(note);
+    }
+  }
+
   function renderClasses(data) {
     const profile = data.profile?.data || data.person?.data || {};
     const classes = profile.teaching_summary || [];
@@ -277,7 +317,7 @@
       const profileCard = $("[data-urban-profile-card]");
       const classesList = $("[data-classes-list]");
       const status = $("[data-classes-status]");
-      if (profileCard) profileCard.replaceChildren(createEl("div", "empty-state", `โหลดข้อมูล profile ไม่สำเร็จ: ${error.message}`));
+      if (profileCard) renderProfileFallback(apiUrl, error);
       if (classesList) classesList.replaceChildren(createEl("div", "empty-state", `โหลดข้อมูลคลาสไม่สำเร็จ: ${error.message}`));
       if (status) status.textContent = "ไม่สามารถโหลดข้อมูลได้";
       console.error(error);
