@@ -1,6 +1,7 @@
 (function () {
   const PERSON_ID = "360009";
-  const PUBLIC_STREAM_PATH = `/api/profile-claims/public-stream/${PERSON_ID}?sections=profile,outputs,projects,analysis`;
+  const PUBLIC_PROFILE_PATH = `/api/public/profile/${PERSON_ID}?sections=profile,outputs,projects,analysis`;
+  const PUBLIC_STREAM_PATH = PUBLIC_PROFILE_PATH;
   const LOCAL_API = `http://127.0.0.1:8000${PUBLIC_STREAM_PATH}`;
   const DEPLOY_API = `https://urban.cpe.ku.ac.th${PUBLIC_STREAM_PATH}`;
   const PAGE_SIZE = 18;
