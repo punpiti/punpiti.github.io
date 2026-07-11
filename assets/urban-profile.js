@@ -1,7 +1,7 @@
 (function () {
   const PERSON_ID = "360009";
   const LOCAL_TOKEN = "kDImkQRP4D7J3KMHN-wmILyddTdY9qTcMkR22_OUNpM";
-  const DEPLOY_TOKEN = "MMRFi88rFP2hJHrDSngacUQzegAQ8pgsTvGc8RWdjsk";
+  const DEPLOY_TOKEN = "sN3AOWDUvpWGO-NQ5GeOUk_qqD00D1m5w_Y50imI30w";
   const LOCAL_API = `http://127.0.0.1:8000/api/profile-claims/stream/${PERSON_ID}?token=${LOCAL_TOKEN}`;
   const DEPLOY_API = `https://urban.cpe.ku.ac.th/api/profile-claims/stream/${PERSON_ID}?token=${DEPLOY_TOKEN}`;
   const STATIC_PROFILE_DATA = {
