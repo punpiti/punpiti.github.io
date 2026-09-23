@@ -400,6 +400,467 @@ window.ARTICLES_DATA = [
     ]
   },
   {
+    "slug": "medical-park-financing-risk-and-donor-trust",
+    "path": "./medical-park-financing-risk-and-donor-trust.html",
+    "archive_path": "articles/medical-park-financing-risk-and-donor-trust.html",
+    "title": "โครงการโรงพยาบาลต้องมีแผนเงินทุนที่โปร่งใสและตรวจสอบได้",
+    "summary": "ข้อเสนอให้สภามหาวิทยาลัยกำกับความเสี่ยงด้านแผนเงินทุนของโครงการอุทยานการแพทย์ โดยให้มีข้อมูลแหล่งเงิน ภาระต่อมหาวิทยาลัย ความเสี่ยงด้านต้นทุน และการรายงานความคืบหน้าอย่างเป็นระบบ",
+    "category": "ธรรมาภิบาลและความเสี่ยงทางการเงิน",
+    "date": "2026-07-24",
+    "display_date": "24 July 2026",
+    "image_index": "assets/medical-park-financing-risk-agenda.jpg",
+    "image_alt": "หน้าแรกของข้อเสนอวาระเรื่องการกำกับความเสี่ยงด้านแผนเงินทุนของโครงการอุทยานการแพทย์",
+    "tags": [
+      "university-council",
+      "financial-governance",
+      "medical-park",
+      "donor-trust",
+      "risk-management",
+      "accountability"
+    ]
+  },
+  {
+    "slug": "data-lake-as-university-trust-system",
+    "path": "./data-lake-as-university-trust-system.html",
+    "archive_path": "articles/data-lake-as-university-trust-system.html",
+    "title": "Data Lake ไม่ใช่โกดังข้อมูล แต่คือระบบความไว้วางใจของมหาวิทยาลัย",
+    "summary": "การพัฒนา Data Lake ควรเริ่มจากโจทย์การตัดสินใจและข้อมูลที่ตรวจสอบย้อนกลับได้ เชื่อม Data Product, API, Dashboard, Data Governance และ Data Quality เข้ากับกระบวนการทำงานจริง",
+    "category": "Data-Driven University",
+    "date": "2026-07-21",
+    "display_date": "21 July 2026",
+    "image_index": "assets/psu-data-lake-as-trust-system.jpg",
+    "image_alt": "สไลด์การพัฒนาและบริหารจัดการระบบคลังข้อมูลขนาดใหญ่ มหาวิทยาลัยสงขลานครินทร์",
+    "tags": [
+      "data-lake",
+      "data-governance",
+      "data-quality",
+      "data-product",
+      "data-api",
+      "digital-transformation"
+    ]
+  },
+  {
+    "slug": "one-vote-for-questions-and-follow-through",
+    "path": "./one-vote-for-questions-and-follow-through.html",
+    "archive_path": "articles/one-vote-for-questions-and-follow-through.html",
+    "title": "หนึ่งคะแนนให้คนที่พร้อมตั้งคำถาม และพร้อมติดตามคำตอบ",
+    "summary": "หลักคิดในการสมัครเป็นกรรมการสภามหาวิทยาลัยจากคณาจารย์ประจำ: ทำหน้าที่อย่างอิสระ ตั้งคำถาม เสนอทางเลือก ติดตามให้เกิดผล และสะท้อนเสียงของผู้ปฏิบัติงานจริง",
+    "category": "ธรรมาภิบาลมหาวิทยาลัย",
+    "date": "2026-07-16",
+    "display_date": "16 July 2026",
+    "image_index": "assets/one-vote-for-questions-and-follow-through.jpg",
+    "image_alt": "ภาพรองศาสตราจารย์ ดร.พันธุ์ปิติ เปี่ยมสง่า ผู้สมัครกรรมการสภามหาวิทยาลัยเกษตรศาสตร์",
+    "tags": [
+      "university-council",
+      "faculty-representation",
+      "independence",
+      "accountability",
+      "follow-through",
+      "governance"
+    ]
+  },
+  {
+    "slug": "strategic-foresight-beyond-todays-university",
+    "path": "./strategic-foresight-beyond-todays-university.html",
+    "archive_path": "articles/strategic-foresight-beyond-todays-university.html",
+    "title": "มองมหาวิทยาลัยอีก 20 ปี ต้องคิดให้พ้นจากมหาวิทยาลัยวันนี้",
+    "summary": "บทเรียนจาก KU Strategic Foresight: มหาวิทยาลัยต้องคิดไกลกว่าตลาดแรงงานปัจจุบัน เศรษฐศาสตร์ของ reskill/upskill โครงสร้างหลักสูตรเดิม และความเข้าใจ AI แบบเครื่องมือ",
+    "category": "อนาคตมหาวิทยาลัย",
+    "date": "2026-07-15",
+    "display_date": "15 July 2026",
+    "image_index": "assets/strategic-foresight-beyond-todays-university.jpg",
+    "image_alt": "บรรยากาศวงสนทนา KU Strategic Foresight เกี่ยวกับมหาวิทยาลัยในอีก 20 ปี",
+    "tags": [
+      "strategic-foresight",
+      "future-of-university",
+      "graduate-education",
+      "reskill-upskill",
+      "ai-transformation",
+      "higher-education-policy"
+    ]
+  },
+  {
+    "slug": "ku-foresight-2028-2047-reading-guide",
+    "path": "./ku-foresight-2028-2047-reading-guide.html",
+    "archive_path": "articles/ku-foresight-2028-2047-reading-guide.html",
+    "title": "คู่มืออ่านชุดเอกสาร KU Foresight 2028–2047",
+    "summary": "รวบรวมและจัดหมวดเอกสารโครงการศึกษาและคาดการณ์อนาคตมหาวิทยาลัยเกษตรศาสตร์ ระยะ 20 ปี ทั้งบริบทโลก เทคโนโลยี การศึกษา AI เกษตร อาหาร กฎหมาย แผน และข้อมูลพื้นฐานมหาวิทยาลัย",
+    "category": "Strategic Foresight",
+    "date": "2026-07-15",
+    "display_date": "15 July 2026",
+    "image_index": "assets/ku-foresight-2028-2047-reading-guide.jpg",
+    "image_alt": "ภาพโครงการศึกษาและคาดการณ์อนาคตมหาวิทยาลัยเกษตรศาสตร์ ระยะ 20 ปี พ.ศ. 2571–2590",
+    "tags": [
+      "ku-foresight",
+      "strategic-foresight",
+      "future-of-university",
+      "evidence-base",
+      "higher-education",
+      "resource-guide"
+    ]
+  },
+  {
+    "slug": "decidim-participatory-democracy-classroom",
+    "path": "./decidim-participatory-democracy-classroom.html",
+    "archive_path": "articles/decidim-participatory-democracy-classroom.html",
+    "title": "เมื่อห้องเรียนรัฐศาสตร์ทดลองประชาธิปไตยด้วย Decidim",
+    "summary": "บทเรียนจากการให้นิสิตรัฐศาสตร์ทดลองใช้ Decidim เพื่อสร้างข้อเสนอ รับฟังความคิดเห็น ปรับข้อเสนอ และโหวตงบประมาณจำลอง โดยเชื่อมการออกแบบกระบวนการเข้ากับความน่าเชื่อถือของระบบ",
+    "category": "Civic Technology",
+    "date": "2026-07-14",
+    "display_date": "14 July 2026",
+    "image_index": "assets/decidim-participatory-democracy-classroom.jpg",
+    "image_alt": "นิสิตรัฐศาสตร์และวิศวกรรมคอมพิวเตอร์ร่วมกิจกรรมทดลองใช้ Decidim ในห้องปฏิบัติการคอมพิวเตอร์",
+    "tags": [
+      "decidim",
+      "civic-technology",
+      "participatory-democracy",
+      "public-participation",
+      "public-policy",
+      "interdisciplinary-learning",
+      "system-reliability"
+    ]
+  },
+  {
+    "slug": "kasetsart-life-systems-university-2046",
+    "path": "./kasetsart-life-systems-university-2046.html",
+    "archive_path": "articles/kasetsart-life-systems-university-2046.html",
+    "title": "The Life Systems University: เหตุผลที่ มก. ยังควรดำรงอยู่ในปี 2589",
+    "summary": "วิสัยทัศน์มหาวิทยาลัยเกษตรศาสตร์ในอีก 20 ปี ในฐานะโครงสร้างพื้นฐานทางความรู้และความร่วมมือที่รวมคน ข้อมูล เทคโนโลยี พื้นที่ทดลอง และความไว้วางใจ เพื่อดูแลระบบชีวิตของสังคม",
+    "category": "อนาคตมหาวิทยาลัย",
+    "date": "2026-07-14",
+    "display_date": "14 July 2026",
+    "image_index": "assets/kasetsart-life-systems-university-2046.jpg",
+    "image_alt": "ภาพจินตนาการมหาวิทยาลัยแห่งระบบชีวิตที่เชื่อมผู้คน การวิจัย เทคโนโลยี ธรรมชาติ เมือง และชุมชนเข้าด้วยกัน",
+    "tags": [
+      "life-systems-university",
+      "strategic-foresight",
+      "future-of-university",
+      "lifelong-learning",
+      "research-infrastructure",
+      "university-governance"
+    ]
+  },
+  {
+    "slug": "research-methodology-ai-assisted-thesis-review-handout",
+    "path": "./research-methodology-ai-assisted-thesis-review-handout.html",
+    "archive_path": "articles/research-methodology-ai-assisted-thesis-review-handout.html",
+    "title": "Research Methodology for AI-Assisted Thesis Review: เอกสารทบทวนตรรกะงานวิจัยก่อนใช้ AI",
+    "summary": "เอกสารประกอบการเรียน 26 หน้า ภาษาไทยและอังกฤษ สำหรับตรวจความเชื่อมโยงระหว่างปัญหา วิธี หลักฐาน และข้อสรุป พร้อมแนวทางใช้ AI ช่วยตั้งคำถามโดยมนุษย์ยังรับผิดชอบการตรวจสอบและตัดสินใจ",
+    "category": "AI for Research",
+    "date": "2026-07-11",
+    "display_date": "11 July 2026",
+    "image_index": "assets/research-methodology-ai-assisted-thesis-review-handout.png",
+    "image_alt": "หน้าปกเอกสาร Research Methodology for AI-Assisted Thesis Review พร้อมปุ่มดาวน์โหลด PDF ภาษาไทยและอังกฤษ",
+    "tags": [
+      "research-methodology",
+      "ai-assisted-review",
+      "thesis-review",
+      "evidence",
+      "research-integrity",
+      "teaching-handout"
+    ]
+  },
+  {
+    "slug": "thesis-review-prompt-pack-student-edition",
+    "path": "./thesis-review-prompt-pack-student-edition.html",
+    "archive_path": "articles/thesis-review-prompt-pack-student-edition.html",
+    "title": "Thesis Review Prompt Pack: Student Edition — ให้ AI ช่วยตั้งคำถาม ไม่ใช่ตัดสินแทน",
+    "summary": "ชุด prompt สำหรับให้นิสิตตรวจความเชื่อมโยงของปัญหา วัตถุประสงค์ วิธี หลักฐาน ผลลัพธ์ claim reference และ limitation ก่อนส่ง draft โดยให้ AI ช่วยตั้งคำถามแบบ reviewer",
+    "category": "AI for Research",
+    "date": "2026-07-02",
+    "display_date": "02 July 2026",
+    "image_index": "assets/thesis-review-prompt-pack-student-edition.jpg",
+    "image_alt": "ภาพแนะนำ Thesis Review Prompt Pack Student Edition พร้อมลำดับ Problem Objective Method Evidence และ Result",
+    "tags": [
+      "thesis-review",
+      "prompt-pack",
+      "ai-assisted-review",
+      "research-methodology",
+      "research-integrity",
+      "student-workflow"
+    ]
+  },
+  {
+    "slug": "council-term-ends-questions-continue",
+    "path": "./council-term-ends-questions-continue.html",
+    "archive_path": "articles/council-term-ends-questions-continue.html",
+    "title": "วาระสิ้นสุดลงได้ แต่คำถามบางคำถามยังควรถูกถามต่อไป",
+    "summary": "บันทึกส่งท้ายวาระกรรมการสภามหาวิทยาลัยจากคณาจารย์ประจำ พร้อมสรุป 13 วาระเชิงนโยบายใน 5 ด้าน ได้แก่ ทรัพยากร ฐานวิชาการ อนาคตการศึกษา ระบบข้อมูล และธรรมาภิบาล",
+    "category": "ธรรมาภิบาลมหาวิทยาลัย",
+    "date": "2026-06-29",
+    "display_date": "29 June 2026",
+    "image_index": "assets/council-term-ends-questions-continue.jpg",
+    "image_alt": "รองศาสตราจารย์ ดร.พันธุ์ปิติ เปี่ยมสง่า ถ่ายภาพกับนายกสภามหาวิทยาลัยเกษตรศาสตร์ในการประชุมสภาวาระปกติครั้งสุดท้ายของวาระ",
+    "tags": [
+      "university-council",
+      "governance",
+      "faculty-representation",
+      "policy-agenda",
+      "accountability",
+      "institutional-change"
+    ]
+  },
+  {
+    "slug": "sustainable-research-needs-career-ladders-and-private-rd",
+    "path": "./sustainable-research-needs-career-ladders-and-private-rd.html",
+    "archive_path": "articles/sustainable-research-needs-career-ladders-and-private-rd.html",
+    "title": "ระบบวิจัยยั่งยืนเกิดเมื่อเอกชนอยากทำ R&D และนักวิจัยมี career path จริง",
+    "summary": "เทคโนโลยีเป้าหมายต้องมาคู่กับ research career ladder นอกมหาวิทยาลัย ระบบทุนที่สร้างกำลังคนระยะยาว และแรงจูงใจให้ภาคเอกชนมอง R&D เป็นการลงทุนทางธุรกิจที่คุ้มค่า",
+    "category": "ระบบวิจัยและนวัตกรรม",
+    "date": "2026-06-25",
+    "display_date": "25 June 2026",
+    "image_index": "assets/sustainable-research-career-ladders-private-rd.jpg",
+    "image_alt": "แผนภาพระบบวิจัยยั่งยืนที่เชื่อมบทบาทรัฐ มหาวิทยาลัย หน่วยวิจัย และ R&D ของภาคเอกชน",
+    "tags": [
+      "research-career-ladder",
+      "private-rd",
+      "research-ecosystem",
+      "innovation-policy",
+      "research-workforce",
+      "demand-pull"
+    ]
+  },
+  {
+    "slug": "portfolio-is-evidence-for-the-path-ahead",
+    "path": "./portfolio-is-evidence-for-the-path-ahead.html",
+    "archive_path": "articles/portfolio-is-evidence-for-the-path-ahead.html",
+    "title": "พอร์ตไม่ใช่ที่เก็บอดีต แต่เป็นหลักฐานว่าเราพร้อมเดินต่อทางไหน",
+    "summary": "แนวคิดสำหรับทำ TCAS Portfolio ให้ตอบสามคำถามสำคัญ: สนใจสาขานี้จริงหรือไม่ เคยลงมือทำอะไร และหลักฐานนั้นแสดงศักยภาพที่จะเติบโตต่อในเส้นทางนี้อย่างไร",
+    "category": "การแนะแนวและ TCAS",
+    "date": "2026-06-24",
+    "display_date": "24 June 2026",
+    "image_index": "assets/portfolio-evidence-for-future-path.jpg",
+    "image_alt": "รองศาสตราจารย์ ดร.พันธุ์ปิติ เปี่ยมสง่า บรรยายแนะแนวการเข้ามหาวิทยาลัยให้นักเรียนที่โรงเรียนเทพศิรินทร์",
+    "tags": [
+      "portfolio",
+      "tcas1",
+      "admissions",
+      "student-guidance",
+      "evidence",
+      "debsirin"
+    ]
+  },
+  {
+    "slug": "if-an-answer-fits-every-problem-it-answers-none",
+    "path": "./if-an-answer-fits-every-problem-it-answers-none.html",
+    "archive_path": "articles/if-an-answer-fits-every-problem-it-answers-none.html",
+    "title": "ถ้าคำตอบหนึ่งใช้ได้กับทุกปัญหา มันอาจไม่ได้ตอบปัญหาไหนเลย",
+    "summary": "คำอย่างบูรณาการ เชิงรุก ยกระดับ ตระหนักรู้ มีส่วนร่วม ธรรมาภิบาล และยั่งยืนไม่ผิด แต่จะเป็นเพียงภาษาสวย หากไม่ระบุปัญหา กลไก ผู้รับผิดชอบ ทรัพยากร และหลักฐานความสำเร็จ",
+    "category": "นโยบายและการคิดเชิงระบบ",
+    "date": "2026-06-22",
+    "display_date": "22 June 2026",
+    "image_index": "assets/generic-policy-answer-fits-every-question.jpg",
+    "image_alt": "ภาพข้อความคำตอบสำหรับทุกคำถาม ได้แก่ บูรณาการ เชิงรุก ยกระดับ ตระหนักรู้ มีส่วนร่วม และยั่งยืน พร้อมคำถามว่าคำตอบจริงอยู่ตรงไหน",
+    "tags": [
+      "policy-language",
+      "problem-framing",
+      "accountability",
+      "implementation",
+      "evidence",
+      "critical-thinking"
+    ]
+  },
+  {
+    "slug": "future-university-remove-walls-not-disciplines",
+    "path": "./future-university-remove-walls-not-disciplines.html",
+    "archive_path": "articles/future-university-remove-walls-not-disciplines.html",
+    "title": "Future University: เราไม่ได้ลบศาสตร์ เราลดกำแพงของศาสตร์",
+    "summary": "มหาวิทยาลัยอนาคตไม่จำเป็นต้องทำให้ศาสตร์หายไป แต่ต้องเปลี่ยนคณะจากอาณาเขตปิดเป็นคลังความลึกทางวิชาการ และจัดการเรียนรู้รอบปัญหาจริงที่ต้องใช้หลายศาสตร์ร่วมกัน",
+    "category": "อนาคตมหาวิทยาลัย",
+    "date": "2026-06-22",
+    "display_date": "22 June 2026",
+    "image_index": "assets/future-university-remove-walls-not-disciplines.jpg",
+    "image_alt": "ภาพแนวคิด Future University ที่เชื่อมหลายศาสตร์เข้ากับ Knowledge Commons และโจทย์จริง โดยมีข้อความ We don't remove disciplines. We remove walls.",
+    "tags": [
+      "future-university",
+      "interdisciplinary",
+      "academic-depth",
+      "problem-based-learning",
+      "faculty-role",
+      "organizational-design"
+    ]
+  },
+  {
+    "slug": "future-university-high-risk-problem-field",
+    "path": "./future-university-high-risk-problem-field.html",
+    "archive_path": "articles/future-university-high-risk-problem-field.html",
+    "title": "Future University: สนามโจทย์เสี่ยงสูง",
+    "summary": "มหาวิทยาลัยควรเป็นพื้นที่ฝึกแก้ปัญหาสำคัญที่ตลาดไม่รับ รัฐทำได้ยาก และชุมชนทำเองไม่ไหว ผ่านโจทย์จริง ความเสี่ยงจริง ความผิดพลาดจริง และผลกระทบจริงต่อผู้คน",
+    "category": "อนาคตมหาวิทยาลัย",
+    "date": "2026-06-18",
+    "display_date": "18 June 2026",
+    "image_index": "assets/future-university-high-risk-problem-field.jpg",
+    "image_alt": "ภาพแนวคิดสนามโจทย์เสี่ยงสูงของ Future University ผ่านโครงการฝนในเมืองและคำเตือนภัยที่น่าเชื่อถือ",
+    "tags": [
+      "future-university",
+      "real-world-problems",
+      "risk",
+      "interdisciplinary",
+      "trustworthy-warning",
+      "portfolio"
+    ]
+  },
+  {
+    "slug": "future-university-foundation-commons",
+    "path": "./future-university-foundation-commons.html",
+    "archive_path": "articles/future-university-foundation-commons.html",
+    "title": "Future University: Foundation Commons โรงงานฐานความรู้",
+    "summary": "มหาวิทยาลัยหลังยุครายวิชาไม่ได้ลดความสำคัญของความรู้พื้นฐาน แต่สร้างระบบที่รับผิดชอบการเรียน แล็บ การประเมิน การรับรอง และหลักฐานความพร้อมสำหรับโจทย์จริง",
+    "category": "อนาคตมหาวิทยาลัย",
+    "date": "2026-06-17",
+    "display_date": "17 June 2026",
+    "image_index": "assets/future-university-foundation-commons.jpg",
+    "image_alt": "ภาพแนวคิด Foundation Commons ของ Future University ซึ่งเชื่อมการเรียน แล็บ การประเมิน และ credential เข้ากับความพร้อมสำหรับโจทย์จริง",
+    "tags": [
+      "future-university",
+      "foundation-commons",
+      "competency",
+      "assessment",
+      "laboratory",
+      "credential"
+    ]
+  },
+  {
+    "slug": "future-university-day-courses-disappeared",
+    "path": "./future-university-day-courses-disappeared.html",
+    "archive_path": "articles/future-university-day-courses-disappeared.html",
+    "title": "Future University: วันที่วิชาหายไป",
+    "summary": "ภาพมหาวิทยาลัยปี 2047 ที่ไม่ได้เริ่มจากตารางรายวิชา แต่เริ่มจากคำถามว่าผู้เรียนอยากฝึกแก้ปัญหาอะไร แล้วเรียกใช้ความรู้พื้นฐานเป็น on-demand infrastructure",
+    "category": "อนาคตมหาวิทยาลัย",
+    "date": "2026-06-16",
+    "display_date": "16 June 2026",
+    "image_index": "assets/future-university-day-courses-disappeared.jpg",
+    "image_alt": "ภาพ Future University ปี 2047 ซึ่งต้อนรับผู้เรียนด้วยคำถามว่าคุณอยากฝึกแก้ปัญหาอะไร แทนการเริ่มจากรายวิชา",
+    "tags": [
+      "future-university",
+      "post-course-university",
+      "problem-based-learning",
+      "lifelong-learning",
+      "on-demand-infrastructure",
+      "2047"
+    ]
+  },
+  {
+    "slug": "technology-curriculum-is-like-pad-thai",
+    "path": "./technology-curriculum-is-like-pad-thai.html",
+    "archive_path": "articles/technology-curriculum-is-like-pad-thai.html",
+    "title": "หลักสูตรเทคโนโลยีก็เหมือนผัดไทย",
+    "summary": "หลักสูตรที่ดีไม่ได้วัดเพียงว่ามีองค์ประกอบครบ แต่ต้องเหมาะกับผู้เรียนและบริบท พร้อมสร้างความสามารถให้เด็กคิด ประเมิน เลือก ทำ และใช้เทคโนโลยีสร้างอนาคตของตนเอง",
+    "category": "การออกแบบหลักสูตร",
+    "date": "2026-06-15",
+    "display_date": "15 June 2026",
+    "image_index": "assets/technology-curriculum-is-like-pad-thai.jpg",
+    "image_alt": "รองศาสตราจารย์ ดร.พันธุ์ปิติ เปี่ยมสง่า ในการประชุมพิจารณาต้นร่างกรอบหลักสูตรการเรียนรู้เทคโนโลยีของ สสวท.",
+    "tags": [
+      "curriculum-design",
+      "technology-education",
+      "digital-literacy",
+      "learner-agency",
+      "context",
+      "ipst"
+    ]
+  },
+  {
+    "slug": "day-16-return-home-after-the-journey",
+    "path": "./day-16-return-home-after-the-journey.html",
+    "archive_path": "articles/day-16-return-home-after-the-journey.html",
+    "title": "Day 16: กลับบ้าน หลังการเดินทางเปลี่ยนเราไปแล้ว",
+    "summary": "บทส่งท้ายการเดินทาง 16 วัน จาก Thessaloniki ถึง Milan ว่าด้วยการกลับสู่ชีวิตประจำวัน การใช้ AI ช่วยตัดสินใจ และการเลือกสิ่งที่ดีที่สุดเท่าที่ทำได้ในเวลานั้น",
+    "category": "การเดินทางและชีวิต",
+    "date": "2026-06-09",
+    "display_date": "09 June 2026",
+    "image_index": "assets/day-16-return-home-after-the-journey.jpg",
+    "image_alt": "ภาพกรุงเทพยามค่ำคืนจากหน้าต่างเครื่องบินในวันเดินทางกลับบ้าน",
+    "tags": [
+      "travel-journal",
+      "reflection",
+      "ai-travel",
+      "life-transition",
+      "europe",
+      "return-home"
+    ]
+  },
+  {
+    "slug": "ai-can-remove-people-not-truth",
+    "path": "./ai-can-remove-people-not-truth.html",
+    "archive_path": "articles/ai-can-remove-people-not-truth.html",
+    "title": "AI ลบคนออกจากภาพได้ แต่ลบความจริงไม่ได้",
+    "summary": "ภาพอาจถูกแก้ไขและคนอาจถูกลบออกด้วย AI แต่การแก้ภาพไม่สามารถลบเหตุการณ์ ความทรงจำ หรือหน้าที่ของเราที่ต้องยืนข้างความถูกต้อง",
+    "category": "AI สังคม และความทรงจำ",
+    "date": "2026-06-06",
+    "display_date": "06 June 2026",
+    "image_index": "assets/ai-can-remove-people-not-truth.jpg",
+    "image_alt": "ผู้เขียนยืนถือธงปาเลสไตน์ด้านหน้ามหาวิหารดูโอโมแห่งมิลาน",
+    "tags": [
+      "ai",
+      "truth",
+      "memory",
+      "silence",
+      "image-editing",
+      "human-responsibility"
+    ]
+  },
+  {
+    "slug": "toi-zero-first-victory-is-over-yourself",
+    "path": "./toi-zero-first-victory-is-over-yourself.html",
+    "archive_path": "articles/toi-zero-first-victory-is-over-yourself.html",
+    "title": "TOI-Zero: ชัยชนะก้าวแรกอยู่ที่ตัวคุณเอง",
+    "summary": "มากกว่าล้านครั้งของการส่งโปรแกรมจากนักเรียนเป็นหมื่นคน และผู้ผ่านเกณฑ์มากกว่า 6,000 คน ยืนยันว่าทักษะเกิดจากการลงมือทำ วางแผน ฝึก และชนะตัวเอง",
+    "category": "การศึกษาและโอกาสทางคอมพิวเตอร์",
+    "date": "2026-06-01",
+    "display_date": "01 June 2026",
+    "image_index": "assets/toi-zero-first-victory-is-over-yourself.jpg",
+    "image_alt": "ภาพสรุป TOI-Zero ปี 2569 มีการส่งโปรแกรมมากกว่าหนึ่งล้านครั้ง ผู้เข้าร่วมเป็นหมื่นคน และผู้ผ่านเกณฑ์มากกว่า 6,000 คน",
+    "tags": [
+      "toi-zero",
+      "posn",
+      "programming",
+      "educational-opportunity",
+      "practice",
+      "ioi"
+    ]
+  },
+  {
+    "slug": "how-thai-universities-survive-a-changed-world",
+    "path": "./how-thai-universities-survive-a-changed-world.html",
+    "archive_path": "articles/how-thai-universities-survive-a-changed-world.html",
+    "title": "มหาวิทยาลัยไทยจะอยู่รอดอย่างไร ในวันที่โลกไม่เหมือนเดิม",
+    "summary": "เจ็ดแรงเปลี่ยนแปลงที่มหาวิทยาลัยไทยต้องเผชิญ ตั้งแต่สมการต้นทุน เด็กเกิดน้อย ระบบงาน กำลังคน reskill โครงสร้างหน่วยงาน ไปจนถึงความหมายใหม่ของมหาวิทยาลัย",
+    "category": "อนาคตมหาวิทยาลัย",
+    "date": "2026-05-21",
+    "display_date": "21 May 2026",
+    "image_index": "assets/how-thai-universities-survive-a-changed-world.jpg",
+    "image_alt": "อินโฟกราฟิกมหาวิทยาลัยไทยจะอยู่รอดอย่างไรในวันที่โลกไม่เหมือนเดิม สรุปแรงเปลี่ยนแปลงเจ็ดด้าน",
+    "tags": [
+      "thai-universities",
+      "demographic-change",
+      "digital-transformation",
+      "workforce",
+      "reskill-upskill",
+      "institutional-strategy"
+    ]
+  },
+  {
+    "slug": "kasetsart-new-phase-life-systems-university",
+    "path": "./kasetsart-new-phase-life-systems-university.html",
+    "archive_path": "articles/kasetsart-new-phase-life-systems-university.html",
+    "title": "มหาวิทยาลัยเกษตรศาสตร์ในเฟสใหม่: จากศาสตร์แห่งแผ่นดินสู่ Life Systems University",
+    "summary": "นำจุดแข็งของมหาวิทยาลัยเกษตรศาสตร์มาเชื่อมเป็นระบบ เพื่อสร้างผลลัพธ์ที่สังคมเห็นและเชื่อถือได้ ผ่านธรรมาภิบาล ศักยภาพ และความยั่งยืน",
+    "category": "วิสัยทัศน์มหาวิทยาลัย",
+    "date": "2026-05-10",
+    "display_date": "10 May 2026",
+    "image_index": "assets/kasetsart-new-phase-life-systems-university.jpg",
+    "image_alt": "ภาพมหาวิทยาลัยเกษตรศาสตร์ในเฟสใหม่ จากศาสตร์แห่งแผ่นดินสู่ Life Systems University",
+    "tags": [
+      "life-systems-university",
+      "kasetsart-university",
+      "governance",
+      "capability",
+      "sustainability",
+      "trusted-system-partner"
+    ]
+  },
+  {
     "slug": "university-still-matters-when-ai-can-take-exams",
     "path": "./university-still-matters-when-ai-can-take-exams.html",
     "archive_path": "articles/university-still-matters-when-ai-can-take-exams.html",
