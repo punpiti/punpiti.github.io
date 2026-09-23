@@ -892,6 +892,11 @@ h1 {
   text-underline-offset: 0.2em;
 }
 
+/* Keep an anchored section clear of the sticky header. */
+#current-classes {
+  scroll-margin-top: 90px;
+}
+
 .class-note {
   align-self: stretch;
   padding: 18px;
@@ -1008,10 +1013,19 @@ h1 {
   color: var(--spark-deep);
 }
 
-.filter-chips a[href*="talent-development"] {
+.filter-chips a.is-active {
   border-color: var(--spark-line);
   background: var(--spark-soft);
   color: var(--spark-deep);
+}
+
+.card-filter-chips {
+  margin-top: 12px;
+}
+
+.card-filter-chips a {
+  min-height: 30px;
+  font-size: 0.86rem;
 }
 
 .article-list {
@@ -1213,4 +1227,80 @@ h1 {
   .profile-photo {
     width: 96px;
   }
+}
+
+/* Research topic chips: shown inside the Publications card on the home page
+   and on publications.html. Each chip links to the Research Outputs section
+   of the KU Urban profile. */
+.card-feature {
+  grid-column: 1 / -1;
+}
+
+.card h3 a:hover,
+.card h3 a:focus-visible {
+  color: var(--spark-deep);
+}
+
+.topic-lead {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.topic-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.signal-chips a,
+.topic-chips a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 0 13px;
+  border: 1px solid var(--spark-line);
+  border-radius: 999px;
+  background: var(--spark-soft);
+  color: var(--spark-deep);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.16s ease, border-color 0.16s ease;
+}
+
+.signal-chips a:hover,
+.signal-chips a:focus-visible,
+.topic-chips a:hover,
+.topic-chips a:focus-visible {
+  background: rgba(245, 158, 11, 0.26);
+  border-color: var(--spark-deep);
+  text-decoration: none;
+}
+
+.topic-chip-count {
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.topic-note {
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.card .topic-chips {
+  margin-top: 10px;
+}
+
+.card .topic-chips a {
+  min-height: 30px;
+  padding: 0 11px;
+  font-size: 0.84rem;
+}
+
+.card .topic-note {
+  margin-top: 12px;
+  font-size: 0.86rem;
 }

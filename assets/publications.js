@@ -4,6 +4,7 @@
   const PUBLIC_STREAM_PATH = PUBLIC_PROFILE_PATH;
   const LOCAL_API = `http://127.0.0.1:8000${PUBLIC_STREAM_PATH}`;
   const DEPLOY_API = `https://urban.cpe.ku.ac.th${PUBLIC_STREAM_PATH}`;
+  const URBAN_OUTPUTS_URL = "https://urban.cpe.ku.ac.th/p/Punpiti_Piamsa_nga?lang=th&mode=user_profile#research-output-themes";
   const PAGE_SIZE = 18;
 
   const state = {
@@ -203,7 +204,11 @@
       topicChips.replaceChildren();
       const topics = openAlex.topics?.length ? openAlex.topics : openAlex.concepts || [];
       topics.slice(0, 10).forEach((topic) => {
-        const chip = createEl("span", null, `${topic.label || topic.display_name}${topic.count ? ` (${topic.count})` : ""}`);
+        const label = topic.label || topic.display_name;
+        if (!label) return;
+        const chip = createEl("a", null, `${label}${topic.count ? ` (${topic.count})` : ""}`);
+        chip.href = URBAN_OUTPUTS_URL;
+        chip.rel = "noopener";
         topicChips.append(chip);
       });
     }

@@ -4,6 +4,10 @@
 
 เว็บไซต์นี้เป็น static website สามารถโฮสต์ด้วย GitHub Pages ได้โดยตรง ไม่ต้องมีขั้นตอน build
 
+URL ที่ใช้งานจริงคือ `https://madlab.cpe.ku.ac.th/punpiti/` ซึ่งใช้เป็น canonical, `og:url` และ base URL ของ
+`sitemap.xml`, `sitemap.txt`, `robots.txt` ทั้งหมด หากย้าย host อีกครั้ง ต้องแก้ URL เหล่านี้ให้ตรงกันทุกไฟล์
+(ลิงก์ที่ยังชี้ไป `punpiti.github.io` คือโปรเจกต์อื่นที่ deploy แยก เช่น thesis-review-prompt-pack ไม่ต้องแก้)
+
 ## เว็บไซต์
 
 - หน้าหลัก: `index.html`

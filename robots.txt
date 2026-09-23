@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://punpiti.github.io/sitemap.xml
-Sitemap: https://punpiti.github.io/sitemap.txt
+Sitemap: https://madlab.cpe.ku.ac.th/punpiti/sitemap.xml
+Sitemap: https://madlab.cpe.ku.ac.th/punpiti/sitemap.txt
