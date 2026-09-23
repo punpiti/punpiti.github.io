@@ -1,5 +1,25 @@
 window.ARTICLES_DATA = [
   {
+    "slug": "basic-research-support-as-institutional-responsibility",
+    "path": "./basic-research-support-as-institutional-responsibility.html",
+    "archive_path": "articles/basic-research-support-as-institutional-responsibility.html",
+    "title": "เมื่อมหาวิทยาลัยคาดหวังงานวิจัย มหาวิทยาลัยก็ควรจัดทรัพยากรพื้นฐานให้เพียงพอ",
+    "summary": "ข้อเสนอเชิงนโยบายให้มหาวิทยาลัยจัดระบบสนับสนุนทรัพยากรพื้นฐานสำหรับการวิจัยและเผยแพร่ผลงานอย่างมีคุณภาพ เป็นธรรม และยั่งยืน โดยเริ่มจากข้อมูลจริง ทางเลือกเชิงนโยบาย และโครงการนำร่องหนึ่งปี",
+    "category": "วิจัยและนวัตกรรม",
+    "date": "2026-09-23",
+    "display_date": "23 September 2026",
+    "image_index": "assets/basic-research-support-as-institutional-responsibility.png",
+    "image_alt": "ภาพประกอบวาระเชิงนโยบายเรื่องทรัพยากรพื้นฐานสำหรับงานวิจัยและงานตีพิมพ์",
+    "tags": [
+      "research-support",
+      "research-policy",
+      "fairness",
+      "university-council",
+      "higher-education",
+      "ku"
+    ]
+  },
+  {
     "slug": "university-still-matters-when-ai-can-take-exams",
     "path": "./university-still-matters-when-ai-can-take-exams.html",
     "archive_path": "articles/university-still-matters-when-ai-can-take-exams.html",
