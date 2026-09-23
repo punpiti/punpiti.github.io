@@ -1,5 +1,25 @@
 window.ARTICLES_DATA = [
   {
+    "slug": "ai-volleyball-without-clickbait",
+    "path": "./ai-volleyball-without-clickbait.html",
+    "archive_path": "articles/ai-volleyball-without-clickbait.html",
+    "title": "ใช้ AI ดูวอลเลย์บอลหญิงไทยให้สนุกขึ้น โดยไม่ต้องพึ่งพาดหัวชวนปั่น",
+    "summary": "แนวทางและ prompt สำหรับใช้ AI สำรวจข่าว บทวิเคราะห์ และมุมมองแฟนวอลเลย์บอลต่างประเทศอย่างมีบริบท แยกข้อเท็จจริงจากความเห็น และไม่ขยายเสียงสุดโต่งให้เป็นเสียงของคนทั้งประเทศ",
+    "category": "AI สื่อ และการรู้เท่าทันข้อมูล",
+    "date": "2026-09-23",
+    "display_date": "23 September 2026",
+    "image_index": "assets/ai-volleyball-without-clickbait.png",
+    "image_alt": "ภาพประกอบการใช้ AI สำรวจมุมมองต่างชาติต่อวอลเลย์บอลหญิงไทย",
+    "tags": [
+      "ai",
+      "media-literacy",
+      "volleyball",
+      "sports",
+      "prompt",
+      "cross-cultural"
+    ]
+  },
+  {
     "slug": "basic-research-support-as-institutional-responsibility",
     "path": "./basic-research-support-as-institutional-responsibility.html",
     "archive_path": "articles/basic-research-support-as-institutional-responsibility.html",
@@ -17,6 +37,366 @@ window.ARTICLES_DATA = [
       "university-council",
       "higher-education",
       "ku"
+    ]
+  },
+  {
+    "slug": "why-organizations-copy-each-other",
+    "path": "./why-organizations-copy-each-other.html",
+    "archive_path": "articles/why-organizations-copy-each-other.html",
+    "title": "ทำไมองค์กรจึงค่อย ๆ เหมือนกัน แม้ทุกแห่งกำลังพยายามเปลี่ยนแปลง",
+    "summary": "บทความอธิบาย institutional isomorphism ผ่านแรงบังคับ การเลียนแบบ และบรรทัดฐานทางวิชาชีพ พร้อมตั้งคำถามว่าองค์กรเลือกสิ่งที่เหมาะสมจริงหรือเพียงสิ่งที่ปลอดภัยที่สุด",
+    "category": "องค์กรและธรรมาภิบาล",
+    "date": "2026-09-21",
+    "display_date": "21 September 2026",
+    "image_index": "assets/iron-cage-revisited-organizational-isomorphism.png",
+    "image_alt": "ส่วนหัวและบทคัดย่อของบทความ The Iron Cage Revisited",
+    "tags": [
+      "institutional-isomorphism",
+      "organization-theory",
+      "governance",
+      "decision-making",
+      "higher-education",
+      "fomo"
+    ]
+  },
+  {
+    "slug": "who-pays-thai-university-apc",
+    "path": "./who-pays-thai-university-apc.html",
+    "archive_path": "articles/who-pays-thai-university-apc.html",
+    "title": "ค่าตีพิมพ์งานวิจัยของมหาวิทยาลัยไทย ใครเป็นคนจ่าย",
+    "summary": "ข้อมูลราคาประกาศ APC ของมหาวิทยาลัยไทย 7 แห่งชวนตั้งคำถามว่า ค่าใช้จ่ายจริงเกิดขึ้นเท่าไร ใครเป็นผู้รับภาระ และแรงจูงใจของระบบการตีพิมพ์กำลังกำหนดทิศทางการสร้างความรู้อย่างไร",
+    "category": "วิจัย นโยบาย และเศรษฐศาสตร์การตีพิมพ์",
+    "date": "2026-09-16",
+    "display_date": "16 September 2026",
+    "image_index": "assets/apc-listed-price-seven-thai-universities.png",
+    "image_alt": "กราฟมูลค่า APC ตามราคาประกาศรายปีของมหาวิทยาลัยไทย 7 แห่ง",
+    "tags": [
+      "research-policy",
+      "apc",
+      "open-access",
+      "openalex",
+      "research-funding",
+      "higher-education"
+    ]
+  },
+  {
+    "slug": "prioritization-resource-allocation-accountability",
+    "path": "./prioritization-resource-allocation-accountability.html",
+    "archive_path": "articles/prioritization-resource-allocation-accountability.html",
+    "title": "ลำดับความสำคัญ ทรัพยากร และความรับผิดชอบต่อศรัทธาในองค์กร",
+    "summary": "ทุกการจัดลำดับความสำคัญคือการเลือก ทุกการจัดสรรทรัพยากรสะท้อนว่าองค์กรให้คุณค่ากับอะไร และผู้ตัดสินใจต้องรับผิดชอบต่อความเสื่อมศรัทธาที่การตัดสินใจของตนสร้างขึ้น",
+    "category": "องค์กรและธรรมาภิบาล",
+    "date": "2026-09-13",
+    "display_date": "13 September 2026",
+    "image_index": "assets/prioritization-resource-allocation-accountability.jpg",
+    "image_alt": "โต๊ะประชุมกับข้อความ Prioritization Resource Allocation Accountability",
+    "tags": [
+      "prioritization",
+      "resource-allocation",
+      "accountability",
+      "organizational-trust",
+      "governance",
+      "leadership"
+    ]
+  },
+  {
+    "slug": "kasetsart-open-access-apc-list-price-growth",
+    "path": "./kasetsart-open-access-apc-list-price-growth.html",
+    "archive_path": "articles/kasetsart-open-access-apc-list-price-growth.html",
+    "title": "ราคาป้าย APC ของงาน Open Access มก. เพิ่ม 5.6 เท่า แต่ไม่ได้แปลว่าราคาต่อบทความเพิ่มเท่ากัน",
+    "summary": "มูลค่ารวมราคาป้าย APC ของผลงาน Open Access ที่มีผู้แต่งสังกัด มก. เพิ่มจาก 15.4 ล้านบาทในปี 2016 เป็น 86.4 ล้านบาทในปี 2025 แต่ส่วนสำคัญมาจากจำนวนผลงานที่เพิ่มขึ้น และตัวเลขนี้ไม่ใช่ยอดจ่ายจริง",
+    "category": "วิจัย นโยบาย และเศรษฐศาสตร์การตีพิมพ์",
+    "date": "2026-09-12",
+    "display_date": "12 September 2026",
+    "image_index": "assets/kasetsart-open-access-apc-list-price-2016-2026.jpg",
+    "image_alt": "กราฟมูลค่าราคาป้าย APC รายปีของผลงาน Open Access ที่มีผู้แต่งสังกัดมหาวิทยาลัยเกษตรศาสตร์",
+    "tags": [
+      "open-access",
+      "apc",
+      "openalex",
+      "research-analytics",
+      "research-funding",
+      "kasetsart-university"
+    ]
+  },
+  {
+    "slug": "pisa-2025-thailand-computational-problem-solving",
+    "path": "./pisa-2025-thailand-computational-problem-solving.html",
+    "archive_path": "articles/pisa-2025-thailand-computational-problem-solving.html",
+    "title": "PISA 2025: จุดแข็งที่น่าต่อยอดของเด็กไทยด้าน Computational Problem Solving",
+    "summary": "ไทยได้ 476 คะแนนด้าน Computational Problem Solving ต่ำกว่าค่าเฉลี่ย OECD 24 คะแนน ชวนสำรวจศักยภาพด้านการคิดเป็นขั้นตอน การทดลอง และการแก้ปัญหา พร้อมโจทย์สำคัญว่าจะต่อยอดโดยไม่ละเลยทักษะพื้นฐานได้อย่างไร",
+    "category": "การศึกษาและทักษะแห่งอนาคต",
+    "date": "2026-09-09",
+    "display_date": "09 September 2026",
+    "image_index": "assets/pisa-2025-thailand-computational-problem-solving.jpg",
+    "image_alt": "ภาพ PISA 2025 Computational Problem Solving แสดงคะแนนไทย 476 และค่าเฉลี่ย OECD 500",
+    "tags": [
+      "pisa-2025",
+      "computational-thinking",
+      "problem-solving",
+      "education",
+      "digital-learning",
+      "thailand"
+    ]
+  },
+  {
+    "slug": "temporary-laptop-modes",
+    "path": "./temporary-laptop-modes.html",
+    "archive_path": "articles/temporary-laptop-modes.html",
+    "title": "Temporary Laptop Modes: เลือกโหมดให้เหมาะกับงาน แล้วคืนค่าพลังงานให้อัตโนมัติ",
+    "summary": "แอป Windows ที่ให้เลือกโหมดพลังงานชั่วคราวจาก System Tray ตามงานตรงหน้า ทั้ง Focus, Coding, Presentation, Battery, Quiet และ Compile Boost พร้อมคืนค่าเดิมให้อัตโนมัติ",
+    "category": "Software และ Product Development",
+    "date": "2026-09-08",
+    "display_date": "08 September 2026",
+    "image_index": "assets/temporary-laptop-modes.jpg",
+    "image_alt": "ภาพผลิตภัณฑ์ Temporary Laptop Modes พร้อมสัญลักษณ์โน้ตบุ๊ก นาฬิกา และใบไม้",
+    "tags": [
+      "windows",
+      "desktop-app",
+      "power-management",
+      "product-development",
+      "microsoft-store",
+      "temporary-laptop-modes"
+    ]
+  },
+  {
+    "slug": "ai-as-common-tool-across-engineering",
+    "path": "./ai-as-common-tool-across-engineering.html",
+    "archive_path": "articles/ai-as-common-tool-across-engineering.html",
+    "title": "เมื่อ AI กลายเป็นทักษะร่วม วิศวกรยังต้องลึกในศาสตร์ของตัวเอง",
+    "summary": "จากหัวข้อโครงงานวิศวกรรมคอมพิวเตอร์ 23 โครงงาน AI กำลังกลายเป็นเครื่องมือร่วมกับเกม ระบบ โครงสร้างพื้นฐาน ความปลอดภัย และงานเฉพาะทาง ชวนคิดต่อถึงการศึกษาแบบ AI-Integrated Engineering",
+    "category": "AI และการศึกษาวิศวกรรม",
+    "date": "2026-09-03",
+    "display_date": "03 September 2026",
+    "image_index": "assets/ai-as-common-tool-in-engineering-projects.jpg",
+    "image_alt": "ภาพสรุปหัวข้อโครงงานวิศวกรรมคอมพิวเตอร์ 23 โครงงาน แสดง AI เป็นเครื่องมือร่วมกับงานหลายกลุ่ม",
+    "tags": [
+      "ai-integrated-engineering",
+      "engineering-education",
+      "domain-knowledge",
+      "computer-engineering",
+      "interdisciplinary",
+      "aiep"
+    ]
+  },
+  {
+    "slug": "how-much-public-data-knows-about-ku-researchers",
+    "path": "./how-much-public-data-knows-about-ku-researchers.html",
+    "archive_path": "articles/how-much-public-data-knows-about-ku-researchers.html",
+    "title": "อินเทอร์เน็ตรู้จักเราแค่ไหน เมื่อข้อมูลสาธารณะกลายเป็นโปรไฟล์นักวิจัย",
+    "summary": "ทดลองรวมข้อมูลสาธารณะของบุคลากร มก. ให้เป็นหน้า Research Profile ที่แสดงผลงาน โครงการ ความเชี่ยวชาญ และ AI-ready insight พร้อมภาพสำหรับแชร์บน Facebook",
+    "category": "Research Intelligence และ Public Data",
+    "date": "2026-09-01",
+    "display_date": "01 September 2026",
+    "image_index": "assets/ku-urban-public-research-profile.png",
+    "image_alt": "ตัวอย่างภาพแชร์ Research Profile ของ Punpiti Piamsa-nga จาก KU Urban Decision Intelligence",
+    "tags": [
+      "ku-urban",
+      "research-intelligence",
+      "public-data",
+      "research-profile",
+      "knowledge-discovery",
+      "kasetsart-university"
+    ]
+  },
+  {
+    "slug": "madlab-new-website-research-systems-people",
+    "path": "./madlab-new-website-research-systems-people.html",
+    "archive_path": "articles/madlab-new-website-research-systems-people.html",
+    "title": "เมื่อจำเป็นต้องทำเว็บแล็บใหม่: MADLab จากงานวิจัย สู่ระบบและผู้คน",
+    "summary": "เว็บไซต์ใหม่ของ MADLab ที่อธิบายตัวตนของห้องปฏิบัติการผ่าน AI, data, knowledge systems และงานวิจัยที่ตรวจสอบได้ ภายใต้แนวคิด Research → Systems → People",
+    "category": "ห้องปฏิบัติการและระบบวิจัย",
+    "date": "2026-08-31",
+    "display_date": "31 August 2026",
+    "image_index": "assets/madlab-new-website.png",
+    "image_alt": "ภาพเว็บไซต์ MADLab พร้อมข้อความ ลองสร้างของจริงไปกับเรา และ Research to Systems to People",
+    "tags": [
+      "madlab",
+      "research-lab",
+      "ai",
+      "knowledge-systems",
+      "research-to-impact",
+      "kasetsart-university"
+    ]
+  },
+  {
+    "slug": "computer-engineering-graduate-with-a-core",
+    "path": "./computer-engineering-graduate-with-a-core.html",
+    "archive_path": "articles/computer-engineering-graduate-with-a-core.html",
+    "title": "บัณฑิตวิศวกรรมคอมพิวเตอร์ที่ผมอยากเห็น: วิศวกรที่มีแกนและเรียนรู้ต่อได้",
+    "summary": "บัณฑิตไม่จำเป็นต้องรู้ทุกเทคโนโลยี แต่ควรคิดให้ชัด มองเห็นระบบ สร้างอย่างรับผิดชอบ ทำงานร่วมกับผู้อื่น พิสูจน์สิ่งที่สร้าง และเรียนรู้ต่อได้เมื่อเผชิญสิ่งที่ยังไม่รู้",
+    "category": "การศึกษาวิศวกรรมคอมพิวเตอร์",
+    "date": "2026-08-22",
+    "display_date": "22 August 2026",
+    "image_index": "assets/computer-engineering-graduate-with-a-core.jpg",
+    "image_alt": "นิสิตวิศวกรรมคอมพิวเตอร์ทำงานร่วมกันกับวงจร อุปกรณ์วัด และคอมพิวเตอร์ในห้องปฏิบัติการ",
+    "tags": [
+      "computer-engineering",
+      "engineering-education",
+      "systems-thinking",
+      "evidence",
+      "responsibility",
+      "lifelong-learning"
+    ]
+  },
+  {
+    "slug": "interactive-machine-learning-demos",
+    "path": "./interactive-machine-learning-demos.html",
+    "archive_path": "articles/interactive-machine-learning-demos.html",
+    "title": "Machine Learning Demos: เมื่อแนวคิดนามธรรมกลายเป็นสิ่งที่ทดลองได้",
+    "summary": "ชุด interactive visual explanations สำหรับสอนและเรียนรู้ Machine Learning ที่เปิดให้เห็นกลไก ทดลองเปลี่ยนเงื่อนไข และสร้าง intuition ก่อนเชื่อมเข้าสู่สมการและทฤษฎี",
+    "category": "Machine Learning Education",
+    "date": "2026-08-18",
+    "display_date": "18 August 2026",
+    "image_index": "assets/interactive-machine-learning-demos.png",
+    "image_alt": "ภาพ Machine Learning Demos แสดงตัวอย่าง interactive visual explanations สำหรับแนวคิดหลักของ Machine Learning",
+    "tags": [
+      "machine-learning",
+      "interactive-learning",
+      "visualization",
+      "teaching-tools",
+      "neural-networks",
+      "model-understanding"
+    ]
+  },
+  {
+    "slug": "random-forest-voting-lab",
+    "path": "./random-forest-voting-lab.html",
+    "archive_path": "articles/random-forest-voting-lab.html",
+    "title": "Random Forest Voting Lab: เมื่อต้นไม้หลายต้นช่วยกันตัดสินใจ",
+    "summary": "Interactive demo ที่เปิดกลไก Random Forest ตั้งแต่ Gini impurity, bootstrap samples และ random feature selection ไปจนถึง majority vote พร้อมเปรียบเทียบ Single Tree, Bagging และ Random Forest",
+    "category": "Machine Learning Education",
+    "date": "2026-08-17",
+    "display_date": "17 August 2026",
+    "image_index": "assets/random-forest-voting-lab.png",
+    "image_alt": "ภาพ Random Forest Voting Lab แสดงข้อมูล ต้นไม้ตัดสินใจหลายต้น และผล majority vote",
+    "tags": [
+      "random-forest",
+      "decision-tree",
+      "ensemble-learning",
+      "bagging",
+      "interactive-learning",
+      "machine-learning"
+    ]
+  },
+  {
+    "slug": "free-ai-before-specialized-education-ai",
+    "path": "./free-ai-before-specialized-education-ai.html",
+    "archive_path": "articles/free-ai-before-specialized-education-ai.html",
+    "title": "ก่อนสร้าง AI เพื่อการศึกษา ต้องรู้ก่อนว่า AI ฟรีทำอะไรได้แล้ว",
+    "summary": "ก่อนพัฒนา AI เฉพาะทางเพื่อการเรียนรู้ ควรสำรวจฐานความสามารถของ AI ที่ผู้เรียนเข้าถึงได้ฟรี และแยกคำถามว่า AI ตอบได้ ออกจากคำถามว่าผู้เรียนเรียนรู้ดีขึ้นจริงหรือไม่",
+    "category": "AI และการออกแบบการเรียนรู้",
+    "date": "2026-08-13",
+    "display_date": "13 August 2026",
+    "image_index": "assets/free-ai-before-specialized-education-ai.jpg",
+    "image_alt": "ภาพหน้าจอ DeepSeek ตอบโจทย์คณิตศาสตร์โอลิมปิก IMO 1988 ข้อ 6 เป็นภาษาไทย",
+    "tags": [
+      "ai-in-education",
+      "learning-outcomes",
+      "free-ai",
+      "educational-technology",
+      "evaluation",
+      "benchmark-contamination"
+    ]
+  },
+  {
+    "slug": "student-personas-in-the-ai-era",
+    "path": "./student-personas-in-the-ai-era.html",
+    "archive_path": "articles/student-personas-in-the-ai-era.html",
+    "title": "อย่าเริ่มแผนแม่บทด้วยคำว่า “ใช้ AI” ให้เริ่มจากคนที่เราอยากสร้าง",
+    "summary": "แผนแม่บท AI ควรเริ่มจากภาพอนาคตและคนที่องค์กรต้องการสร้าง ไม่ใช่เริ่มจากรายการเทคโนโลยี พร้อม Persona นิสิตหกแบบสำหรับออกแบบมหาวิทยาลัยในยุค AI",
+    "category": "ยุทธศาสตร์มหาวิทยาลัยในยุค AI",
+    "date": "2026-08-12",
+    "display_date": "12 August 2026",
+    "image_index": "assets/student-personas-in-the-ai-era.jpg",
+    "image_alt": "ภาพ Persona ของนิสิตห้าแบบในยุค AI ในบริบทเกษตรและอาหาร",
+    "tags": [
+      "ai-strategy",
+      "student-persona",
+      "future-of-university",
+      "human-centered-design",
+      "higher-education",
+      "capability-building"
+    ]
+  },
+  {
+    "slug": "classrooms-will-change-how-will-learning-change",
+    "path": "./classrooms-will-change-how-will-learning-change.html",
+    "archive_path": "articles/classrooms-will-change-how-will-learning-change.html",
+    "title": "ห้องเรียนกำลังจะเปลี่ยน แล้ววิธีเรียนของเราล่ะ",
+    "summary": "เมื่อ AI ทำให้ความรู้และเครื่องมือเข้าถึงง่ายขึ้น มหาวิทยาลัยต้องเปลี่ยนจากการถ่ายทอดเนื้อหาไปสู่การสร้างวิธีคิด การเรียนรู้ด้วยตนเอง โจทย์จริง และการประเมินความสามารถในโลกจริง",
+    "category": "การเรียนรู้และมหาวิทยาลัยในยุค AI",
+    "date": "2026-08-09",
+    "display_date": "09 August 2026",
+    "image_index": "assets/classrooms-will-change-how-will-learning-change.jpg",
+    "image_alt": "ห้องเรียนภาควิชาวิศวกรรมคอมพิวเตอร์ที่อยู่ในแผนปรับปรุง",
+    "tags": [
+      "ai-in-education",
+      "future-of-classroom",
+      "assessment",
+      "student-persona",
+      "higher-education",
+      "self-directed-learning"
+    ]
+  },
+  {
+    "slug": "ai-for-research-human-verified-evidence",
+    "path": "./ai-for-research-human-verified-evidence.html",
+    "archive_path": "articles/ai-for-research-human-verified-evidence.html",
+    "title": "AI for Research: AI เสนอ มนุษย์ตรวจสอบ",
+    "summary": "แนวคิดสามวิชา AI for Research ครอบคลุมการพัฒนาโจทย์ การตรวจงาน และการเผยแพร่ โดยยึดหลัก Human-Verified Evidence: AI ช่วยเสนอ แต่หลักฐานและการตัดสินใจทางวิชาการเป็นความรับผิดชอบของมนุษย์",
+    "category": "AI สำหรับการวิจัย",
+    "date": "2026-08-07",
+    "display_date": "07 August 2026",
+    "image_index": "assets/ai-for-research-human-verified-evidence.jpg",
+    "image_alt": "ภาพ AI for Research: Human-Verified Evidence แสดงกระบวนการวิจัยตั้งแต่คำถามจนถึงบทความ",
+    "tags": [
+      "ai-for-research",
+      "human-verification",
+      "research-integrity",
+      "graduate-education",
+      "reproducibility",
+      "academic-writing"
+    ]
+  },
+  {
+    "slug": "ai-for-grad-students-pilot-workshop",
+    "path": "./ai-for-grad-students-pilot-workshop.html",
+    "archive_path": "articles/ai-for-grad-students-pilot-workshop.html",
+    "title": "AI for Grad Students: ทดลองคลาสก่อนสอนนิสิตจริง",
+    "summary": "แนวคิด pilot workshop หนึ่งวันสำหรับให้อาจารย์หลายสาขาทดลองเรียนในบทบาทนิสิตบัณฑิตศึกษา และช่วยตรวจเนื้อหา workflow ตลอดจนความเสี่ยงด้าน citation, privacy, ethics และ research integrity",
+    "category": "AI สำหรับการวิจัย",
+    "date": "2026-07-31",
+    "display_date": "31 July 2026",
+    "image_index": "assets/ai-for-grad-students-pilot-workshop.jpg",
+    "image_alt": "ภาพประกอบ AI for Grad Students Pilot Workshop และ Responsible AI for Research",
+    "tags": [
+      "ai-for-research",
+      "graduate-education",
+      "pilot-workshop",
+      "research-integrity",
+      "privacy",
+      "faculty-development"
+    ]
+  },
+  {
+    "slug": "university-council-that-keeps-important-issues-alive",
+    "path": "./university-council-that-keeps-important-issues-alive.html",
+    "archive_path": "articles/university-council-that-keeps-important-issues-alive.html",
+    "title": "สภาที่ทำให้เรื่องสำคัญไม่เงียบหายไป",
+    "summary": "วิสัยทัศน์ต่อบทบาทกรรมการสภามหาวิทยาลัย: ตั้งคำถามด้วยข้อมูลและหลักการ ทำให้เสียงที่แตกต่างมีพื้นที่ และติดตามเรื่องสำคัญจนการรับทราบไม่กลายเป็นจุดจบของความรับผิดชอบ",
+    "category": "ธรรมาภิบาลมหาวิทยาลัย",
+    "date": "2026-07-31",
+    "display_date": "31 July 2026",
+    "image_index": "assets/university-council-that-keeps-important-issues-alive.jpg",
+    "image_alt": "ภาพวิสัยทัศน์ สภาที่ทำให้เรื่องสำคัญไม่เงียบหายไป",
+    "tags": [
+      "university-council",
+      "governance",
+      "accountability",
+      "evidence-based-decision",
+      "resource-allocation",
+      "academic-values"
     ]
   },
   {
