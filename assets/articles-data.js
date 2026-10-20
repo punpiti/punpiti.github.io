@@ -1,5 +1,25 @@
 window.ARTICLES_DATA = [
   {
+    "slug": "research-obligations-and-institutional-support-october-update",
+    "path": "./research-obligations-and-institutional-support-october-update.html",
+    "archive_path": "articles/research-obligations-and-institutional-support-october-update.html",
+    "title": "เมื่องานวิจัยเป็นภารกิจที่เลือกไม่ทำไม่ได้ ใครควรรับผิดชอบต้นทุน",
+    "summary": "ติดตามข้อเสนอทรัพยากรพื้นฐานสำหรับงานวิจัยที่ผู้เขียนแจ้งว่าได้รับการบรรจุเป็นวาระสภามหาวิทยาลัยเดือนตุลาคม พร้อมคำถามเรื่องต้นทุนที่องค์กรควรรับผิดชอบและความเป็นธรรมของการประเมินเมื่ออาจารย์ต้องทำผลงานตามเกณฑ์",
+    "category": "นโยบายวิจัย บุคลากร และสภามหาวิทยาลัย",
+    "date": "2026-10-20",
+    "display_date": "20 October 2026",
+    "image_index": null,
+    "image_alt": "",
+    "tags": [
+      "research-support",
+      "research-policy",
+      "fairness",
+      "university-council",
+      "higher-education",
+      "employment-conditions"
+    ]
+  },
+  {
     "slug": "ai-human-surplus-and-economic-equilibrium",
     "path": "./ai-human-surplus-and-economic-equilibrium.html",
     "archive_path": "articles/ai-human-surplus-and-economic-equilibrium.html",
