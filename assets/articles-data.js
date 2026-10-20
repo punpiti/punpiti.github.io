@@ -20,26 +20,6 @@ window.ARTICLES_DATA = [
     ]
   },
   {
-    "slug": "ai-human-surplus-and-economic-equilibrium",
-    "path": "./ai-human-surplus-and-economic-equilibrium.html",
-    "archive_path": "articles/ai-human-surplus-and-economic-equilibrium.html",
-    "title": "เมื่อ AI อาจทำให้มนุษย์กลายเป็นทรัพยากรส่วนเกิน",
-    "summary": "เมื่อ AI อาจลดความต้องการแรงงานอย่างรวดเร็ว รายได้ กำลังซื้อ และบริการสาธารณะจะปรับตัวอย่างไร และสมดุลที่มีประสิทธิภาพสำหรับระบบจะทำให้มนุษย์อยู่ได้หรือไม่",
-    "category": "AI เศรษฐกิจ และอนาคตของมนุษย์",
-    "date": null,
-    "display_date": "ยังไม่ระบุวันที่โพสต์",
-    "image_index": "assets/ai-human-surplus-and-economic-equilibrium.jpg",
-    "image_alt": "ลำน้ำและท้องฟ้าครึ้มยามเย็นที่บ้านท่าบางเจริญ จังหวัดสุพรรณบุรี",
-    "tags": [
-      "ai",
-      "future-of-work",
-      "labor-market",
-      "economic-inequality",
-      "human-dignity",
-      "public-services"
-    ]
-  },
-  {
     "slug": "when-the-family-buffer-runs-out",
     "path": "./when-the-family-buffer-runs-out.html",
     "archive_path": "articles/when-the-family-buffer-runs-out.html",
@@ -163,6 +143,26 @@ window.ARTICLES_DATA = [
       "fundamental-knowledge",
       "self-directed-learning",
       "ai"
+    ]
+  },
+  {
+    "slug": "ai-human-surplus-and-economic-equilibrium",
+    "path": "./ai-human-surplus-and-economic-equilibrium.html",
+    "archive_path": "articles/ai-human-surplus-and-economic-equilibrium.html",
+    "title": "เมื่อ AI อาจทำให้มนุษย์กลายเป็นทรัพยากรส่วนเกิน",
+    "summary": "เมื่อ AI อาจลดความต้องการแรงงานอย่างรวดเร็ว รายได้ กำลังซื้อ และบริการสาธารณะจะปรับตัวอย่างไร และสมดุลที่มีประสิทธิภาพสำหรับระบบจะทำให้มนุษย์อยู่ได้หรือไม่",
+    "category": "AI เศรษฐกิจ และอนาคตของมนุษย์",
+    "date": "2026-10-09",
+    "display_date": "09 October 2026",
+    "image_index": "assets/ai-human-surplus-and-economic-equilibrium.jpg",
+    "image_alt": "ลำน้ำและท้องฟ้าครึ้มยามเย็นที่บ้านท่าบางเจริญ จังหวัดสุพรรณบุรี",
+    "tags": [
+      "ai",
+      "future-of-work",
+      "labor-market",
+      "economic-inequality",
+      "human-dignity",
+      "public-services"
     ]
   },
   {

@@ -130,6 +130,11 @@ URL ที่ใช้งานจริงคือ `https://madlab.cpe.ku.ac.t
 `assets/articles-data.js`, `sitemap.xml` และ `sitemap.txt` พร้อมเรียก Analytics กลาง
 ตรวจความครบถ้วนด้วย `python3 scripts/check_articles.py`
 
+หลังแก้ sitemap ให้รัน `python3 scripts/update_sitemap_lastmod.py` เพื่อเขียน `<lastmod>`
+บทความใช้ `dateModified` ใน JSON-LD หน้าอื่นใช้วันที่ commit ล่าสุดของไฟล์
+ภาพ Open Graph ควรเป็น 1200×630 ถ้าภาพบทความกว้างไม่ถึง 600px ให้ทำภาพแยกไว้ใน
+`assets/og/<slug>.jpg` แล้วชี้ `og:image` และ `twitter:image` ไปที่ภาพนั้น
+
 หลังแก้ registry ให้รัน `python3 scripts/render_article_index.py` เพื่อสร้างรายการ
 บทความใน HTML ด้วย หน้า Articles จึงเปิดอ่านและมีลิงก์ครบแม้ไม่รัน JavaScript
 ส่วนการค้นหาและตัวกรองยังใช้ JavaScript ตามเดิม ตัวตรวจบทความจะตรวจว่ารายการนี้ตรงกับ registry
