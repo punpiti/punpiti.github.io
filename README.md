@@ -130,6 +130,25 @@ URL ที่ใช้งานจริงคือ `https://madlab.cpe.ku.ac.t
 `assets/articles-data.js`, `sitemap.xml` และ `sitemap.txt` พร้อมเรียก Analytics กลาง
 ตรวจความครบถ้วนด้วย `python3 scripts/check_articles.py`
 
+หลังแก้ registry ให้รัน `python3 scripts/render_article_index.py` เพื่อสร้างรายการ
+บทความใน HTML ด้วย หน้า Articles จึงเปิดอ่านและมีลิงก์ครบแม้ไม่รัน JavaScript
+ส่วนการค้นหาและตัวกรองยังใช้ JavaScript ตามเดิม ตัวตรวจบทความจะตรวจว่ารายการนี้ตรงกับ registry
+
+การค้นพบผ่าน search engine ต้องประกาศ sitemap จาก `/robots.txt` ที่รากของโดเมน
+ไฟล์ `/punpiti/robots.txt` ใช้แทนไฟล์ที่รากไม่ได้ สำหรับ Madlab ใช้
+`scripts/register_archive_sitemap.py --robots <root-robots-path> --backup <private-backup-path>`
+เพื่อเพิ่ม sitemap โดยเก็บกฎเดิม สำหรับ Urban ให้ติดตั้ง snippet ใน `deploy/nginx/`
+ด้วย `enable-punpiti-urban.sh` หลัง deploy `urban-root-robots.txt` แล้ว
+installer จะตรวจว่ากฎเดิมของ Urban ยังตรงกัน ทดสอบ Nginx และสำรองก่อน reload
+หาก Urban เพิ่มกฎใหม่ในภายหลัง ต้องปรับ `urban-root-robots.txt` ให้สอดคล้องด้วย
+canonical และ sitemap บทความใช้ Madlab เพื่อรวมสัญญาณของเนื้อหาที่เปิดได้ทั้งสองโดเมน
+
+ขั้นตอนในบัญชี Google Search Console: เพิ่ม property ของ
+`https://madlab.cpe.ku.ac.th/punpiti/` หรือใช้ Domain property ที่ครอบคลุม Madlab,
+ยืนยันสิทธิ์ แล้วส่ง `https://madlab.cpe.ku.ac.th/punpiti/sitemap.xml`
+จากนั้นใช้ URL Inspection ตรวจหน้าบทความ การประกาศ sitemap ไม่ใช่หลักฐานว่า Google
+เก็บเข้าดัชนีแล้ว ต้องตรวจสถานะจาก Search Console แยกต่างหาก
+
 ### Apps
 
 ไฟล์หลักคือ `apps.html`

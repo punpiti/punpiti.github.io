@@ -1,6 +1,8 @@
 """Check article registration, sitemap coverage, and shared analytics locally."""
 
 import json
+import subprocess
+import sys
 from collections import Counter
 from html.parser import HTMLParser
 from pathlib import Path
@@ -23,6 +25,7 @@ class Scripts(HTMLParser):
 
 
 def main():
+    subprocess.run([sys.executable, str(ROOT / "scripts/render_article_index.py"), "--check"], check=True)
     registry = json.loads(
         (ROOT / "assets/articles-data.js").read_text().split("=", 1)[1].strip().rstrip(";")
     )

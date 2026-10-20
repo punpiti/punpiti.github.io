@@ -2,7 +2,9 @@
   const list = document.querySelector("#article-list");
   const search = document.querySelector("#article-search");
   const status = document.querySelector("#article-filter-status");
-  const articles = Array.isArray(window.ARTICLES_DATA) ? window.ARTICLES_DATA : [];
+  // Keep the HTML archive readable if the registry script fails to load.
+  if (!Array.isArray(window.ARTICLES_DATA)) return;
+  const articles = window.ARTICLES_DATA;
   const params = new URLSearchParams(window.location.search);
   const initialTag = (params.get("tag") || "").trim().toLowerCase();
   const initialTopic = (params.get("topic") || "").trim().toLowerCase();
@@ -72,6 +74,8 @@
         const image = document.createElement("img");
         image.src = article.image_index || "assets/convergence.png";
         image.alt = article.image_alt || "";
+        image.loading = "lazy";
+        image.decoding = "async";
         link.append(image);
       } else {
         link.classList.add("article-row--text");
@@ -132,5 +136,5 @@
   markActiveChip();
 
   if (search) search.addEventListener("input", update);
-  update();
+  if (initialTag || activeTopic || !list || !list.children.length) update();
 })();

@@ -9,7 +9,23 @@ task_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 config=/etc/nginx/sites-available/default
 snippet=/etc/nginx/snippets/punpiti.locations.conf
 test -f /var/www/madlab/site/punpiti/articles.html
+test -f /var/www/madlab/site/punpiti/urban-root-robots.txt
 test -f "$task_dir/punpiti.locations.conf"
+
+# Refuse to replace an Urban crawler policy that changed since this patch.
+python3 - <<'PY'
+from pathlib import Path
+from urllib.request import urlopen
+
+with urlopen('https://urban.cpe.ku.ac.th/robots.txt', timeout=20) as response:
+    current = response.read().decode()
+proposed = Path('/var/www/madlab/site/punpiti/urban-root-robots.txt').read_text()
+directive = 'Sitemap: https://madlab.cpe.ku.ac.th/punpiti/sitemap.xml'
+def rules(value):
+    return [line.strip() for line in value.splitlines() if line.strip() and line.strip() != directive]
+if rules(current) != rules(proposed):
+    raise SystemExit('Urban robots policy changed; merge existing rules before installing')
+PY
 
 # Validate the existing configuration before making changes.
 nginx -t
