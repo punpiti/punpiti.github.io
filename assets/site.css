@@ -1045,6 +1045,10 @@ h1 {
   background: rgba(255, 255, 255, 0.76);
 }
 
+.article-row--text {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .article-row img {
   width: 100%;
   aspect-ratio: 4 / 3;

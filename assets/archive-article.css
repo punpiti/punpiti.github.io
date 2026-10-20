@@ -461,6 +461,10 @@ h1 {
   background: rgba(255, 255, 255, 0.5);
 }
 
+.related-card--text {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .related-thumb {
   width: 100%;
   aspect-ratio: 4 / 3;

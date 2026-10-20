@@ -1,0 +1,12 @@
+# Replace the alias with the directory currently published by Madlab.
+# Include this file inside BOTH existing HTTPS server blocks after replacing
+# their existing /punpiti locations. Keep each server's other routes and TLS.
+location = /punpiti {
+    return 301 /punpiti/$is_args$args;
+}
+
+location /punpiti/ {
+    alias /REPLACE_WITH_CURRENT_MADLAB_PUNPITI_DIRECTORY/;
+    index index.html;
+    autoindex off;
+}

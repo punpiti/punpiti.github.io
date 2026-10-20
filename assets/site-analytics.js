@@ -1,4 +1,4 @@
-window.KU_SITE_ANALYTICS = { enabled: true, measurementId: "G-B4YEEP09C1" };
+window.KU_SITE_ANALYTICS = { enabled: true, measurementId: "G-BWX7PFH4XM" };
 (function () {
   var cfg = window.KU_SITE_ANALYTICS;
   if (!cfg || !cfg.enabled || !cfg.measurementId) return;

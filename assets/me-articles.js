@@ -68,9 +68,14 @@
       link.className = "article-row";
       link.href = article.archive_path || `articles/${article.slug}.html`;
 
-      const image = document.createElement("img");
-      image.src = article.image_index || "assets/convergence.png";
-      image.alt = article.image_alt || "";
+      if (article.image_index !== null) {
+        const image = document.createElement("img");
+        image.src = article.image_index || "assets/convergence.png";
+        image.alt = article.image_alt || "";
+        link.append(image);
+      } else {
+        link.classList.add("article-row--text");
+      }
 
       const body = document.createElement("div");
       body.className = "article-row__body";
@@ -86,7 +91,7 @@
       summary.textContent = article.summary || "";
 
       body.append(meta, title, summary);
-      link.append(image, body);
+      link.append(body);
       fragment.append(link);
     });
     list.append(fragment);

@@ -1,0 +1,16 @@
+.ai/
+local-profiles/
+private/
+internal/
+*.private.md
+*.private.json
+.env
+.env.*
+*.p12
+*.pfx
+*.pem
+*.key
+*.kdbx
+__pycache__/
+*.pyc
+.DS_Store

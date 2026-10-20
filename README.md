@@ -8,6 +8,28 @@ URL ที่ใช้งานจริงคือ `https://madlab.cpe.ku.ac.t
 `sitemap.xml`, `sitemap.txt`, `robots.txt` ทั้งหมด หากย้าย host อีกครั้ง ต้องแก้ URL เหล่านี้ให้ตรงกันทุกไฟล์
 (ลิงก์ที่ยังชี้ไป `punpiti.github.io` คือโปรเจกต์อื่นที่ deploy แยก เช่น thesis-review-prompt-pack ไม่ต้องแก้)
 
+## เปิดเว็บเดียวกันผ่าน Madlab และ Urban
+
+ต้องการให้ `https://madlab.cpe.ku.ac.th/punpiti/` และ
+`https://urban.cpe.ku.ac.th/punpiti/` แสดงไฟล์จากโฟลเดอร์เผยแพร่เดียวกัน
+เมื่ออัปเดตบทความจึงเผยแพร่ไฟล์เพียงชุดเดียว ทั้งสองโดเมนใช้ Google Analytics
+รหัส `G-BWX7PFH4XM` โดย canonical และ sitemap ยังคงใช้ URL ของ Madlab
+
+ตรวจผ่าน `ssh urban` แล้วพบว่า Madlab ใช้ root `/var/www/madlab/site`
+และเว็บนี้อยู่ที่ `/var/www/madlab/site/punpiti/` ส่วน HTTPS server ของ Urban
+อยู่ใน `/etc/nginx/sites-available/default`
+
+แพตช์ที่ตรงกับเซิร์ฟเวอร์อยู่ใน `deploy/nginx/punpiti.locations.conf`
+สคริปต์ `deploy/nginx/enable-punpiti-urban.sh` จะเพิ่ม include เฉพาะ server ของ Urban
+เพื่ออ่านไฟล์จากโฟลเดอร์เดิมของ Madlab พร้อมสำรอง config ตรวจ `nginx -t`
+และ reload เมื่อผ่าน หากตรวจหรือติดตั้งไม่สำเร็จจะคืนค่าไฟล์ config เดิม
+ต้องรันสคริปต์ด้วย sudo บนเซิร์ฟเวอร์ โดยวางไฟล์ทั้งสองไว้ในโฟลเดอร์เดียวกัน
+
+หลังเปิดใช้งานให้ตรวจทั้งสองโดเมนว่า `articles.html`, บทความ, assets และ
+`sitemap.xml` ตอบ 200 และให้เนื้อหาเดียวกัน รวมถึงตรวจ GA4 Realtime
+การตั้งค่าโดเมนนี้ใช้ไฟล์ที่เผยแพร่อยู่บนเซิร์ฟเวอร์ จึงต้องอัปโหลดการแก้บทความ
+และ Analytics ในเครื่องแยกต่างหาก
+
 ## เว็บไซต์
 
 - หน้าหลัก: `index.html`
@@ -93,6 +115,20 @@ URL ที่ใช้งานจริงคือ `https://madlab.cpe.ku.ac.t
 - ค้นหาได้จากชื่อเรื่อง สรุป หมวด และ tag
 - รองรับการกรองด้วย query string เช่น `articles.html?tag=ai`, `articles.html?tag=talent-development`, `articles.html?tag=higher-education`
 - แต่ละบทความเป็น static HTML แยกไฟล์ใน `articles/`
+
+แนวทางการอีดิตเนื้อหา สืบต่อจาก `ARCHIVE_PAGE_TEMPLATE.md` ของเว็บเดิม:
+
+- เขียน `Rewritten Post` โดยเรียบเรียงใหม่เป็นภาษาเว็บ และเก็บ `Original` ตามต้นฉบับโดยไม่แก้ข้อความ
+- เปิดเรื่องด้วย 1–2 ย่อหน้าคู่กับภาพใน `lead-split` โดยยังไม่ใส่หัวข้อย่อย จากนั้นใช้หัวข้อย่อยที่เป็นประโยคดึงความสนใจคั่นช่วงสำคัญ
+- เน้นคำสำคัญด้วย `<span class="key-term">...</span>` และใช้ `content-panel is-interactive` ตามรูปแบบเดิม
+- ภาพหลักต้องเปิด lightbox ได้ และใช้ภาพเดียวกันเป็น thumbnail ในหน้ารวม
+- ถ้าโพสต์ไม่มีภาพ ให้แสดงเนื้อหาเต็มความกว้างโดยไม่เติมภาพแทน และตั้ง `image_index: null` เพื่อให้หน้ารวมและ related articles แสดงการ์ดแบบไม่มีภาพ
+- ส่วน Original แสดงปุ่ม Facebook เปิดแท็บใหม่ และเก็บข้อความใน `<details>` ที่เริ่มต้นแบบพับ
+- เพิ่มหมวด สรุป และ tags ภาษาอังกฤษ 3–6 คำ พร้อม related articles จาก tags
+
+โปรเจกต์ปัจจุบันเก็บหน้า HTML และ registry โดยตรง การเพิ่มบทความต้องอัปเดต
+`assets/articles-data.js`, `sitemap.xml` และ `sitemap.txt` พร้อมเรียก Analytics กลาง
+ตรวจความครบถ้วนด้วย `python3 scripts/check_articles.py`
 
 ### Apps
 

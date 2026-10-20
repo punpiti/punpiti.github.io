@@ -1,5 +1,249 @@
 window.ARTICLES_DATA = [
   {
+    "slug": "ai-human-surplus-and-economic-equilibrium",
+    "path": "./ai-human-surplus-and-economic-equilibrium.html",
+    "archive_path": "articles/ai-human-surplus-and-economic-equilibrium.html",
+    "title": "เมื่อ AI อาจทำให้มนุษย์กลายเป็นทรัพยากรส่วนเกิน",
+    "summary": "เมื่อ AI อาจลดความต้องการแรงงานอย่างรวดเร็ว รายได้ กำลังซื้อ และบริการสาธารณะจะปรับตัวอย่างไร และสมดุลที่มีประสิทธิภาพสำหรับระบบจะทำให้มนุษย์อยู่ได้หรือไม่",
+    "category": "AI เศรษฐกิจ และอนาคตของมนุษย์",
+    "date": null,
+    "display_date": "ยังไม่ระบุวันที่โพสต์",
+    "image_index": "assets/ai-human-surplus-and-economic-equilibrium.jpg",
+    "image_alt": "ลำน้ำและท้องฟ้าครึ้มยามเย็นที่บ้านท่าบางเจริญ จังหวัดสุพรรณบุรี",
+    "tags": [
+      "ai",
+      "future-of-work",
+      "labor-market",
+      "economic-inequality",
+      "human-dignity",
+      "public-services"
+    ]
+  },
+  {
+    "slug": "when-the-family-buffer-runs-out",
+    "path": "./when-the-family-buffer-runs-out.html",
+    "archive_path": "articles/when-the-family-buffer-runs-out.html",
+    "title": "เมื่อ Buffer ของครอบครัวหมดลง คนรุ่นใหม่จะพึ่งใคร",
+    "summary": "ข้อกังวลต่อครอบครัวไทยที่รองรับการว่างงานและรายได้ไม่พอของคนรุ่นใหม่ เมื่อผู้หารายได้แก่ลงหรือเจ็บป่วย ขณะที่ AI อาจลดงานเริ่มต้นและเศรษฐกิจยังต้องหาทางสร้างงานใหม่",
+    "category": "เศรษฐกิจ ครอบครัว และอนาคตการทำงาน",
+    "date": "2026-10-19",
+    "date_is_estimated": true,
+    "source_date_label": "1 วัน",
+    "display_date": "ประมาณ 19 October 2026",
+    "image_index": "assets/when-the-family-buffer-runs-out.png",
+    "image_alt": "แสงยามเย็นสีชมพูสะท้อนผืนน้ำและแนวต้นมะพร้าวที่บ้านท่าบางเจริญ จังหวัดสุพรรณบุรี",
+    "tags": [
+      "ai",
+      "future-of-work",
+      "family-support",
+      "aging-society",
+      "economic-inequality",
+      "social-resilience"
+    ]
+  },
+  {
+    "slug": "journal-apc-citations-and-research-opportunity",
+    "path": "./journal-apc-citations-and-research-opportunity.html",
+    "archive_path": "articles/journal-apc-citations-and-research-opportunity.html",
+    "title": "ค่าตีพิมพ์ การอ้างอิง และโอกาสที่อาจไม่เท่ากันในวงวิชาการ",
+    "summary": "ข้อสังเกตจากการวิเคราะห์ความสัมพันธ์ระหว่าง APC กับการอ้างอิงของวารสาร ชวนพิจารณาว่าทุนสนับสนุนค่าตีพิมพ์อาจส่งผลต่อโอกาสเผยแพร่และการประเมินนักวิจัยอย่างไร โดยราคายังไม่ใช่เครื่องวัดคุณภาพของงาน",
+    "category": "วิจัย นโยบาย และเศรษฐศาสตร์การตีพิมพ์",
+    "date": "2026-10-15",
+    "date_is_estimated": true,
+    "source_date_label": "5 วัน",
+    "display_date": "ประมาณ 15 October 2026",
+    "image_index": "assets/journal-apc-citations-and-research-opportunity.png",
+    "image_alt": "หน้าปกรายงานความสัมพันธ์ระหว่าง APC กับการอ้างอิงของวารสาร ระบุข้อมูล OpenAlex 15,176 วารสาร ถึง 13 ตุลาคม 2026",
+    "tags": [
+      "apc",
+      "open-access",
+      "research-policy",
+      "research-funding",
+      "citations",
+      "academic-equity"
+    ]
+  },
+  {
+    "slug": "meai-aiep-engineering-the-whole-system",
+    "path": "./meai-aiep-engineering-the-whole-system.html",
+    "archive_path": "articles/meai-aiep-engineering-the-whole-system.html",
+    "title": "โลกจริงไม่แยกภาควิชา: MEAI–AIEP กับการรับผิดชอบทั้งระบบ",
+    "summary": "แนวคิด MEAI–AIEP เชื่อมความลึกด้านเครื่องกลและ AI ผ่านงานจริง ตั้งแต่การวัดและตัดสินใจ ไปจนถึงการลงแรง ตรวจสอบผล และดูแลความปลอดภัย พร้อมเส้นทาง 4+1 ที่กำลังพัฒนาเพื่อเชื่อมพื้นฐาน โครงงาน และงานวิจัย",
+    "category": "AIEP วิศวกรรมเครื่องกล และระบบอัจฉริยะ",
+    "date": "2026-10-14",
+    "display_date": "14 October 2026",
+    "image_index": "assets/meai-aiep-engineering-the-whole-system.png",
+    "image_alt": "ภาพประกอบหุ่นยนต์ตีปิงปอง งานเชื่อม และกังหันลม พร้อมข้อความ โลกจริงไม่แยกภาควิชา และ MEAI–AIEP 4+1",
+    "tags": [
+      "aiep",
+      "mechanical-engineering",
+      "ai",
+      "systems-engineering",
+      "engineering-education",
+      "curriculum-design"
+    ]
+  },
+  {
+    "slug": "research-policy-needs-people-and-private-sector-investment",
+    "path": "./research-policy-needs-people-and-private-sector-investment.html",
+    "archive_path": "articles/research-policy-needs-people-and-private-sector-investment.html",
+    "title": "นโยบายวิจัยต้องมีคนทำ และเปิดทางให้เอกชนร่วมลงทุนตั้งแต่ต้น",
+    "summary": "ข้อเสนอต่อระบบวิจัยไทยให้เข้าใจบทบาทของมหาวิทยาลัยและหน่วยงานวิจัยรัฐ พร้อมสนับสนุนคนและกลไกแบ่งเบาความเสี่ยง เพื่อให้ภาคเอกชนร่วมตั้งโจทย์ ลงทุน และพัฒนานวัตกรรมเชิงพาณิชย์ตั้งแต่ต้น",
+    "category": "นโยบายวิจัย บุคลากร และนวัตกรรม",
+    "date": "2026-10-14",
+    "date_is_estimated": true,
+    "source_date_label": "6 วัน",
+    "display_date": "ประมาณ 14 October 2026",
+    "image_index": "assets/research-policy-needs-people-and-private-sector-investment.png",
+    "image_alt": "ภาพประกอบนักวิจัยในโรงงาน พร้อมข้อความ รัฐหนุนให้เอกชนลงมือทำ งานวิจัยของประเทศถึงจะเดิน",
+    "tags": [
+      "research-policy",
+      "private-sector-rd",
+      "human-capital",
+      "innovation",
+      "research-funding",
+      "higher-education"
+    ]
+  },
+  {
+    "slug": "governance-with-empathy-and-shared-purpose",
+    "path": "./governance-with-empathy-and-shared-purpose.html",
+    "archive_path": "articles/governance-with-empathy-and-shared-purpose.html",
+    "title": "ธรรมาภิบาลที่เดินต่อด้วยความเข้าใจและเห็นอกเห็นใจกัน",
+    "summary": "การแก้ปัญหาต้องอาศัยทั้งความกล้า การรับฟังผู้ได้รับผลกระทบ และความรับผิดชอบ พร้อมตั้งคำถามว่าความรู้ เทคโนโลยี และกำลังคนที่มหาวิทยาลัยสร้างขึ้นช่วยให้ผู้คนมีชีวิตที่ดีขึ้นอย่างไร",
+    "category": "มหาวิทยาลัย ธรรมาภิบาล และความเห็นอกเห็นใจ",
+    "date": "2026-10-10",
+    "display_date": "10 October 2026",
+    "image_index": "assets/governance-with-empathy-and-shared-purpose.png",
+    "image_alt": "แสงสีส้มยามเย็นเหนือแนวต้นไม้และผืนน้ำที่บ้านท่าบางเจริญ จังหวัดสุพรรณบุรี",
+    "tags": [
+      "higher-education",
+      "university-governance",
+      "empathy",
+      "accountability",
+      "public-interest",
+      "organizational-change"
+    ]
+  },
+  {
+    "slug": "advanced-knowledge-beyond-the-university-model",
+    "path": "./advanced-knowledge-beyond-the-university-model.html",
+    "archive_path": "articles/advanced-knowledge-beyond-the-university-model.html",
+    "title": "ความรู้ขั้นสูงในวันที่มหาวิทยาลัยอาจไม่เหมือนเดิม",
+    "summary": "มุมมองต่อการเรียนต่อโท–เอกและอนาคตมหาวิทยาลัย เมื่อปริญญาไม่ได้รับประกันงาน แต่ความรู้พื้นฐานที่ลึก การคิดแก้ปัญหา และการเรียนรู้ด้วยตนเองยังเป็นสิ่งที่ควรพัฒนา",
+    "category": "มหาวิทยาลัย การเรียนรู้ และอนาคตการทำงาน",
+    "date": "2026-10-10",
+    "display_date": "10 October 2026",
+    "image_index": "assets/advanced-knowledge-beyond-the-university-model.png",
+    "image_alt": "ภาพกลุ่มศิลปินและผู้ร่วมเล่นดนตรีถือกีตาร์บนเวที จากโพสต์ต้นฉบับ",
+    "tags": [
+      "higher-education",
+      "graduate-education",
+      "future-of-university",
+      "fundamental-knowledge",
+      "self-directed-learning",
+      "ai"
+    ]
+  },
+  {
+    "slug": "sadness-without-regret-in-past-decisions",
+    "path": "./sadness-without-regret-in-past-decisions.html",
+    "archive_path": "articles/sadness-without-regret-in-past-decisions.html",
+    "title": "ความเศร้าของการตัดสินใจที่ย้อนกลับไปก็ยังเลือกเหมือนเดิม",
+    "summary": "บางการตัดสินใจทำดีที่สุดแล้วด้วยข้อมูลที่มี และแม้ผลจะไม่เป็นอย่างที่หวัง หากย้อนกลับไปอยู่ในสถานการณ์เดิมก็ยังเลือกเช่นเดิม ความรู้สึกที่เหลือจึงเป็นความเศร้าต่อผลลัพธ์ มากกว่าความเสียใจที่ได้ตัดสินใจลงไป",
+    "category": "ชีวิต การตัดสินใจ และความรับผิดชอบ",
+    "date": "2026-10-07",
+    "display_date": "07 October 2026",
+    "image_index": "assets/sadness-without-regret-in-past-decisions.png",
+    "image_alt": "คนสองคนเดินไปตามทางดินท่ามกลางต้นไม้และลานหิน",
+    "tags": [
+      "decision-making",
+      "uncertainty",
+      "responsibility",
+      "personal-reflection"
+    ]
+  },
+  {
+    "slug": "ai-integrated-materials-engineering",
+    "path": "./ai-integrated-materials-engineering.html",
+    "archive_path": "articles/ai-integrated-materials-engineering.html",
+    "title": "AI-Integrated Materials Engineering: เมื่อ AI เป็นเครื่องมือพื้นฐานของวิศวกรวัสดุ",
+    "summary": "การพูดคุยกับนิสิตวิศวกรรมวัสดุปี 1 ในโครงการ AIEP ชวนออกแบบการเรียนให้ AI เชื่อมกับการแก้ปัญหาในสาขา ตั้งแต่โครงสร้างจุลภาคและสมบัติวัสดุ ไปจนถึงกระบวนการผลิตและการค้นพบวัสดุใหม่",
+    "category": "AIEP วิศวกรรม และการเรียนรู้",
+    "date": "2026-10-07",
+    "display_date": "07 October 2026",
+    "image_index": "assets/ai-integrated-materials-engineering-study-plan.png",
+    "image_alt": "การอธิบายแผนการเรียนปี 2 และปี 3 ในโครงการ AIEP",
+    "tags": [
+      "aiep",
+      "ai",
+      "materials-engineering",
+      "engineering-education",
+      "curriculum-design",
+      "talent-development"
+    ]
+  },
+  {
+    "slug": "thinking-with-ai-food-science-research",
+    "path": "./thinking-with-ai-food-science-research.html",
+    "archive_path": "articles/thinking-with-ai-food-science-research.html",
+    "title": "AI for Research: ใช้ AI ทำวิจัย โดยที่คนยังเป็นคนคิด",
+    "summary": "Workshop สำหรับนิสิต Food Science ปี 3 ใช้เคสนมถั่วเหลืองอายุเก็บสั้นลง ฝึกคิดเองก่อนใช้ AI ตรวจคำตอบด้วยความรู้ในสาขา และเรียนรู้จากข้อมูลทั้งห้อง พร้อมข้อจำกัดของผลสังเกตจากกิจกรรม",
+    "category": "AI การวิจัย และการเรียนรู้",
+    "date": "2026-10-06",
+    "display_date": "06 October 2026",
+    "image_index": "assets/thinking-with-ai-food-science-research.jpg",
+    "image_alt": "ภาพเปิดการบรรยาย Thinking with AI สำหรับนิสิต Food Science and Technology",
+    "tags": [
+      "ai",
+      "ai-literacy",
+      "research-methodology",
+      "food-science",
+      "teaching-and-learning",
+      "data-literacy"
+    ]
+  },
+  {
+    "slug": "athlete-motivation-and-life-after-sport",
+    "path": "./athlete-motivation-and-life-after-sport.html",
+    "archive_path": "articles/athlete-motivation-and-life-after-sport.html",
+    "title": "นักกีฬาจะทุ่มชีวิตให้กีฬาได้อย่างไร ถ้าระบบยังไม่มีอนาคตให้เขา",
+    "summary": "ผลการแข่งขันชวนให้มองแรงจูงใจของนักกีฬาไปพร้อมกับเส้นทางอาชีพ รายได้ และชีวิตหลังเลิกเล่นกีฬา ก่อนตัดสินว่าพวกเขาทุ่มเทเพียงพอหรือไม่",
+    "category": "กีฬา การพัฒนาคน และเส้นทางอาชีพ",
+    "date": "2026-10-06",
+    "display_date": "06 October 2026",
+    "image_index": null,
+    "image_alt": "",
+    "tags": [
+      "sports",
+      "athlete-development",
+      "talent-development",
+      "career-pathways",
+      "incentives",
+      "public-policy"
+    ]
+  },
+  {
+    "slug": "university-salary-reform-and-fair-transition",
+    "path": "./university-salary-reform-and-fair-transition.html",
+    "archive_path": "articles/university-salary-reform-and-fair-transition.html",
+    "title": "ปรับเงินเดือนมหาวิทยาลัยอย่างไร ให้ดึงดูดคนเก่งและดูแลคนเดิมไปด้วยกัน",
+    "summary": "การปรับฐานเงินเดือนเพื่อแข่งขันกับตลาดแรงงานต้องพิจารณา salary compression ภาระงบประมาณระยะยาว และความเป็นธรรมในช่วงเปลี่ยนผ่าน พร้อมให้คุณค่ากับการลงมือแก้ปัญหาเชิงโครงสร้างและรับฟังผู้ได้รับผลกระทบ",
+    "category": "มหาวิทยาลัย บุคลากร และธรรมาภิบาล",
+    "date": "2026-10-04",
+    "display_date": "04 October 2026",
+    "image_index": null,
+    "image_alt": "",
+    "tags": [
+      "higher-education",
+      "talent-management",
+      "salary-compression",
+      "resource-allocation",
+      "university-governance",
+      "organizational-change"
+    ]
+  },
+  {
     "slug": "ai-volleyball-without-clickbait",
     "path": "./ai-volleyball-without-clickbait.html",
     "archive_path": "articles/ai-volleyball-without-clickbait.html",

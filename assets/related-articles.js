@@ -39,11 +39,12 @@
   related.forEach((article) => {
     const card = document.createElement("a");
     card.className = "related-card";
+    if (!article.image_index) card.classList.add("related-card--text");
     card.href = article.path;
 
     const tagText = article.overlap.join(", ");
     card.innerHTML = `
-      <img class="related-thumb" src="../${article.image_index}" alt="${article.image_alt}">
+      ${article.image_index ? `<img class="related-thumb" src="../${article.image_index}" alt="${article.image_alt || ""}">` : ""}
       <div class="related-copy">
         <h3>${article.title}</h3>
         <p>${article.summary}</p>
