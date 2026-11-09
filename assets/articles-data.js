@@ -1,5 +1,261 @@
 window.ARTICLES_DATA = [
   {
+    "slug": "ai-economics-aiep-curriculum-research",
+    "path": "./ai-economics-aiep-curriculum-research.html",
+    "archive_path": "articles/ai-economics-aiep-curriculum-research.html",
+    "title": "AI × เศรษฐศาสตร์ เชื่อมหลักสูตรกับโจทย์วิจัย",
+    "summary": "บันทึกการหารือแนวทางเชื่อม AIEP กับหลักสูตรเศรษฐศาสตร์ มองทั้งการใช้ AI ตอบโจทย์เศรษฐศาสตร์และการใช้ความรู้เศรษฐศาสตร์ออกแบบระบบ AI พร้อมก้าวต่อไปในการเทียบหลักสูตรและกำหนดเป้าหมายผู้เรียน",
+    "category": "AI เศรษฐศาสตร์ และการพัฒนาหลักสูตร",
+    "date": "2026-11-07",
+    "display_date": "7 November 2026 เวลา 20:30 น.",
+    "image_index": "assets/ai-economics-aiep-curriculum-research.jpg",
+    "image_alt": "ภาพผู้ร่วมวงหารือนั่งรอบโต๊ะประชุม มีจอด้านหลังแสดงข้อความ AI-Integrated Engineering Program",
+    "tags": [
+      "ai",
+      "economics",
+      "curriculum-development",
+      "interdisciplinary-research",
+      "higher-education",
+      "aiep"
+    ]
+  },
+  {
+    "slug": "suphan-buri-kaset-fair-in-the-rain",
+    "path": "./suphan-buri-kaset-fair-in-the-rain.html",
+    "archive_path": "articles/suphan-buri-kaset-fair-in-the-rain.html",
+    "title": "เกษตรแฟร์ สุพรรณบุรี ในวันที่ฝนตก",
+    "summary": "บันทึกสั้น ๆ จากการมาเที่ยวเกษตรแฟร์ สุพรรณบุรี กับความเห็นใจคนจัด คนขาย และคนซื้อ เมื่อสองวันสุดท้ายของงานมีฝนตกตั้งแต่บ่ายจนค่ำ",
+    "category": "บันทึกชีวิตและกิจกรรมมหาวิทยาลัย",
+    "date": "2026-11-07",
+    "display_date": "7 November 2026 เวลา 18:27 น.",
+    "image_index": "assets/suphan-buri-kaset-fair-in-the-rain.jpg",
+    "image_alt": "ภาพคู่บริเวณแปลงดอกไม้และไฟประดับงานเกษตรแฟร์ยามเย็น ผู้เขียนสวมเสื้อคลุมมีฮู้ดอยู่ด้านหน้า",
+    "tags": [
+      "personal-notes",
+      "kasetsart-university",
+      "suphan-buri",
+      "kaset-fair"
+    ]
+  },
+  {
+    "slug": "digital-government-public-policy-participation",
+    "path": "./digital-government-public-policy-participation.html",
+    "archive_path": "articles/digital-government-public-policy-participation.html",
+    "title": "รัฐบาลดิจิทัล การมีส่วนร่วม และวิธีคิดข้ามศาสตร์",
+    "summary": "บันทึกการบรรยาย Digital Government and Public Policy Participation ให้นักศึกษารัฐศาสตร์ มหาวิทยาลัยธรรมศาสตร์ ชวนเชื่อมข้อมูล วิธีคิดเชิงคำนวณ และการมีส่วนร่วม พร้อมมองความสำคัญของพื้นฐานในยุค AI",
+    "category": "รัฐบาลดิจิทัล รัฐศาสตร์ และการเรียนรู้ข้ามศาสตร์",
+    "date": "2026-11-06",
+    "display_date": "6 November 2026 เวลา 09:00 น.",
+    "image_index": "assets/digital-government-public-policy-participation.jpg",
+    "image_alt": "ภาพจากด้านหลังห้องเรียน มีผู้เรียนนั่งที่โต๊ะเรียงเป็นขั้น กระดานดำด้านหน้า และเสื้อคลุมแขวนอยู่ด้านข้าง",
+    "tags": [
+      "digital-government",
+      "public-policy",
+      "data-literacy",
+      "critical-thinking",
+      "teaching-and-learning",
+      "ai"
+    ]
+  },
+  {
+    "slug": "why-we-still-come-to-university",
+    "path": "./why-we-still-come-to-university.html",
+    "archive_path": "articles/why-we-still-come-to-university.html",
+    "title": "ทำไมเรายังต้องมามหาวิทยาลัย",
+    "summary": "ชวนมองคุณค่าของการมามหาวิทยาลัยเมื่อความรู้หาได้ง่าย ผ่านอุปมาเรื่องรสมือ รสนิยมของอาจารย์และเพื่อน และบทสนทนาที่อาจพาไปพบคำถามใหม่ พร้อมภาพการสอบจบของนิสิตวิศวกรรมคอมพิวเตอร์",
+    "category": "มหาวิทยาลัย การเรียนรู้ และบทสนทนาในห้องเรียน",
+    "date": "2026-11-05",
+    "display_date": "5 November 2026 เวลา 09:45 น.",
+    "image_index": "assets/why-we-still-come-to-university.jpg",
+    "image_alt": "ภาพมุมสูงของพื้นที่จัดแสดงผลงานนิสิต มีโปสเตอร์ โต๊ะสาธิต และกลุ่มผู้ร่วมงานยืนพูดคุยแลกเปลี่ยนกัน",
+    "tags": [
+      "higher-education",
+      "teaching-and-learning",
+      "critical-thinking",
+      "classroom-dialogue",
+      "student-projects",
+      "ai"
+    ]
+  },
+  {
+    "slug": "threadripper-whatever-it-takes",
+    "path": "./threadripper-whatever-it-takes.html",
+    "archive_path": "articles/threadripper-whatever-it-takes.html",
+    "title": "เท่าไรเท่ากัน",
+    "summary": "บันทึกสั้นพร้อมภาพหน้าจอที่ระบุ Ryzen Threadripper PRO 9955WX และการใช้งาน CPU 100% กับข้อความ “เท่าไรเท่ากัน”",
+    "category": "บันทึกสั้นและคอมพิวเตอร์",
+    "date": "2026-11-04",
+    "display_date": "4 November 2026 เวลา 02:57 น.",
+    "image_index": "assets/threadripper-whatever-it-takes.jpg",
+    "image_alt": "ภาพหน้าจอระบุ Ryzen Threadripper PRO 9955WX แถบ CPU แสดง 100 เปอร์เซ็นต์ พร้อมช่องประมวลผล C0 ถึง C31 ที่แสดงค่าใกล้ 100 เปอร์เซ็นต์",
+    "tags": [
+      "computer-hardware",
+      "parallel-computing",
+      "scientific-computing",
+      "research-life"
+    ]
+  },
+  {
+    "slug": "pentium-to-xeon-overnight-research",
+    "path": "./pentium-to-xeon-overnight-research.html",
+    "archive_path": "articles/pentium-to-xeon-overnight-research.html",
+    "title": "จาก Pentium ถึง Xeon บันทึกคนรันงานข้ามคืน",
+    "summary": "บันทึกการรันงานบน Xeon ที่ชวนให้นึกถึง Pentium 100MHz การเทียบความถี่กับจำนวนคอร์แบบหยาบ ๆ ได้ 320 เท่า ข้อจำกัดของ RAM ในความทรงจำ และการอดนอนของคนรันงานที่ยังเหมือนเดิม",
+    "category": "งานคำนวณวิจัย คอมพิวเตอร์ และชีวิตนักวิจัย",
+    "date": "2026-10-28",
+    "display_date": "28 October 2026 เวลา 22:30 น.",
+    "image_index": "assets/pentium-to-xeon-overnight-research.jpg",
+    "image_alt": "หน้าจอ CPU ของ Intel Xeon W-1290 แสดงการใช้งาน 100 เปอร์เซ็นต์ ความเร็วประมาณ 3.19 GHz จำนวน 10 คอร์ และ 20 logical processors",
+    "tags": [
+      "research",
+      "scientific-computing",
+      "parallel-computing",
+      "genomics",
+      "memory-management",
+      "research-life"
+    ]
+  },
+  {
+    "slug": "data-analysis-applied-ai-book-draft",
+    "path": "./data-analysis-applied-ai-book-draft.html",
+    "archive_path": "articles/data-analysis-applied-ai-book-draft.html",
+    "title": "หนังสือวิเคราะห์ข้อมูลสำหรับคนที่ไม่ได้เรียนคอมพ์",
+    "summary": "แนะนำหนังสือ Data Analysis for Applied AI ที่ใช้ฝนในกรุงเทพฯ เป็นตัวอย่างต่อเนื่อง สำหรับวิชา 1 หน่วยกิตและการเรียนรู้ด้วยตนเอง โดย ณ วันที่โพสต์ 28 ตุลาคม 2569 มีร่าง 3 บทจาก 15 บทที่วางแผนไว้",
+    "category": "หนังสือ สื่อการเรียนรู้ และเอไอประยุกต์",
+    "date": "2026-10-28",
+    "display_date": "28 October 2026 เวลา 10:50 น.",
+    "image_index": "assets/data-analysis-applied-ai-book-draft.jpg",
+    "image_alt": "ภาพแนะนำหนังสือ Data Analysis for Applied AI การวิเคราะห์ข้อมูลสำหรับเอไอประยุกต์ โดยพันธุ์ปิติ เปี่ยมสง่า พื้นฐานสำหรับเอไอประยุกต์ เล่ม 6 ฉบับร่างสำหรับทดลองอ่าน",
+    "tags": [
+      "aiep",
+      "data-literacy",
+      "data-analysis",
+      "ai-literacy",
+      "teaching-and-learning",
+      "self-directed-learning"
+    ]
+  },
+  {
+    "slug": "aiep-six-foundation-courses",
+    "path": "./aiep-six-foundation-courses.html",
+    "archive_path": "articles/aiep-six-foundation-courses.html",
+    "title": "6 วิชาพื้นฐาน AIEP เสริมความรู้ AI ควบคู่ศาสตร์เดิม",
+    "summary": "บันทึกการอนุมัติวิชาพื้นฐาน AIEP พร้อมรหัสวิชาและหัวข้อทั้ง 6 ด้าน เพื่อเสริม AI ควบคู่ความรู้ในสาขาเดิม และเส้นทางปริญญาตรี + 1 ปีที่ยังต้องผ่านเกณฑ์รับเข้าและเงื่อนไขของหลักสูตร",
+    "category": "หลักสูตร AIEP การศึกษา และทักษะ AI",
+    "date": "2026-10-27",
+    "display_date": "27 October 2026 เวลา 03:33 น.",
+    "image_index": "assets/aiep-six-foundation-courses.jpg",
+    "image_alt": "ภาพประกอบ KU ระบุ 6 วิชาพื้นฐานสำหรับเอไอประยุกต์ รหัส 01204261 ถึง 01204266 วิชาละ 1 หน่วยกิต สำหรับหลักสูตร AI-Integrated Engineering",
+    "tags": [
+      "aiep",
+      "ai",
+      "curriculum",
+      "ai-literacy",
+      "engineering-education",
+      "higher-education"
+    ]
+  },
+  {
+    "slug": "ku-publication-apc-costs-and-responsibility",
+    "path": "./ku-publication-apc-costs-and-responsibility.html",
+    "archive_path": "articles/ku-publication-apc-costs-and-responsibility.html",
+    "title": "ค่าตีพิมพ์งานวิจัย มก. ต้นทุนที่ควรมองเห็น",
+    "summary": "สำรวจต้นทุนการตีพิมพ์ของมหาวิทยาลัยเกษตรศาสตร์จากข้อมูลผลงานที่เชื่อมกับ OpenAlex โดยแยก APC List และ APC Paid พร้อมข้อจำกัดว่าข้อมูลยังไม่ครบ ระบุผู้จ่ายไม่ได้เสมอไป และไม่ใช่รายจ่ายจริงทั้งหมดของมหาวิทยาลัย",
+    "category": "ต้นทุนการตีพิมพ์ นโยบายวิจัย และมหาวิทยาลัย",
+    "date": "2026-10-26",
+    "display_date": "26 October 2026 เวลา 17:37 น.",
+    "image_index": "assets/ku-publication-apc-costs-and-responsibility.jpg",
+    "image_alt": "ภาพประกอบค่าตีพิมพ์งานวิจัย APC มก. แสดงบทความ Open Access บนคอมพิวเตอร์ เอกสาร เหรียญ ธนบัตร และเครื่องคิดเลข พร้อมข้อความ ต้นทุนที่ควรมองเห็น",
+    "tags": [
+      "apc",
+      "open-access",
+      "research-funding",
+      "research-policy",
+      "publication-costs",
+      "higher-education"
+    ]
+  },
+  {
+    "slug": "online-opinions-and-full-confidence",
+    "path": "./online-opinions-and-full-confidence.html",
+    "archive_path": "articles/online-opinions-and-full-confidence.html",
+    "title": "ความมั่นใจเต็มร้อยทุกคน",
+    "summary": "ข้อเขียนสั้นเชิงเสียดสีเรื่องพื้นที่แสดงความคิดเห็นบนอินเทอร์เน็ต ความแตกต่างในการใช้เหตุผล และความมั่นใจที่ดูจะเต็มร้อยกันทุกคน",
+    "category": "สังคมดิจิทัล ความคิดเห็น และการใช้เหตุผล",
+    "date": "2026-10-25",
+    "display_date": "25 October 2026 เวลา 20:04 น.",
+    "image_index": "assets/online-opinions-and-full-confidence.jpg",
+    "image_alt": "ภาพวาดคนถือโทรโข่งยืนเรียงตามแนวเนินโค้ง พร้อมข้อความ ความมั่นใจ เต็มร้อยทุกคน",
+    "tags": [
+      "digital-society",
+      "social-media",
+      "critical-thinking",
+      "public-discourse",
+      "confidence",
+      "media-literacy"
+    ]
+  },
+  {
+    "slug": "holy-basil-university-industry-research",
+    "path": "./holy-basil-university-industry-research.html",
+    "archive_path": "articles/holy-basil-university-industry-research.html",
+    "title": "กะเพราพันธุ์ใหม่ ทำไมเอกชนจึงมาทำวิจัยกับมหาวิทยาลัย",
+    "summary": "มองความร่วมมือวิจัยระหว่างเอกชนกับมหาวิทยาลัยผ่านเรื่องกะเพราพันธุ์ใหม่ ตั้งแต่โจทย์ที่ยากและเสี่ยง การฝึกนักวิจัย ไปจนถึงการตกลงต้นทุน เวลา และสิทธิในผลงาน เพื่อสะสมความรู้และความสามารถพัฒนาเทคโนโลยีต่อไป",
+    "category": "งานวิจัย ความร่วมมือกับเอกชน และการพัฒนาคน",
+    "date": "2026-10-25",
+    "display_date": "25 October 2026 เวลา 01:38 น.",
+    "image_index": "assets/holy-basil-university-industry-research.jpg",
+    "image_alt": "ต้นกะเพราในกระถางด้านหน้า และคนสามคนกำลังพิจารณาต้นไม้ในเรือนปลูกพืช ด้านข้างมีสมุดภาพร่างและดินสอ",
+    "tags": [
+      "research",
+      "university-industry-collaboration",
+      "innovation",
+      "researchers",
+      "human-capital",
+      "research-funding"
+    ]
+  },
+  {
+    "slug": "ai-skills-learning-goals-and-resources",
+    "path": "./ai-skills-learning-goals-and-resources.html",
+    "archive_path": "articles/ai-skills-learning-goals-and-resources.html",
+    "title": "เรียน AI ต้องชัดว่าผู้จบการศึกษาทำอะไรเป็น",
+    "summary": "ชวนกำหนดเป้าหมายทักษะ AI ให้ชัด ตั้งแต่การใช้เครื่องมือจนถึงการประเมินคำตอบและแก้ปัญหาในวิชาชีพ พร้อมจัดการฝึก ข้อเสนอแนะ การประเมิน และทรัพยากรให้สอดคล้องกับความสามารถที่คาดหวัง",
+    "category": "การศึกษา ทักษะ AI และการพัฒนาคน",
+    "date": "2026-10-23",
+    "display_date": "23 October 2026 เวลา 06:52 น.",
+    "image_index": "assets/ai-skills-learning-goals-and-resources.jpg",
+    "image_alt": "ภาพบัณฑิตถือคอมพิวเตอร์ มองไปยังเมือง พร้อมข้อความ ยุคนี้... จบไปทำงาน ต้องรู้ AI แค่ไหน?",
+    "tags": [
+      "ai",
+      "ai-literacy",
+      "education",
+      "learning-outcomes",
+      "assessment",
+      "resource-allocation"
+    ]
+  },
+  {
+    "slug": "madlab-traffic-video-fieldwork",
+    "path": "./madlab-traffic-video-fieldwork.html",
+    "archive_path": "articles/madlab-traffic-video-fieldwork.html",
+    "title": "พานิสิตเก็บวิดีโอจราจรนอกมหาวิทยาลัย",
+    "summary": "พานิสิต Madlab KU เก็บวิดีโอต้นฉบับสำหรับการทดลองบนสะพานลอยใต้ทางด่วนใกล้ประตูวิภาวดี ม.เกษตร หลังจากกังวลว่าลักษณะรถภายในมหาวิทยาลัยอาจทำให้ข้อมูลไบแอส",
+    "category": "งานวิจัย การสอน และข้อมูลภาคสนาม",
+    "date": "2026-10-21",
+    "display_date": "21 October 2026 เวลา 12:02 น.",
+    "image_index": "assets/madlab-traffic-video-fieldwork-1.jpg",
+    "image_alt": "พันธุ์ปิติ เปี่ยมสง่าบนสะพานลอยใต้ทางด่วน ใกล้ประตูวิภาวดี มหาวิทยาลัยเกษตรศาสตร์ โดยมีการจราจรอยู่ด้านหลัง",
+    "tags": [
+      "video-research",
+      "data-collection",
+      "dataset-bias",
+      "student-research",
+      "computer-vision",
+      "research-methodology"
+    ]
+  },
+  {
     "slug": "research-obligations-and-institutional-support-october-update",
     "path": "./research-obligations-and-institutional-support-october-update.html",
     "archive_path": "articles/research-obligations-and-institutional-support-october-update.html",

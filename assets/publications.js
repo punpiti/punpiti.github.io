@@ -1,10 +1,101 @@
 (function () {
+  const params = new URLSearchParams(window.location.search);
+  let savedLanguage;
+  try { savedLanguage = localStorage.getItem("site-language"); } catch (_) {}
+  const lang = (params.get("lang") || savedLanguage || document.documentElement.lang) === "en" ? "en" : "th";
+  const locale = lang === "en" ? "en-US" : "th-TH";
+  document.documentElement.lang = lang;
+  try { localStorage.setItem("site-language", lang); } catch (_) {}
+  const text = (th, en) => lang === "en" ? en : th;
+  const translations = {
+    "ผลงานวิจัย": "Publications",
+    "Publication profile ที่ดึงข้อมูลจาก KU Urban และ KU Forest โดยตรง เพื่อให้รายการผลงานและโครงการวิจัยอัปเดตจากแหล่งข้อมูลหลักแทนการกรอกซ้ำด้วยมือ": "Publications and research projects updated directly from KU Urban and KU Forest.",
+    "เปิด KU Urban": "Open KU Urban",
+    "เปิด KU Forest profile": "Open KU Forest profile",
+    "ดู data source": "View data source",
+    "กำลังโหลดข้อมูล publication profile...": "Loading publication profile...",
+    "แหล่งข้อมูลอ้างอิง": "Data sources",
+    "หน้านี้แสดงผลจากข้อมูลที่เชื่อมโยงระหว่าง KU Urban, KU Forest และ data source ที่ตรวจสอบย้อนกลับได้": "Research information from KU Urban and KU Forest, with links to the original sources.",
+    "ระบบรวบรวม วิเคราะห์ และนำเสนอข้อมูลนักวิจัย โครงการ ผลงานตีพิมพ์ และแนวคิดที่เกี่ยวข้อง": "Researcher profiles, projects, publications, and research topics.",
+    "หน้า profile งานวิจัยหลักของมหาวิทยาลัยเกษตรศาสตร์สำหรับข้อมูลบุคคล ผลงาน และโครงการวิจัย": "Kasetsart University's research profiles, publications, and projects.",
+    "ชุดข้อมูล JSON ที่หน้า publications ใช้โหลดข้อมูลจริง เพื่อให้ตรวจสอบแหล่งที่มาและสถานะข้อมูลได้โดยตรง": "The JSON data used on this page, including source information and data status.",
+    "ภาพรวมจากข้อมูลวิเคราะห์": "Research overview",
+    "ใช้เฉพาะสัญญาณที่เกี่ยวกับผลงานวิจัย โครงการ หัวข้อวิจัย และ citation profile": "An overview of publications, projects, research topics, and citations.",
+    "รายการผลงานตีพิมพ์": "Publication list",
+    "กำลังโหลดข้อมูล...": "Loading data...",
+    "ค้นหาผลงาน": "Search publications",
+    "ทั้งหมด": "All",
+    "กำลังโหลดรายการผลงาน...": "Loading publications...",
+    "โครงการวิจัยล่าสุด": "Recent research projects",
+    "แสดงโครงการล่าสุดจากชุดข้อมูลเดียวกัน พร้อมลิงก์กลับไปยัง KU Forest เมื่อมีข้อมูล": "Recent research projects, with links to KU Forest where available.",
+    "กำลังโหลดรายการโครงการ...": "Loading research projects...",
+    "© พันธุ์ปิติ เปี่ยมสง่า": "© Punpiti Piamsa-nga",
+    "ผู้ร่วมวิจัย": "Co-investigator",
+    "หัวหน้าโครงการ": "Principal investigator",
+    "หัวหน้าโครงการย่อย": "Subproject leader",
+    "ที่ปรึกษาโครงการ": "Project advisor",
+    "ทุนอุดหนุนวิจัย มก.": "Kasetsart University Research Fund",
+    "สำนักงานปลัดกระทรวงการอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม (สป.อว.)": "Office of the Permanent Secretary, Ministry of Higher Education, Science, Research and Innovation",
+    "หน่วยบริหารและจัดการทุนด้านการเพิ่มความสามารถในการแข่งขันของประเทศ (บพข)": "Program Management Unit for Competitiveness (PMUC)",
+    "บริษัท น้ำตาลมิตรผล จำกัด": "Mitr Phol Sugar Co., Ltd.",
+    "ต่อ": "ext.",
+  };
+
+  function translate(value) {
+    if (lang !== "en") return value;
+    let result = String(value || "");
+    Object.entries(translations).sort((a, b) => b[0].length - a[0].length).forEach(([th, en]) => {
+      result = result.split(th).join(en);
+    });
+    return result;
+  }
+
+  function setupLanguage() {
+    if (lang === "en") {
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach((node) => {
+        const replacement = translations[node.textContent.trim()];
+        if (replacement) node.textContent = replacement;
+      });
+      document.title = "Publications | Punpiti Piamsa-nga";
+      document.querySelectorAll('meta[name="description"], meta[property="og:description"], meta[name="twitter:description"]').forEach((meta) => {
+        meta.content = "Publications and research projects by Associate Professor Punpiti Piamsa-nga, Kasetsart University.";
+      });
+      document.querySelectorAll('meta[property="og:title"], meta[name="twitter:title"]').forEach((meta) => {
+        meta.content = document.title;
+      });
+      $('meta[property="og:locale"]')?.setAttribute("content", "en_US");
+      $(".nav")?.setAttribute("aria-label", "Main");
+      const search = $("[data-publication-search]");
+      if (search) search.placeholder = "Search by title, journal, author, year, or DOI";
+      document.querySelectorAll('a[href*="urban.cpe.ku.ac.th/?"]').forEach((link) => {
+        link.href = "https://urban.cpe.ku.ac.th/p/Punpiti_Piamsa_nga?lang=en&mode=user_profile";
+      });
+    }
+    const topbar = $(".topbar");
+    if (topbar) {
+      const nav = createEl("div", "language-switch");
+      nav.setAttribute("aria-label", "Language");
+      [["th", "ไทย"], ["en", "EN"]].forEach(([value, label]) => {
+        const link = createEl("a", null, label);
+        const url = new URL(window.location.href);
+        url.searchParams.set("lang", value);
+        link.href = url.href;
+        if (value === lang) link.setAttribute("aria-current", "page");
+        nav.append(link);
+      });
+      topbar.append(nav);
+    }
+  }
+
   const PERSON_ID = "360009";
   const PUBLIC_PROFILE_PATH = `/api/public/profile/${PERSON_ID}?sections=profile,outputs,projects,analysis`;
   const PUBLIC_STREAM_PATH = PUBLIC_PROFILE_PATH;
   const LOCAL_API = `http://127.0.0.1:8000${PUBLIC_STREAM_PATH}`;
   const DEPLOY_API = `https://urban.cpe.ku.ac.th${PUBLIC_STREAM_PATH}`;
-  const URBAN_OUTPUTS_URL = "https://urban.cpe.ku.ac.th/p/Punpiti_Piamsa_nga?lang=th&mode=user_profile#research-output-themes";
+  const URBAN_OUTPUTS_URL = "https://urban.cpe.ku.ac.th/p/Punpiti_Piamsa_nga?lang=" + lang + "&mode=user_profile#research-output-themes";
   const PAGE_SIZE = 18;
 
   const state = {
@@ -22,23 +113,24 @@
     const params = new URLSearchParams(window.location.search);
     const override = params.get("api");
     if (override) return override;
+    const languageQuery = `&lang=${lang}`;
 
     const host = window.location.hostname;
     if (host === "localhost" || host === "127.0.0.1" || host === "0.0.0.0") {
-      return LOCAL_API;
+      return LOCAL_API + languageQuery;
     }
 
     if (host === "urban.cpe.ku.ac.th") {
-      return `${window.location.origin}${PUBLIC_STREAM_PATH}`;
+      return `${window.location.origin}${PUBLIC_STREAM_PATH}${languageQuery}`;
     }
 
-    return DEPLOY_API;
+    return DEPLOY_API + languageQuery;
   }
 
   function localText(value) {
     if (!value) return "";
     if (typeof value === "string" || typeof value === "number") return String(value);
-    return value.th || value.en || "";
+    return value[lang] || value[lang === "en" ? "th" : "en"] || "";
   }
 
   function stripHtml(value) {
@@ -82,7 +174,7 @@
   }
 
   function compareOutputs(a, b) {
-    return yearOf(b) - yearOf(a) || monthOf(b) - monthOf(a) || localText(a.title).localeCompare(localText(b.title), "th");
+    return yearOf(b) - yearOf(a) || monthOf(b) - monthOf(a) || localText(a.title).localeCompare(localText(b.title), lang);
   }
 
   function compareProjects(a, b) {
@@ -131,7 +223,7 @@
       mail.href = `mailto:${person.email}`;
       contacts.append(mail);
     }
-    if (person.telephone) contacts.append(createEl("span", null, person.telephone));
+    if (person.telephone) contacts.append(createEl("span", null, translate(person.telephone)));
     body.append(contacts);
 
     if (interests.length) {
@@ -164,7 +256,7 @@
     ];
 
     $$(".stat-value", stats).forEach((node, index) => {
-      node.textContent = values[index].toLocaleString("th-TH");
+      node.textContent = values[index].toLocaleString(locale);
     });
   }
 
@@ -181,7 +273,7 @@
     if (bullets) {
       bullets.replaceChildren();
       (analysis.summary_bullets || []).slice(0, 5).forEach((bullet) => {
-        bullets.append(createEl("li", null, bullet));
+        bullets.append(createEl("li", null, translate(localText(bullet))));
       });
     }
 
@@ -194,7 +286,7 @@
         ["i10-index", author.summary_stats?.i10_index],
       ].filter(([, value]) => value !== undefined && value !== null).forEach(([label, value]) => {
         const item = createEl("div", "signal-stat");
-        item.append(createEl("span", "signal-value", Number(value).toLocaleString("th-TH")));
+        item.append(createEl("span", "signal-value", Number(value).toLocaleString(locale)));
         item.append(createEl("span", "signal-label", label));
         openAlexStats.append(item);
       });
@@ -204,7 +296,7 @@
       topicChips.replaceChildren();
       const topics = openAlex.topics?.length ? openAlex.topics : openAlex.concepts || [];
       topics.slice(0, 10).forEach((topic) => {
-        const label = topic.label || topic.display_name;
+        const label = localText(topic.label || topic.display_name);
         if (!label) return;
         const chip = createEl("a", null, `${label}${topic.count ? ` (${topic.count})` : ""}`);
         chip.href = URBAN_OUTPUTS_URL;
@@ -285,18 +377,18 @@
     list.replaceChildren();
 
     if (status) {
-      status.textContent = `แสดง ${visible.length.toLocaleString("th-TH")} จาก ${filtered.length.toLocaleString("th-TH")} รายการ`;
+      status.textContent = text(`แสดง ${visible.length.toLocaleString(locale)} จาก ${filtered.length.toLocaleString(locale)} รายการ`, `Showing ${visible.length.toLocaleString(locale)} of ${filtered.length.toLocaleString(locale)} publications`);
     }
 
     if (!filtered.length) {
-      list.append(createEl("div", "empty-state", "ไม่พบผลงานที่ตรงกับเงื่อนไข"));
+      list.append(createEl("div", "empty-state", text("ไม่พบผลงานที่ตรงกับเงื่อนไข", "No publications match these filters")));
       return;
     }
 
     visible.forEach((output) => list.append(renderOutput(output)));
 
     if (visible.length < filtered.length) {
-      const more = createEl("button", "button publication-more", "แสดงเพิ่มเติม");
+      const more = createEl("button", "button publication-more", text("แสดงเพิ่มเติม", "Show more"));
       more.type = "button";
       more.addEventListener("click", () => {
         state.visibleCount += PAGE_SIZE;
@@ -314,8 +406,8 @@
     state.projects.slice(0, 9).forEach((project) => {
       const card = createEl("article", "project-card");
       const year = createEl("div", "project-year", project.year || project.raw?.budgetYear || "");
-      const title = createEl("h3", null, project.title_th || project.title_en || "Untitled project");
-      const meta = createEl("p", null, [stripHtml(project.role), project.funding_agency].filter(Boolean).join(" · "));
+      const title = createEl("h3", null, (lang === "en" ? project.title_en || project.title_th : project.title_th || project.title_en) || "Untitled project");
+      const meta = createEl("p", null, [translate(stripHtml(String(project.role || "").replace(/<br\s*\/?>(?=.)/gi, " · "))), translate(localText(project.funding_agency))].filter(Boolean).join(" · "));
       card.append(year, title);
       if (meta.textContent) card.append(meta);
       if (project.raw?.forestUrl) {
@@ -327,7 +419,7 @@
     });
 
     if (!state.projects.length) {
-      list.append(createEl("div", "empty-state", "ไม่พบข้อมูลโครงการวิจัย"));
+      list.append(createEl("div", "empty-state", text("ไม่พบข้อมูลโครงการวิจัย", "No research projects found")));
     }
   }
 
@@ -366,13 +458,15 @@
       renderOutputs();
       renderProjects();
     } catch (error) {
-      const message = "โหลดข้อมูลจาก KU Urban ไม่สำเร็จ";
+      const message = text("โหลดข้อมูลจาก KU Urban ไม่สำเร็จ", "Could not load data from KU Urban");
       const panel = $(".profile-panel");
       const list = $("[data-publication-list]");
       const status = $("[data-output-status]");
       if (panel) panel.replaceChildren(createEl("div", "empty-state", message));
       if (list) list.replaceChildren(createEl("div", "empty-state", `${message}: ${error.message}`));
-      if (status) status.textContent = "ไม่สามารถโหลดข้อมูลได้";
+      if (status) status.textContent = text("ไม่สามารถโหลดข้อมูลได้", "Unable to load data");
+      const projects = $("[data-project-list]");
+      if (projects) projects.replaceChildren(createEl("div", "empty-state", message));
       $$("[data-api-link]").forEach((apiLink) => {
         apiLink.href = apiUrl;
       });
@@ -382,10 +476,12 @@
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
+      setupLanguage();
       bindControls();
       init();
     });
   } else {
+    setupLanguage();
     bindControls();
     init();
   }

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>หนังสือวิเคราะห์ข้อมูลสำหรับคนที่ไม่ได้เรียนคอมพ์</title>
+  <meta name="description" content="แนะนำหนังสือ Data Analysis for Applied AI ที่ใช้ฝนในกรุงเทพฯ เป็นตัวอย่างต่อเนื่อง สำหรับวิชา 1 หน่วยกิตและการเรียนรู้ด้วยตนเอง โดย ณ วันที่โพสต์ 28 ตุลาคม 2569 มีร่าง 3 บทจาก 15 บทที่วางแผนไว้">
+  <link rel="canonical" href="https://madlab.cpe.ku.ac.th/punpiti/articles/data-analysis-applied-ai-book-draft.html">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="../assets/convergence.png">
+  <meta name="robots" content="index,follow">
+  <meta property="og:site_name" content="Punpiti Piamsa-nga">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="th_TH">
+  <meta property="og:title" content="หนังสือวิเคราะห์ข้อมูลสำหรับคนที่ไม่ได้เรียนคอมพ์">
+  <meta property="og:description" content="แนะนำหนังสือ Data Analysis for Applied AI ที่ใช้ฝนในกรุงเทพฯ เป็นตัวอย่างต่อเนื่อง สำหรับวิชา 1 หน่วยกิตและการเรียนรู้ด้วยตนเอง โดย ณ วันที่โพสต์ 28 ตุลาคม 2569 มีร่าง 3 บทจาก 15 บทที่วางแผนไว้">
+  <meta property="og:url" content="https://madlab.cpe.ku.ac.th/punpiti/articles/data-analysis-applied-ai-book-draft.html">
+  <meta property="og:image" content="https://madlab.cpe.ku.ac.th/punpiti/assets/data-analysis-applied-ai-book-draft.jpg">
+  <meta property="og:image:width" content="1143">
+  <meta property="og:image:height" content="600">
+  <meta property="og:image:alt" content="หนังสือวิเคราะห์ข้อมูลสำหรับคนที่ไม่ได้เรียนคอมพ์">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="หนังสือวิเคราะห์ข้อมูลสำหรับคนที่ไม่ได้เรียนคอมพ์">
+  <meta name="twitter:description" content="แนะนำหนังสือ Data Analysis for Applied AI ที่ใช้ฝนในกรุงเทพฯ เป็นตัวอย่างต่อเนื่อง สำหรับวิชา 1 หน่วยกิตและการเรียนรู้ด้วยตนเอง โดย ณ วันที่โพสต์ 28 ตุลาคม 2569 มีร่าง 3 บทจาก 15 บทที่วางแผนไว้">
+  <meta name="twitter:image" content="https://madlab.cpe.ku.ac.th/punpiti/assets/data-analysis-applied-ai-book-draft.jpg">
+  <meta property="article:published_time" content="2026-10-28T10:50:47+07:00">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "หนังสือวิเคราะห์ข้อมูลสำหรับคนที่ไม่ได้เรียนคอมพ์", "description": "แนะนำหนังสือ Data Analysis for Applied AI ที่ใช้ฝนในกรุงเทพฯ เป็นตัวอย่างต่อเนื่อง สำหรับวิชา 1 หน่วยกิตและการเรียนรู้ด้วยตนเอง โดย ณ วันที่โพสต์ 28 ตุลาคม 2569 มีร่าง 3 บทจาก 15 บทที่วางแผนไว้", "datePublished": "2026-10-28T10:50:47+07:00", "dateModified": "2026-11-09T07:29:46+07:00", "mainEntityOfPage": "https://madlab.cpe.ku.ac.th/punpiti/articles/data-analysis-applied-ai-book-draft.html", "author": {"@type": "Person", "name": "รองศาสตราจารย์ ดร.พันธุ์ปิติ เปี่ยมสง่า", "url": "https://madlab.cpe.ku.ac.th/punpiti/"}, "publisher": {"@type": "Organization", "name": "Punpiti Piamsa-nga", "url": "https://madlab.cpe.ku.ac.th/punpiti/"}, "image": ["https://madlab.cpe.ku.ac.th/punpiti/assets/data-analysis-applied-ai-book-draft.jpg"], "inLanguage": "th"}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/archive-article.css?v=2">
+  <link rel="stylesheet" href="../assets/me-article.css">
+  <style>
+    :root {
+      --hero-title-max: 23ch;
+      --hero-subtitle-max: 60rem;
+    }
+  </style>
+  <script src="../assets/site-analytics.js?v=2" defer></script>
+</head>
+<body>
+  <main class="page">
+    <section class="frame">
+      <div class="inner">
+        <header class="topbar" data-me-article-header></header>
+        <section class="hero">
+          <div class="hero-kicker">Archive</div>
+          <h1>หนังสือวิเคราะห์ข้อมูลสำหรับคนที่ไม่ได้เรียนคอมพ์</h1>
+          <div class="hero-subtitle">แนะนำหนังสือ Data Analysis for Applied AI ที่ใช้ฝนในกรุงเทพฯ เป็นตัวอย่างต่อเนื่อง สำหรับวิชา 1 หน่วยกิตและการเรียนรู้ด้วยตนเอง โดย ณ วันที่โพสต์ 28 ตุลาคม 2569 มีร่าง 3 บทจาก 15 บทที่วางแผนไว้</div>
+          <div class="meta-row">
+            <div class="pill">หมวด: หนังสือ สื่อการเรียนรู้ และเอไอประยุกต์</div>
+            <div class="pill">วันที่โพสต์: 28 October 2026 เวลา 10:50 น.</div>
+            <div class="pill">ที่มา: Facebook post archive</div>
+          </div>
+          <div class="tag-row"><span class="tag">aiep</span><span class="tag">data-literacy</span><span class="tag">data-analysis</span><span class="tag">ai-literacy</span><span class="tag">teaching-and-learning</span><span class="tag">self-directed-learning</span></div>
+        </section>
+        <section class="section">
+          <div class="section-title">Rewritten Post</div>
+          <div class="content-panel is-interactive">
+            <div class="rewrite-title">หนังสือวิเคราะห์ข้อมูลสำหรับคนที่ไม่ได้เรียนคอมพ์</div>
+            <div class="lead-split">
+              <figure class="lead-figure">
+                <a class="figure-link" href="../assets/data-analysis-applied-ai-book-draft.jpg" data-lightbox-image="../assets/data-analysis-applied-ai-book-draft.jpg">
+                  <img class="post-image" src="../assets/data-analysis-applied-ai-book-draft.jpg" alt="ภาพแนะนำหนังสือ Data Analysis for Applied AI การวิเคราะห์ข้อมูลสำหรับเอไอประยุกต์ โดยพันธุ์ปิติ เปี่ยมสง่า พื้นฐานสำหรับเอไอประยุกต์ เล่ม 6 ฉบับร่างสำหรับทดลองอ่าน" width="1143" height="600">
+                </a>
+                <figcaption class="figure-caption">ภาพแนะนำหนังสือจากโพสต์ต้นฉบับ · คลิกเพื่อดูภาพขยายใหญ่</figcaption>
+              </figure>
+              <div class="intro-copy">
+                <p>หลังจากเปิดวิชาใหม่ได้แล้ว ผมเริ่มเตรียมหนังสือ <span class="key-term">Data Analysis for Applied AI</span> หรือ “การวิเคราะห์ข้อมูลสำหรับเอไอประยุกต์” ให้คนที่ไม่ได้เรียนคอมพ์ได้ลองอ่าน ทั้งผู้เรียนในรายวิชาและคนที่อยากเรียนรู้ด้วยตนเอง</p>
+                <p>หนังสือใช้ <span class="key-term">เรื่องฝนในกรุงเทพฯ</span> เป็นตัวอย่างต่อเนื่อง ตั้งแต่ตัวเลขมาจากไหน ไปจนถึงนำไปตอบคำถามอะไรได้บ้าง ผมหวังว่าเรื่องใกล้ตัวจะช่วยให้ผู้อ่านเข้าใจเรื่องข้อมูลได้ง่ายขึ้น</p>
+              </div>
+            </div>
+            <h2>เริ่มจากร่าง 3 บท ในแผนหนังสือ 15 บท</h2>
+            <p><span class="key-term">ณ วันที่โพสต์ 28 ตุลาคม 2569</span> หนังสือมีฉบับร่าง 3 บท จากทั้งหมด 15 บทที่วางแผนไว้ สำหรับวิชา 1 หน่วยกิตที่ตั้งใจให้ผู้เรียนจากต่างสาขาเข้าถึงได้ และเผื่อผู้ที่ต้องการอ่านเรียนรู้ด้วยตนเองด้วย</p>
+            <p>เล่มนี้เป็นหนึ่งในหนังสือชุดพื้นฐานสำหรับเอไอประยุกต์ 6 เล่ม โดยภาพปกระบุเป็น <span class="key-term">เล่ม 6</span> และเชื่อมกับวิชาการวิเคราะห์ข้อมูลเบื้องต้นใน <a href="aiep-six-foundation-courses.html">ชุดวิชาพื้นฐาน AIEP ทั้ง 6 วิชา</a></p>
+            <h2>ชวนคนที่ไม่ได้อยู่สายคอมพ์ช่วยอ่านและแนะนำ</h2>
+            <p>ผมอยากฟังความเห็นจากผู้อ่าน โดยเฉพาะคนที่ไม่ได้อยู่สายคอมพ์ ว่าส่วนไหนเข้าใจง่าย ส่วนไหนอ่านแล้วงง เพื่อใช้ปรับปรุงหนังสือต่อไป</p>
+            <p><a href="https://urban.cpe.ku.ac.th/books/data-analytics-for-applied-ai/" target="_blank" rel="noopener noreferrer">เปิดอ่านหนังสือ Data Analysis for Applied AI</a> และแนะนำกันได้ที่ <a href="https://www.facebook.com/punpiti/posts/pfbid02ULBGaCs1r2N3oS6ABGCJWtFdLBoWygSbBgKTWz4KTB94nagW387AXviXKAk41ta8l" target="_blank" rel="noopener noreferrer">โพสต์ต้นฉบับบน Facebook</a></p>
+          </div>
+        </section>
+        <section class="section">
+          <div class="section-title">Original</div>
+          <div class="reference-panel">
+            <div class="reference-list">
+              <div>ลิงก์อ้างอิง:</div>
+              <a class="reference-link" href="https://www.facebook.com/punpiti/posts/pfbid02ULBGaCs1r2N3oS6ABGCJWtFdLBoWygSbBgKTWz4KTB94nagW387AXviXKAk41ta8l" target="_blank" rel="noopener noreferrer" aria-label="เปิดโพสต์ต้นฉบับบน Facebook">f</a>
+              <a href="https://www.facebook.com/share/p/1Eryb8TApj/" target="_blank" rel="noopener noreferrer">ลิงก์แชร์โพสต์ต้นฉบับ</a>
+            </div>
+            <details class="original-toggle">
+              <summary>Original Facebook Post</summary>
+              <div class="original-text">ไหน ๆ ก็เปิดวิชาใหม่สำเร็จแล้ว เลยลองเตรียมหนังสือให้คนที่ไม่ได้เรียนคอมพ์อ่านกันบ้างครับ
+
+ใช้เรื่องฝนในกรุงเทพฯ เป็นตัวอย่างต่อเนื่อง หวังว่าเรื่องใกล้ตัวจะช่วยให้เข้าใจเรื่องข้อมูลได้ง่ายขึ้น ตั้งแต่ตัวเลขมาจากไหน ไปจนถึงเอาไปใช้ตอบคำถามอะไรได้บ้าง
+
+ตอนนี้มีฉบับร่าง 3 บท จาก 15 บทที่วางไว้ สำหรับวิชา 1 หน่วยกิตที่ตั้งใจให้ใคร ๆ ก็เรียนได้ และเผื่อคนที่อยากอ่านเรียนรู้ด้วยตนเองด้วยครับ
+
+และอันนี้เป็น 1 ใน 6 ของขุดนี้ครับ
+
+ลองอ่านแล้วแนะนำกันได้นะครับ ตรงไหนเข้าใจง่าย ตรงไหนอ่านแล้วงง อยากฟังจากคนที่ไม่ได้อยู่สายคอมพ์ด้วยครับ</div>
+            </details>
+          </div>
+        </section>
+        <section class="section">
+          <div class="section-title">บทความอื่นที่เกี่ยวข้อง</div>
+          <div class="reference-panel">
+            <div class="related-grid" data-related-articles data-current-slug="data-analysis-applied-ai-book-draft" data-current-tags="aiep,data-literacy,data-analysis,ai-literacy,teaching-and-learning,self-directed-learning"></div>
+          </div>
+        </section>
+        <footer class="footer" data-me-article-footer></footer>
+      </div>
+    </section>
+  </main>
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-label="ภาพขยายใหญ่">
+      <button class="lightbox-close" id="lightboxClose" type="button" aria-label="ปิดภาพขยาย">×</button>
+      <img class="lightbox-image" id="lightboxImage" src="" alt="">
+    </div>
+  </div>
+  <script src="../assets/me-article-shell.js" defer></script>
+  <script src="../assets/articles-data.js?v=23" defer></script>
+  <script src="../assets/related-articles.js?v=2" defer></script>
+  <script src="../assets/archive-lightbox.js" defer></script>
+</body>
+</html>

@@ -1,5 +1,8 @@
 (function () {
-  const SITE_TITLE = "พันธุ์ปิติ เปี่ยมสง่า";
+  const isEnglish = document.documentElement.lang === "en";
+  const SITE_TITLE = isEnglish ? "Punpiti Piamsa-nga" : "พันธุ์ปิติ เปี่ยมสง่า";
+  const menuOpen = isEnglish ? "Open main menu" : "เปิดเมนูหลัก";
+  const menuClose = isEnglish ? "Close main menu" : "ปิดเมนูหลัก";
   const SITE_SUBTITLE = "Academic work and public writing";
 
   function normalizeBrand() {
@@ -26,20 +29,20 @@
       button.type = "button";
       button.setAttribute("aria-controls", navId);
       button.setAttribute("aria-expanded", "false");
-      button.setAttribute("aria-label", "เปิดเมนูหลัก");
+      button.setAttribute("aria-label", menuOpen);
       button.innerHTML = "<span></span><span></span><span></span>";
 
       button.addEventListener("click", () => {
         const isOpen = header.classList.toggle("is-nav-open");
         button.setAttribute("aria-expanded", String(isOpen));
-        button.setAttribute("aria-label", isOpen ? "ปิดเมนูหลัก" : "เปิดเมนูหลัก");
+        button.setAttribute("aria-label", isOpen ? menuClose : menuOpen);
       });
 
       nav.addEventListener("click", (event) => {
         if (!event.target.closest("a")) return;
         header.classList.remove("is-nav-open");
         button.setAttribute("aria-expanded", "false");
-        button.setAttribute("aria-label", "เปิดเมนูหลัก");
+        button.setAttribute("aria-label", menuOpen);
       });
 
       header.classList.add("has-mobile-nav");
@@ -49,6 +52,14 @@
 
   function init() {
     normalizeBrand();
+    document.querySelectorAll('a[href="publications.html"]').forEach((link) => {
+      link.href = `publications.html?lang=${isEnglish ? "en" : "th"}`;
+    });
+    if (isEnglish) {
+      document.querySelectorAll('a.brand[href="index.html"], .nav a[href="index.html"]').forEach((link) => {
+        link.href = "index-en.html";
+      });
+    }
     setupMobileNav();
   }
 
